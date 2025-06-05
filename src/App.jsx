@@ -6,7 +6,7 @@ function App() {
     <>
       <div>판타지 샵 </div>
 
-      <h1 class="text-3xl font-bold underline bg-blue-500">
+      <h1 className="text-3xl font-bold underline bg-blue-500">
         tailwind test
       </h1>
     </>
