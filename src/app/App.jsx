@@ -31,6 +31,7 @@ function App() {
           <InputBox
             icon={<LuLock />}
             iconPosition="left"
+            placeholder="비밀번호"
           />
         </div>
 

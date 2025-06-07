@@ -12,15 +12,15 @@ export function InputBox({
 }) {
   // styles
   const baseWrapper = 'relative flex items-center w-full bg-gray-50';
-  const baseInput = 'w-full appearance-none outline-none border rounded-md';
+  const baseInput = 'text-gray-900 border-gray-200 w-full appearance-none outline-none border rounded-md';
 
   const sizeStyles = {
     md: 'px-4 py-2 text-base',
   };
 
   const colorStyles = {
-    indigo: 'text-gray-900 border-gray-200 focus:border-indigo-500',
-    rose: 'text-gray-900 border-gray-200 focus:border-rose-400',
+    indigo: 'focus:border-indigo-500',
+    rose: 'focus:border-rose-400',
   };
 
   const disabledStyles = 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed';
