@@ -14,7 +14,6 @@ const CartPage = lazy(() => import("../pages/CartPage"));
 const HistoryPage = lazy(() => import("../pages/HistoryPage"));
 
 
-
 // 라우터 컴포넌트
 const router = createBrowserRouter([
   {
