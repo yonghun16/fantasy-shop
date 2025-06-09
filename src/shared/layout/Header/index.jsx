@@ -1,66 +1,35 @@
 /* import libraries */
-import { Link } from 'react-router-dom'
 import clsx from 'clsx';
 
-/* import assets */
-import logoImg from '../../../assets/images/logo.png'
-import { LuShoppingCart } from "react-icons/lu";
-import avagaImg from '../../../assets/images/noavatar.png';
+/* import components, hooks */
+import Logo from './Logo'
+import HeaderIcons from './HeaderIcons'
+import MobileHeader from './MobileHeader'
 
 
 /* tailwind styles */
 const headerWrapperStyle = clsx(
-  "bg-gray-50 w-full h-12 p-5",
+  "w-full h-12 p-5",
   "flex items-center justify-between",
-  "border-b border-gray-200 shadow-sm"
+  "border border-gray-200" 
 )
-
-/* dummy data */
-const shopName = "판타지 쇼핑몰";
-const id = "myid";
-const profileImg = avagaImg;
 
 
 /* UI */
 const Header = () => {
   return (
-    <div
-      className={clsx(
-        "header__wrapper",
-        headerWrapperStyle
-      )}>
-
-      <div className="header__left-section">
-        <Link
-          className="flex items-center gap-2"
-          to="/"
-        >
-          <img
-            className='w-10 h-10'
-            src={logoImg}
-            alt="logo"
-          />
-          <p>{shopName}</p>
-        </Link>
+    <header>
+      {/* 데스크탑 헤더 */}
+      <div className={clsx(headerWrapperStyle, 'hidden md:flex bg-gray-50 shadow-sm')}>
+        <Logo />
+        <HeaderIcons />
       </div>
 
-      <div className="header__right-section flex gap-4">
-        {/* 장바구니 링크 */}
-        <Link to={`/cart/${id}`}>
-          <LuShoppingCart className='text-gray-600 text-2xl hover:text-indigo-500' />
-        </Link>
-
-        {/* 내프로필 링크 */}
-        <Link to={`/${id}`}>
-          <img
-            className='w-7 h-7 rounded-full'
-            src={profileImg}
-            alt="profile"
-          />
-        </Link>
+      {/* 모바일 헤더 */}
+      <div className={clsx(headerWrapperStyle,'flex md:hidden bg-white')}>
+        <MobileHeader />
       </div>
-
-    </div>
+    </header>
   )
 }
 
