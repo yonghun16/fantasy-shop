@@ -7,6 +7,8 @@ export const dummyProducts = [
     price: 1200,
     image: item2,
     description: "마법이 깃든 전설의 검",
+    damage: 132,
+    category: "검",
   },
   {
     id: "2",
@@ -14,6 +16,8 @@ export const dummyProducts = [
     price: 900,
     image: item2,
     description: "정확도가 뛰어난 활",
+    damage: 87,
+    category: "활",
   },
   {
     id: "3",
@@ -21,6 +25,8 @@ export const dummyProducts = [
     price: 1500,
     image: item2,
     description: "불 속성의 마법 지팡이",
+    damage: 144,
+    category: "지팡이",
   },
   {
     id: "4",
@@ -28,6 +34,8 @@ export const dummyProducts = [
     price: 800,
     image: item2,
     description: "냉기를 담은 단검",
+    damage: 76,
+    category: "검",
   },
   {
     id: "5",
@@ -35,6 +43,8 @@ export const dummyProducts = [
     price: 1000,
     image: item2,
     description: "무거운 전투용 해머",
+    damage: 121,
+    category: "해머",
   },
   {
     id: "6",
@@ -42,6 +52,8 @@ export const dummyProducts = [
     price: 1100,
     image: item2,
     description: "성스러운 보호막",
+    damage: 63,
+    category: "방패",
   },
   {
     id: "7",
@@ -49,6 +61,8 @@ export const dummyProducts = [
     price: 950,
     image: item2,
     description: "어둠 속에서 효과적",
+    damage: 93,
+    category: "활",
   },
   {
     id: "8",
@@ -56,6 +70,8 @@ export const dummyProducts = [
     price: 1300,
     image: item2,
     description: "강력한 도끼",
+    damage: 140,
+    category: "도끼",
   },
   {
     id: "9",
@@ -63,6 +79,8 @@ export const dummyProducts = [
     price: 1050,
     image: item2,
     description: "민첩한 바람의 검",
+    damage: 102,
+    category: "검",
   },
   {
     id: "10",
@@ -70,6 +88,8 @@ export const dummyProducts = [
     price: 1400,
     image: item2,
     description: "고대 주문이 적힌 책",
+    damage: 110,
+    category: "마법서",
   },
   {
     id: "11",
@@ -77,6 +97,8 @@ export const dummyProducts = [
     price: 1250,
     image: item2,
     description: "중독 효과",
+    damage: 97,
+    category: "지팡이",
   },
   {
     id: "12",
@@ -84,5 +106,7 @@ export const dummyProducts = [
     price: 1600,
     image: item2,
     description: "불사의 힘을 부여",
+    damage: 68,
+    category: "방어구",
   },
 ];
