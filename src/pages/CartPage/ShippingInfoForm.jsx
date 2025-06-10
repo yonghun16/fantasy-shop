@@ -3,7 +3,7 @@ import { InputBox } from "../../shared/ui/InputBox";
 
 const ShippingInfoForm = () => {
   return (
-    <div className="border rounded p-6 space-y-4">
+    <div className="border border-gray-400 rounded p-6 space-y-4">
       <h2 className="text-lg font-semibold flex items-center gap-2">
         <LuUser className="w-5 h-5 text-indigo-500" />
         배송 정보
