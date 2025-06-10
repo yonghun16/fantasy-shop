@@ -1,28 +1,50 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { dummyProducts } from "../LandingPage/dummyProducts";
 
+import ProductInfo from "./ProductInfo";
+import QuantityController from "./QuantityController";
+import ProductActionButtons from "./ProductActionButtons";
+import NotFoundMessage from "./NotFoundMessage";
+import ProductImage from "./ProductImage";
+import TotalPrice from "./TotalPrice";
+
 const DetailProductPage = () => {
-  // 파라미터에서 id 값을 가져옴
   const { id } = useParams();
-  // id와 일치하는 상품을 데이터에서 찾음
   const product = dummyProducts.find((item) => item.id === id);
+  const [count, setCount] = useState(1);
 
-  // 해당 id에 맞는 상품이 없으면 안내 메시지 출력
-  if (!product) {
-    return <div className="p-4">존재하지 않는 상품입니다.</div>;
-  }
+  if (!product) return <NotFoundMessage />;
 
-  // 상품이 존재하면 상세 정보 화면 렌더링
+  const handleDecrease = () => {
+    if (count > 1) setCount(count - 1);
+  };
+
+  const handleIncrease = () => {
+    if (count < product.quantity) setCount(count + 1);
+  };
+
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="w-full h-64 object-cover rounded-lg"
-      />
-      <h1 className="text-3xl font-bold mt-4">{product.name}</h1>
-      <p className="text-xl text-yellow-700 mt-2">{product.price} Gold</p>
-      <p className="text-gray-700 mt-4">{product.description}</p>
+    <div className="max-w-6xl mx-auto p-6">
+      <h2 className="text-xl font-semibold text-center mb-6">
+        아이템 상세보기
+      </h2>
+
+      <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md p-6 gap-8">
+        <ProductImage src={product.image} alt={product.name} />
+
+        <div className="flex flex-col flex-1 justify-between">
+          <ProductInfo product={product} />
+          <QuantityController
+            count={count}
+            max={product.quantity}
+            onIncrease={handleIncrease}
+            onDecrease={handleDecrease}
+          />
+          <TotalPrice price={product.price} count={count} />
+          <ProductActionButtons />
+        </div>
+      </div>
     </div>
   );
 };
