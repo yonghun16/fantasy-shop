@@ -1,31 +1,33 @@
-import clsx from 'clsx';
+import clsx from "clsx";
 
 // props
 export function Button({
   children,
-  color = 'indigo',
-  size = 'md',
+  color = "indigo",
+  size = "md",
   disabled = false,
   icon,
-  iconPosition = 'left',
+  iconPosition = "left",
   className,
   ...props
 }) {
   // styles
-  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-md transition whitespace-nowrap';
+  const baseStyles =
+    "inline-flex items-center justify-center font-medium rounded-md transition whitespace-nowrap";
 
   const sizeStyles = {
-    md: 'px-4 py-2 text-base',  // 보통 크기
+    md: "px-4 py-2 text-base", // 보통 크기
   };
 
   const colorStyles = {
-    indigo: 'bg-indigo-500 text-white',
-    rose: 'bg-rose-400 text-white',
+    indigo: "bg-indigo-500 text-white",
+    rose: "bg-rose-400 text-white",
+    gray: "bg-gray-300 text-gray-700",
   };
 
-  const ableStyles = 'hover:opacity-90 active:active:scale-95';
+  const ableStyles = "hover:opacity-90 active:active:scale-95";
 
-  const disabledStyles = 'opacity-70 cursor-not-allowed';
+  const disabledStyles = "opacity-70 cursor-not-allowed";
 
   // render component
   return (
@@ -40,9 +42,9 @@ export function Button({
       )}
       {...props}
     >
-      {icon && iconPosition === 'left' && <span className="mr-2">{icon}</span>}
+      {icon && iconPosition === "left" && <span className="mr-2">{icon}</span>}
       {children}
-      {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
+      {icon && iconPosition === "right" && <span className="ml-2">{icon}</span>}
     </button>
   );
 }
