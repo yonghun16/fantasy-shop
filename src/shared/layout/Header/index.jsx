@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header>
       {/* 데스크탑 헤더 */}
-      <div className={clsx(headerWrapperStyle, 'hidden md:flex bg-gray-50 shadow-sm')}>
+      <div className={clsx(headerWrapperStyle, 'hidden md:flex bg-gray-50')}>
         <Logo />
         <HeaderIcons />
       </div>
