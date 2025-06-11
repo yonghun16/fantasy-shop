@@ -7,17 +7,7 @@ const ITEMS_PER_PAGE = 10;
 
 const useProductFilter = () => {
   // 카테고리 목록
-  const categories = [
-    "모든 아이템",
-    "검",
-    "활",
-    "해머",
-    "도끼",
-    "지팡이",
-    "마법서",
-    "방패",
-    "방어구",
-  ];
+  const categories = ["모든 아이템", "검", "활", "지팡이", "방패"];
 
   // 정렬 기준 목록
   const sortOptions = ["최신 등록순", "낮은 가격순", "높은 가격순"];
