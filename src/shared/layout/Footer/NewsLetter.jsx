@@ -28,6 +28,8 @@ const NewsLetter = () => {
         <div className='flex gap-2'>
           <InputBox
             type='email'
+            name='newsletter-email'
+            id='newsletter-email'
             placeholder='이메일을 입력하세요.'
             icon={<LuMail />}
             className='text-sm w-65'
