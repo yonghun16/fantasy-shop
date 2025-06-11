@@ -1,5 +1,4 @@
-/* import libraries */
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 /* import components */
 import AgreementCheckbox from "./AgreementCheckbox";
@@ -7,87 +6,104 @@ import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 
 /* import assets */
-import { LuUserRound } from "react-icons/lu";
-import { LuMail } from "react-icons/lu";
-import { LuLock } from "react-icons/lu";
-import { LuCheckCheck } from "react-icons/lu";
+import { LuUserRound, LuMail, LuLock, LuCheckCheck } from "react-icons/lu";
 
 
 /* UI */
 const RegisterForm = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    agree: false,
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",    // 사용자가 input을 터치하고 벗어났을 때 유효성 검사 실행
   });
 
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  const onSubmit = (data) => {
+    console.log("제출 성공:", data);
   };
+
+  const password = watch("password");
+  const agree = watch("agree");
 
   return (
     <div className="max-w-md w-full space-y-7">
       <h2 className="text-2xl font-semibold text-center">회원가입</h2>
       <div className="flex items-center justify-center h-[550px] border border-gray-200 p-6 rounded-xl">
-        <form className="space-y-4 w-[400px]">
-
-          <label htmlFor="name" className="block text-sm text-gray-700 font-medium mb-1">이름*</label>
+        <form className="space-y-4 w-[400px]" onSubmit={handleSubmit(onSubmit)}>
           <InputBox
             label="이름*"
             type="text"
             id="name"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            icon={<LuUserRound />}
             placeholder="이름을 입력하세요"
+            icon={<LuUserRound />}
             className="w-full"
+            {...register("name", {
+              required: "이름은 필수입니다.",
+            })}
           />
-          <label htmlFor="email" className="block text-sm text-gray-700 font-medium mb-1">이메일*</label>
+          {errors.name && <p className="text-red-500 text-sm -mt-3">{errors.name.message}</p>}
+
           <InputBox
             label="이메일*"
             type="email"
             id="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            icon={<LuMail />}
+            autoComplete="username"
             placeholder="이메일을 입력하세요"
+            icon={<LuMail />}
             className="w-full"
+            {...register("email", {
+              required: "이메일은 필수입니다.",
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "유효한 이메일을 입력하세요.",
+              },
+            })}
           />
-          <label htmlFor="password" className="block text-sm text-gray-700 font-medium mb-1">비밀번호*</label>
+          {errors.email && <p className="text-red-500 text-sm -mt-3">{errors.email.message}</p>}
+
           <InputBox
             label="비밀번호*"
             type="password"
             id="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
+            autoComplete="new-password"
+            placeholder="비밀번호를 입력하세요"
             icon={<LuLock />}
             className="w-full"
+            {...register("password", {
+              required: "비밀번호는 필수입니다.",
+              minLength: {
+                value: 6,
+                message: "비밀번호는 최소 6자 이상이어야 합니다.",
+              },
+            })}
           />
-          <label htmlFor="confirmPassword" className="block text-sm text-gray-700 font-medium mb-1">비밀번호 확인*</label>
+          {errors.password && <p className="text-red-500 text-sm -mt-3">{errors.password.message}</p>}
+
           <InputBox
             label="비밀번호 확인*"
             type="password"
             id="confirmPassword"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={handleChange}
+            autoComplete="new-password"
+            placeholder="비밀번호를 다시 입력하세요"
             icon={<LuCheckCheck />}
             className="w-full"
+            {...register("confirmPassword", {
+              required: "비밀번호 확인은 필수입니다.",
+              validate: (value) => value === password || "비밀번호가 일치하지 않습니다.",
+            })}
           />
+          {errors.confirmPassword && <p className="text-red-500 text-sm -mt-3">{errors.confirmPassword.message}</p>}
 
-          <AgreementCheckbox checked={form.agree} onChange={handleChange} />
+          <div className="pt-1">
+            <AgreementCheckbox
+              {...register("agree")}
+            />
+          </div>
 
           <Button
-            disabled={!form.agree}
+            disabled={!agree}
             type="submit"
             className="w-full py-2 rounded-md text-white font-semibold"
           >
@@ -98,8 +114,7 @@ const RegisterForm = () => {
 
       <p className="text-center text-sm text-gray-600">
         이미 계정이 있다면?{" "}
-        <a href="login" className="text-indigo-500 hover:underline">Login
-        </a>
+        <a href="login" className="text-indigo-500 hover:underline">Login</a>
       </p>
     </div>
   );
