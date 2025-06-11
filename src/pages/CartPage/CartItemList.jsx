@@ -2,6 +2,7 @@ import { LuShoppingCart, LuTrash, LuTrash2 } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decreaseQuantity,
+  deleteItem,
   increaseQuantity,
 } from "../../features/cart/cartSlice";
 
@@ -25,7 +26,7 @@ const CartItemList = () => {
               key={item.id}
               className="flex items-center justify-between border-b border-gray-200 pb-4"
             >
-              {/* Left: Image + Info */}
+              {/*이미지 + 아이템 정보보*/}
               <div className="flex items-center gap-4">
                 <img
                   src={item.imageUrl}
@@ -40,7 +41,7 @@ const CartItemList = () => {
                 </div>
               </div>
 
-              {/* Right: Quantity + Total */}
+              {/*수량+가격*/}
               <div className="flex items-center gap-6">
                 <div className="flex items-center border rounded-md">
                   <button
@@ -61,8 +62,11 @@ const CartItemList = () => {
                   {(item.price * item.quantity).toLocaleString()}G
                 </p>
 
-                {/*delete button */}
-                <LuTrash2 className="cursor-pointer" />
+                {/*아이템 삭제*/}
+                <LuTrash2
+                  onClick={() => dispatch(deleteItem(item.id))}
+                  className="cursor-pointer"
+                />
               </div>
             </li>
           ))}
