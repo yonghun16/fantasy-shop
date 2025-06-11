@@ -11,8 +11,8 @@ export function InputBox({
   ...props
 }) {
   // styles
-  const baseWrapper = 'relative flex items-center w-full bg-gray-50';
-  const baseInput = 'text-gray-900 border-gray-200 w-full appearance-none outline-none border rounded-md';
+  const baseWrapper = 'relative flex items-center bg-gray-50';
+  const baseInput = 'text-gray-900 border-gray-200 appearance-none outline-none border rounded-md';
 
   const sizeStyles = {
     md: 'px-4 py-2 text-base',

@@ -1,13 +1,14 @@
 /* import library */
-import { createRoot } from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom';
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { store } from "../store/store";
+import { Provider } from "react-redux";
 
 /* import router */
-import router from './router';
+import router from "./router";
 
-
-createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-)
-
-
+createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
