@@ -9,7 +9,7 @@ const ProductGrid = ({ products }) => {
         // 각 아이템 카드: key는 제품 고유 id
         <div
           key={product.id}
-          className="relative border border-gray-200 rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white"
+          className="relative border border-gray-200 rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white flex flex-col"
         >
           {/* 아이템 상세 페이지로 이동하는 링크 */}
           <Link to={`/detailproduct/${product.id}`}>
@@ -23,6 +23,8 @@ const ProductGrid = ({ products }) => {
               <h2 className="text-lg font-semibold">{product.name}</h2>
             </div>
           </Link>
+
+          <div className="flex-grow" />
 
           {/* 가격 표시 영역 */}
           <div className="px-4 pb-4">

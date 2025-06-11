@@ -3,6 +3,7 @@ import { Button } from "../../shared/ui/Button";
 
 const ProductActionButtons = () => (
   <div className="flex flex-col gap-3">
+    {/* 장바구니 버튼튼*/}
     <Button
       color="indigo"
       size="md"
@@ -14,6 +15,7 @@ const ProductActionButtons = () => (
     </Button>
 
     <div className="flex gap-3">
+      {/* 아이템 수정 버튼 */}
       <Button
         color="rose"
         size="md"
@@ -24,6 +26,7 @@ const ProductActionButtons = () => (
         아이템 정보 수정하기
       </Button>
 
+      {/* 아이템 삭제 버튼 */}
       <Button color="gray" size="md" className="flex-1">
         아이템 삭제하기
       </Button>

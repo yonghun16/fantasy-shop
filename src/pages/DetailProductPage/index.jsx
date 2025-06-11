@@ -41,7 +41,7 @@ const DetailProductPage = () => {
           {/* 총 가격 계산 */}
           <TotalPrice price={product.price} count={count} />
 
-          {/* 장바구니 추가/즉시 구매 등의 액션 버튼 */}
+          {/* 장바구니 추가/아이템 정보 수정 및 삭제 등의 액션 버튼 */}
           <ProductActionButtons />
         </div>
       </div>

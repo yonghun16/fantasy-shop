@@ -1,6 +1,6 @@
 const CategoryFilter = ({ categories, activeCategory, setActiveCategory }) => {
   return (
-    <div className="flex w-full gap-4 mb-2 overflow-x-auto whitespace-nowrap justify-start sm:justify-center scrollbar-hide">
+    <div className="flex w-full gap-4 mb-2 justify-center">
       {categories.map((cat) => (
         // 카테고리 이름을 키로 사용해서 각 카테고리마다 버튼 생성
         <button
