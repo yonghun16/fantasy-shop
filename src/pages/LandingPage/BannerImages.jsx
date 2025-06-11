@@ -24,7 +24,7 @@ const BannerImages = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-120 mb-6 overflow-hidden">
+    <div className="relative w-full h-60 sm:h-80 md:h-96 lg:h-120 mb-6 overflow-hidden">
       {/* 
         이미지 배열을 map으로 돌면서 각각 img 태그를 생성합니다.
         index가 현재 배너 인덱스와 같으면 보이도록, 아니면 숨기도록 처리합니다.

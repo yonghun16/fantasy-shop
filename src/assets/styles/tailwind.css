@@ -1,13 +1,19 @@
 /* import font */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* import tailwind CSS */
 @import "tailwindcss";
-
 
 /* Global style */
 body {
   font-family: "Noto Sans KR", "Roboto", sans-serif;
 }
 
-
+/* 숨긴 스크롤바 유틸 클래스 */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
