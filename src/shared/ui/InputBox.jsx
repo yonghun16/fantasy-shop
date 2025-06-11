@@ -11,7 +11,7 @@ export function InputBox({
   ...props
 }) {
   // styles
-  const baseWrapper = "relative flex items-center bg-gray-50";
+  const baseWrapper = "relative flex items-center bg-gray-50 rounded-md";
   const baseInput =
     "text-gray-900 border-gray-200 appearance-none outline-none border rounded-md";
 
