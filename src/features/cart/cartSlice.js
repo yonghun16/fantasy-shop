@@ -8,7 +8,7 @@ const cartSlice = createSlice({
     items: [
       {
         id: 1,
-        name: "sheild",
+        name: "shield",
         price: 29000,
         quantity: 2,
         imageUrl: img1,
