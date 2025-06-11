@@ -1,9 +1,10 @@
 import { LuCreditCard } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
+import { useSelector } from "react-redux";
 
 const CartSummary = () => {
   return (
-    <div className="border border-gray-400 rounded p-6">
+    <div className="border border-gray-300 rounded p-6">
       <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
         <LuCreditCard className="w-5 h-5 text-indigo-500" />
         결제

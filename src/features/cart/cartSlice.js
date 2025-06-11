@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import img1 from "../../assets/images/notice1.png";
-import img2 from "../../assets/images/notice2.png";
+import img1 from "../../assets/images/test-item1.png";
+import img2 from "../../assets/images/test-itme2.png";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -8,14 +8,14 @@ const cartSlice = createSlice({
     items: [
       {
         id: 1,
-        name: "sword 1",
+        name: "sheild",
         price: 29000,
         quantity: 2,
         imageUrl: img1,
       },
       {
         id: 2,
-        name: "sword 2",
+        name: "fiery sword",
         price: 150000,
         quantity: 1,
         imageUrl: img2,

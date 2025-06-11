@@ -1,4 +1,4 @@
-import { LuShoppingCart } from "react-icons/lu";
+import { LuShoppingCart, LuTrash, LuTrash2 } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decreaseQuantity,
@@ -10,7 +10,7 @@ const CartItemList = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   return (
-    <div className="border border-gray-400 rounded p-6">
+    <div className="border border-gray-300 rounded-md p-6 bg-white">
       <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
         <LuShoppingCart className="w-5 h-5 text-indigo-500" />
         주문내역
@@ -19,42 +19,51 @@ const CartItemList = () => {
       {cartItems.length === 0 ? (
         <p className="text-gray-500">장바구니가 비어 있습니다.</p>
       ) : (
-        <ul className="space-y-4">
+        <ul className="space-y-6">
           {cartItems.map((item) => (
             <li
               key={item.id}
-              className="flex justify-between items-center gap-4 border-b border-gray-300 pb-4"
+              className="flex items-center justify-between border-b border-gray-200 pb-4"
             >
-              <img
-                src={item.imageUrl}
-                alt={item.name}
-                className="w-16 h-16 rounded object-cover"
-              />
+              {/* Left: Image + Info */}
+              <div className="flex items-center gap-4">
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="w-16 h-16 rounded object-cover"
+                />
+                <div>
+                  <p className="font-medium">{item.name}</p>
+                  <p className="text-sm text-gray-500">
+                    {item.price.toLocaleString()} G
+                  </p>
+                </div>
+              </div>
 
-              <div>
-                <p className="font-medium">{item.name}</p>
-                <p className="text-sm text-gray-500">
-                  {item.price.toLocaleString()}원
-                </p>
-                <div className="flex items-center mt-2 w-fit">
+              {/* Right: Quantity + Total */}
+              <div className="flex items-center gap-6">
+                <div className="flex items-center border rounded-md">
                   <button
                     onClick={() => dispatch(decreaseQuantity(item.id))}
-                    className="w-5 h-5 text-md flex items-center justify-center border border-indigo-500 rounded-md cursor-pointer mr-2"
+                    className="w-6 h-6 text-md flex items-center justify-center border-r px-1 text-gray-700 cursor-pointer"
                   >
                     -
                   </button>
-                  <p>{item.quantity}</p>
+                  <span className="w-6 text-center">{item.quantity}</span>
                   <button
                     onClick={() => dispatch(increaseQuantity(item.id))}
-                    className="w-5 h-5 text-md flex items-center justify-center border border-indigo-500 rounded-md cursor-pointer ml-2"
+                    className="w-6 h-6 text-md flex items-center justify-center border-l px-1 text-gray-700 cursor-pointer"
                   >
                     +
                   </button>
                 </div>
+                <p className="text-indigo-600 font-semibold min-w-[60px] text-right">
+                  {(item.price * item.quantity).toLocaleString()}G
+                </p>
+
+                {/*delete button */}
+                <LuTrash2 className="cursor-pointer" />
               </div>
-              <p className="font-semibold">
-                {(item.price * item.quantity).toLocaleString()}원
-              </p>
             </li>
           ))}
         </ul>
