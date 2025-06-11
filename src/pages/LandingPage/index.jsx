@@ -91,7 +91,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-screen-xl mx-auto px-4">
       {/* 상단 배너 이미지 */}
       <BannerImages />
 

@@ -4,7 +4,7 @@ import { FiShoppingCart } from "react-icons/fi";
 const ProductGrid = ({ products }) => {
   return (
     // 아이템들을 그리드 형태로 보여주는 컨테이너
-    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
       {products.map((product) => (
         // 각 아이템 카드: key는 제품 고유 id
         <div
