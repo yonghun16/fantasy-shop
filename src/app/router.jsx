@@ -15,46 +15,51 @@ const HistoryPage = lazy(() => import("../pages/HistoryPage"));
 
 
 // 라우터 컴포넌트
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          /* 로그인과 상관없이 갈 수 있는 경로 */
+          path: "/",
+          element: <LandingPage />,
+        },
+        {
+          path: "/register",
+          element: <RegisterPage />,
+        },
+        {
+          path: "/login",
+          element: <LoginPage />,
+        },
+        {
+          path: "/:id",
+          element: <MyprofilePage />,
+        },
+        {
+          path: "/uploadproduct",
+          element: <UploadProductPage />,
+        },
+        {
+          path: "/detailproduct/:id",
+          element: <DetailProductPage />,
+        },
+        {
+          path: "/cart/:id",
+          element: <CartPage />,
+        },
+        {
+          path: "/history/:id",
+          element: <HistoryPage />,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        /* 로그인과 상관없이 갈 수 있는 경로 */
-        path: "/",
-        element: <LandingPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/:id",
-        element: <MyprofilePage />,
-      },
-      {
-        path: "/uploadproduct",
-        element: <UploadProductPage />,
-      },
-      {
-        path: "/detailproduct/:id",
-        element: <DetailProductPage />,
-      },
-      {
-        path: "/cart/:id",
-        element: <CartPage />,
-      },
-      {
-        path: "/history/:id",
-        element: <HistoryPage />,
-      },
-    ],
-  },
-]);
+    basename: "/fantasyshop",
+  }
+);
 
 export default router;
