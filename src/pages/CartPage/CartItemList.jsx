@@ -1,4 +1,10 @@
-import { LuShoppingCart, LuTrash, LuTrash2 } from "react-icons/lu";
+import {
+  LuMinus,
+  LuPlus,
+  LuShoppingCart,
+  LuTrash,
+  LuTrash2,
+} from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decreaseQuantity,
@@ -44,19 +50,16 @@ const CartItemList = () => {
               {/*수량+가격*/}
               <div className="flex items-center gap-6">
                 <div className="flex items-center border rounded-md">
-                  <button
+                  <LuMinus
                     onClick={() => dispatch(decreaseQuantity(item.id))}
-                    className="w-6 h-6 text-md flex items-center justify-center border-r px-1 text-gray-700 cursor-pointer"
-                  >
-                    -
-                  </button>
+                    className="w-6 h-6 text-lg font-bold flex items-center justify-center border-r px-1 text-gray-700 cursor-pointer"
+                  />
+
                   <span className="w-6 text-center">{item.quantity}</span>
-                  <button
+                  <LuPlus
                     onClick={() => dispatch(increaseQuantity(item.id))}
-                    className="w-6 h-6 text-md flex items-center justify-center border-l px-1 text-gray-700 cursor-pointer"
-                  >
-                    +
-                  </button>
+                    className="w-6 h-6 text-lg font-bold flex items-center justify-center border-l px-1 text-gray-700 cursor-pointer"
+                  />
                 </div>
                 <p className="text-indigo-600 font-semibold min-w-[60px] text-right">
                   {(item.price * item.quantity).toLocaleString()}G
