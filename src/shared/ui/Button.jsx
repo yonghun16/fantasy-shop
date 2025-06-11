@@ -40,6 +40,7 @@ export function Button({
         !disabled && ableStyles,
         className
       )}
+      disabled={disabled}
       {...props}
     >
       {icon && iconPosition === "left" && <span className="mr-2">{icon}</span>}
