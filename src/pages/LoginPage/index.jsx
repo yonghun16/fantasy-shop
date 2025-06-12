@@ -1,9 +1,9 @@
-import React from "react";
-import logo from "../../assets/images/logo.png";
-import { useLocation, useNavigate } from "react-router-dom";
-import { InputBox } from "../../shared/ui/InputBox";
-import { LuLock, LuMail } from "react-icons/lu";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { LuLock, LuMail } from "react-icons/lu";
+import logo from "../../assets/images/logo.png";
+import { InputBox } from "../../shared/ui/InputBox";
+import LoginImage from "./LoginImage";
 
 const Login = () => {
   const {
@@ -11,10 +11,9 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const navigate = useNavigate();
   const location = useLocation();
-
-  const registerHandler = () => navigate("/register");
 
   const onSubmit = (data) => {
     alert("로그인 성공!");
@@ -26,9 +25,15 @@ const Login = () => {
     }
   };
 
+  const registerHandler = () => navigate("/register");
+
   return (
-    <div className="inset-0 bg-none bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-8 w-96 shadow-xl">
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+      {/* 배경 이미지 */}
+      <LoginImage />
+
+      {/* 로그인 폼 */}
+      <div className="relative z-20 bg-white rounded-lg p-8 w-[350px] shadow-xl border border-gray-300">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col items-center text-center gap-1 font-bold text-2xl">
             <img src={logo} alt="로그인 메인 이미지" className="w-24" />
@@ -37,42 +42,34 @@ const Login = () => {
             <p>용사여!</p>
           </div>
 
-          <div>
-            <div className="relative">
-              <LuMail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 z-10" />
-              <InputBox
-                {...register("email", { required: "이메일을 입력하세요." })}
-                type="email"
-                placeholder="이메일을 입력하세요"
-                className={`w-full border p-2 pl-10 rounded ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
-              )}
-            </div>
+          <div className="relative">
+            <LuMail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+            <InputBox
+              {...register("email", { required: "이메일을 입력하세요." })}
+              type="email"
+              placeholder="이메일을 입력하세요"
+              className={`w-full border p-2 pl-10 rounded ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
 
-          <div>
-            <div className="relative">
-              <LuLock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 z-10" />
-              <InputBox
-                {...register("password", {
-                  required: "비밀번호를 입력하세요.",
-                })}
-                type="password"
-                placeholder="패스워드를 입력하세요"
-                className={`w-full border p-2 pl-10 rounded ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              {errors.password && (
-                <p className="text-red-500 text-sm">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
+          <div className="relative">
+            <LuLock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+            <InputBox
+              {...register("password", { required: "비밀번호를 입력하세요." })}
+              type="password"
+              placeholder="패스워드를 입력하세요"
+              className={`w-full border p-2 pl-10 rounded ${
+                errors.password ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
 
           <button
