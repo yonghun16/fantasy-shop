@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
+import { formatPhoneNumber } from "./useProfileForm";
 
 // 인적 사항에 필요한 입력 필드 정보들을 배열로 정의
 const fields = [
@@ -41,8 +42,20 @@ const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
             className="w-full"
             icon={icon}
             placeholder={label}
-            value={profile[key]}
-            onChange={(e) => setProfile({ ...profile, [key]: e.target.value })}
+            value={
+              key === "phone" ? formatPhoneNumber(profile[key]) : profile[key]
+            }
+            type={key === "email" ? "email" : key === "phone" ? "tel" : "text"}
+            onChange={(e) => {
+              const value = e.target.value;
+              setProfile({
+                ...profile,
+                [key]:
+                  key === "phone"
+                    ? value.replace(/\D/g, "").slice(0, 11)
+                    : value,
+              });
+            }}
             color="indigo"
           />
         </div>
