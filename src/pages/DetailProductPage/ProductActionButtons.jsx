@@ -1,34 +1,41 @@
 import { FiShoppingCart, FiEdit } from "react-icons/fi";
 import { Button } from "../../shared/ui/Button";
+import "react-toastify/dist/ReactToastify.css";
+import useAddToCart from "../../shared/hooks/useAddToCart";
 
-const ProductActionButtons = () => (
-  <div className="flex flex-col gap-3">
-    <Button
-      color="indigo"
-      size="md"
-      className="w-full flex justify-center gap-2"
-      icon={<FiShoppingCart />}
-      iconPosition="left"
-    >
-      장바구니에 담기
-    </Button>
+const ProductActionButtons = ({ product, count }) => {
+  const addToCart = useAddToCart();
 
-    <div className="flex gap-3">
+  return (
+    <div className="flex flex-col gap-3">
       <Button
-        color="rose"
+        color="indigo"
         size="md"
-        className="flex-1 flex justify-center gap-2"
-        icon={<FiEdit />}
+        className="w-full flex justify-center gap-2"
+        icon={<FiShoppingCart />}
         iconPosition="left"
+        onClick={() => addToCart(product, count)}
       >
-        아이템 정보 수정하기
+        장바구니에 담기
       </Button>
 
-      <Button color="gray" size="md" className="flex-1">
-        아이템 삭제하기
-      </Button>
+      <div className="flex gap-3">
+        <Button
+          color="rose"
+          size="md"
+          className="flex-1 flex justify-center gap-2"
+          icon={<FiEdit />}
+          iconPosition="left"
+        >
+          아이템 정보 수정하기
+        </Button>
+
+        <Button color="gray" size="md" className="flex-1">
+          아이템 삭제하기
+        </Button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default ProductActionButtons;

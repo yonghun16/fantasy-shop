@@ -25,7 +25,7 @@ export function Button({
     gray: "bg-gray-300 text-gray-700",
   };
 
-  const ableStyles = "hover:opacity-90 active:active:scale-95";
+  const ableStyles = "hover:opacity-90 active:active:scale-95 cursor-pointer";
 
   const disabledStyles = "opacity-70 cursor-not-allowed";
 
@@ -40,6 +40,7 @@ export function Button({
         !disabled && ableStyles,
         className
       )}
+      disabled={disabled}
       {...props}
     >
       {icon && iconPosition === "left" && <span className="mr-2">{icon}</span>}

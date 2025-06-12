@@ -24,7 +24,7 @@ const BannerImages = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-60 sm:h-80 md:h-96 lg:h-120 mb-6 overflow-hidden">
+    <div className="relative w-full " style={{ paddingBottom: "28.66%" }}>
       {/* 
         이미지 배열을 map으로 돌면서 각각 img 태그를 생성합니다.
         index가 현재 배너 인덱스와 같으면 보이도록, 아니면 숨기도록 처리합니다.
@@ -34,7 +34,7 @@ const BannerImages = () => {
           key={index} // React가 각 아이템을 구분할 수 있도록 key를 지정
           src={img} // 이미지 경로
           alt={`Banner ${index + 1}`} // 접근성을 위한 대체 텍스트
-          className={`scale-[1.05] absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          className={`absolute top-0 left-0 w-full h-full object-fill transition-opacity duration-1000 ${
             index === bannerIndex ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
         />
