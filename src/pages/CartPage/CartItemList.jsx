@@ -42,6 +42,7 @@ const CartItemList = () => {
                 <div>
                   <p className="font-medium">{item.name}</p>
                   <p className="text-sm text-gray-500">
+                    {/* 기존 코드: {item.price.toLocaleString()} G */}
                     {(item?.price ?? 0).toLocaleString()} G
                   </p>
                 </div>
@@ -62,6 +63,7 @@ const CartItemList = () => {
                   />
                 </div>
                 <p className="text-indigo-600 font-semibold min-w-[60px] text-right">
+                  {/* 기존 코드: {(item.price * item.quantity).toLocaleString()}G */}
                   {(
                     (item?.price ?? 0) * (item?.quantity ?? 0)
                   ).toLocaleString()}

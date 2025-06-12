@@ -3,6 +3,7 @@ import { Button } from "../../shared/ui/Button";
 import { useSelector } from "react-redux";
 
 const CartSummary = () => {
+  //기존 코드: const cartItems = useSelector((state) => state.cart.items);
   const cartItems = useSelector((state) => state.cart?.items ?? []);
 
   const itemTotal = cartItems.reduce(
@@ -28,6 +29,7 @@ const CartSummary = () => {
       {/* 금액 상세 */}
       <div className="flex justify-between mb-2">
         <span className="text-sm text-gray-600">아이템 총액</span>
+        {/* 기존 코드: {itemTotal.toLocaleString()}G */}
         <span>{(itemTotal ?? 0).toLocaleString()}G</span>
       </div>
 
@@ -44,6 +46,7 @@ const CartSummary = () => {
       <div className="flex justify-between font-semibold text-lg mb-6">
         <span>총 결제금액</span>
         <span className="text-pink-600">
+          {/* 기존 코드: {itemTotal.toLocaleString()}G */}
           {(itemTotal ?? 0).toLocaleString()}G
         </span>
       </div>
