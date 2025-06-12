@@ -21,11 +21,17 @@ const router = createBrowserRouter(
       path: "/",
       element: <App />,
       children: [
+        /* 로그인과 상관없이 갈 수 있는 경로 */
         {
-          /* 로그인과 상관없이 갈 수 있는 경로 */
           path: "/",
           element: <LandingPage />,
         },
+        {
+          path: "/detailproduct/:id",
+          element: <DetailProductPage />,
+        },
+
+        /* 로그인 하지 않은 유저만 갈 수 있는 경로 */
         {
           path: "/register",
           element: <RegisterPage />,
@@ -34,17 +40,11 @@ const router = createBrowserRouter(
           path: "/login",
           element: <LoginPage />,
         },
+
+        /* 로그인 한 유저만 갈 수 있는 경로 */
         {
           path: "/:id",
           element: <MyprofilePage />,
-        },
-        {
-          path: "/uploadproduct",
-          element: <UploadProductPage />,
-        },
-        {
-          path: "/detailproduct/:id",
-          element: <DetailProductPage />,
         },
         {
           path: "/cart/:id",
@@ -53,6 +53,12 @@ const router = createBrowserRouter(
         {
           path: "/history/:id",
           element: <HistoryPage />,
+        },
+
+        /* 관리자만 갈 수 있는 경로 */
+        {
+          path: "/uploadproduct",
+          element: <UploadProductPage />,
         },
       ],
     },

@@ -6,7 +6,7 @@ import RegisterImage from "./RegisterImage";
 const RegisterPage = () => {
   return (
     <div className="flex items-center justify-center">
-      <div className="flex w-full max-w-7xl h-screen max-h-[1000px]">
+      <div className="flex w-full max-w-6xl h-screen max-h-[1000px]">
         {/* 왼쪽: 폼 */}
         <div className="flex w-full items-center justify-center px-4 md:w-1/2" >
           <RegisterForm />

@@ -1,5 +1,10 @@
+/* import library */
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from 'react-toastify';
+
+/* import modules */
 import { registerUser } from '../../store/thunkFunctions';
+
 
 const initialState = {
   userData: {
@@ -7,7 +12,7 @@ const initialState = {
     email: '',
     name: '',
     password: '',
-    image: '',
+    avatarImg: '',
   },
   isAuth: false,
   isLogin: false,
@@ -26,10 +31,12 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state) => {
         state.isLoading = false;
+        toast.success('회원가입을 성공했습니다.')
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toast.error('회원가입에 실패했습니다.');
       });
   }
 });

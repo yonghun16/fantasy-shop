@@ -5,7 +5,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (body, thunkAPI) => {
     try {
-      console.log("body", JSON.stringify(body));
+      // console.log("body", JSON.stringify(body)); // 디버그용
       const response = await axiosInstance.post(
         "/users/signup",
         JSON.stringify(body),
