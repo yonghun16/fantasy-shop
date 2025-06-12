@@ -26,8 +26,10 @@ const cartSlice = createSlice({
     addItem(state, action) {
       const item = action.payload;
       const existing = state.items.find((i) => i.id === item.id);
-      if (existing) existing.quantity += item.qunatity;
-      else state.item.push({ ...item, quantity: 1 });
+      if (existing)
+        existing.quantity += item.quantity; //수정 (qunatity -> quantity)
+      // 기존 코드: state.item.push({ ...item, quantity: 1 });
+      else state.items.push({ ...item });
     },
     increaseQuantity(state, action) {
       const item = state.items.find((i) => i.id === action.payload);
