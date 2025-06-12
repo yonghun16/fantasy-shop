@@ -1,37 +1,58 @@
+import { useDispatch } from "react-redux";
+import { addItem } from "../../features/cart/cartSlice";
 import { FiShoppingCart, FiEdit } from "react-icons/fi";
 import { Button } from "../../shared/ui/Button";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const ProductActionButtons = () => (
-  <div className="flex flex-col gap-3">
-    {/* 장바구니 버튼튼*/}
-    <Button
-      color="indigo"
-      size="md"
-      className="w-full flex justify-center gap-2"
-      icon={<FiShoppingCart />}
-      iconPosition="left"
-    >
-      장바구니에 담기
-    </Button>
+const ProductActionButtons = ({ product, count }) => {
+  const dispatch = useDispatch();
 
-    <div className="flex gap-3">
-      {/* 아이템 수정 버튼 */}
+  const handleAddToCart = () => {
+    const { id, name, price, image } = product;
+
+    dispatch(
+      addItem({
+        id: Number(id),
+        name,
+        price,
+        quantity: count,
+        imageUrl: image,
+      })
+    );
+    toast.success("장바구니에 아이템이 추가되었습니다!");
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
       <Button
-        color="rose"
+        color="indigo"
         size="md"
-        className="flex-1 flex justify-center gap-2"
-        icon={<FiEdit />}
+        className="w-full flex justify-center gap-2"
+        icon={<FiShoppingCart />}
         iconPosition="left"
+        onClick={handleAddToCart}
       >
-        아이템 정보 수정하기
+        장바구니에 담기
       </Button>
 
-      {/* 아이템 삭제 버튼 */}
-      <Button color="gray" size="md" className="flex-1">
-        아이템 삭제하기
-      </Button>
+      <div className="flex gap-3">
+        <Button
+          color="rose"
+          size="md"
+          className="flex-1 flex justify-center gap-2"
+          icon={<FiEdit />}
+          iconPosition="left"
+        >
+          아이템 정보 수정하기
+        </Button>
+
+        <Button color="gray" size="md" className="flex-1">
+          아이템 삭제하기
+        </Button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default ProductActionButtons;

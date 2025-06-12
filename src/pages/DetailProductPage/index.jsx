@@ -42,7 +42,7 @@ const DetailProductPage = () => {
           <TotalPrice price={product.price} count={count} />
 
           {/* 장바구니 추가/아이템 정보 수정 및 삭제 등의 액션 버튼 */}
-          <ProductActionButtons />
+          <ProductActionButtons product={product} count={count} />
         </div>
       </div>
     </div>
