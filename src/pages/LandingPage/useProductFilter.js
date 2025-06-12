@@ -29,16 +29,16 @@ const useProductFilter = () => {
         // 또는 "모든 아이템" 카테고리를 선택했거나
         // 아이템 카테고리가 현재 선택된 카테고리와 같아야 함
         return (
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          product.itemName.toLowerCase().includes(searchTerm.toLowerCase()) &&
           (activeCategory === "모든 아이템" ||
-            product.category === activeCategory)
+            product.itemCategory === activeCategory)
         );
       })
       .sort((a, b) => {
         // 정렬 옵션에 따라 아이템 정렬
-        if (sortOption === "낮은 가격순") return a.price - b.price; // 가격 오름차순
-        if (sortOption === "높은 가격순") return b.price - a.price; // 가격 내림차순
-        return b.id - a.id; // 기본값: 최신 등록순 (id가 클수록 최신)
+        if (sortOption === "낮은 가격순") return a.itemPrice - b.itemPrice; // 가격 오름차순
+        if (sortOption === "높은 가격순") return b.itemPrice - a.itemPrice; // 가격 내림차순
+        return b.itemPk - a.itemPk; // 기본값: 최신 등록순 (id가 클수록 최신)
       });
   }, [searchTerm, activeCategory, sortOption]); // 의존성 배열: 이 값들이 바뀌면 다시 계산
 
