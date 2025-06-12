@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 
 /* import components */
@@ -17,6 +16,8 @@ import avatarImg from "../../assets/images/noavatar.png";
 
 /* UI */
 const RegisterForm = () => {
+  const dispatch = useDispatch();
+
   // react-hook-form
   const {
     register,
@@ -30,8 +31,6 @@ const RegisterForm = () => {
 
   const password = watch("password");
   const agree = watch("agree");
-
-  const dispatch = useDispatch();
 
   // onSubmit Handler
   const onSubmit = (data) => {
@@ -53,15 +52,15 @@ const RegisterForm = () => {
           <InputBox
             label="이름*"
             type="text"
-            id="username"
+            id="userName"
             placeholder="이름을 입력하세요"
             icon={<LuUserRound />}
             className="w-full"
-            {...register("username", {
+            {...register("userName", {
               required: "이름은 필수입니다.",
             })}
           />
-          {errors.username && <p className="text-rose-500 text-sm -mt-3">{errors.username.message}</p>}
+          {errors.userName && <p className="text-rose-500 text-sm -mt-3">{errors.userName.message}</p>}
 
           <InputBox
             label="이메일*"
