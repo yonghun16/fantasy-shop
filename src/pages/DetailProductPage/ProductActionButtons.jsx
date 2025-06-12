@@ -1,27 +1,10 @@
-import { useDispatch } from "react-redux";
-import { addItem } from "../../features/cart/cartSlice";
 import { FiShoppingCart, FiEdit } from "react-icons/fi";
 import { Button } from "../../shared/ui/Button";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useAddToCart from "../../shared/hooks/useAddToCart";
 
 const ProductActionButtons = ({ product, count }) => {
-  const dispatch = useDispatch();
-
-  const handleAddToCart = () => {
-    const { id, name, price, image } = product;
-
-    dispatch(
-      addItem({
-        id: Number(id),
-        name,
-        price,
-        quantity: count,
-        imageUrl: image,
-      })
-    );
-    toast.success("장바구니에 아이템이 추가되었습니다!");
-  };
+  const addToCart = useAddToCart();
 
   return (
     <div className="flex flex-col gap-3">
@@ -31,7 +14,7 @@ const ProductActionButtons = ({ product, count }) => {
         className="w-full flex justify-center gap-2"
         icon={<FiShoppingCart />}
         iconPosition="left"
-        onClick={handleAddToCart}
+        onClick={() => addToCart(product, count)}
       >
         장바구니에 담기
       </Button>

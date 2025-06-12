@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
+import "react-toastify/dist/ReactToastify.css";
+import useAddToCart from "../../shared/hooks/useAddToCart";
 
 const ProductGrid = ({ products }) => {
+  const addToCart = useAddToCart();
+
   return (
     // 아이템들을 그리드 형태로 보여주는 컨테이너
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
@@ -37,6 +41,7 @@ const ProductGrid = ({ products }) => {
           <button
             className="absolute bottom-3 right-3 text-gray-400 hover:text-indigo-600 transition-colors"
             aria-label="장바구니에 추가" // 접근성 위해 버튼 용도 설명
+            onClick={() => addToCart(product)}
           >
             <FiShoppingCart size={22} />
           </button>
