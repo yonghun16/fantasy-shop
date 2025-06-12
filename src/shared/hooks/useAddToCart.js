@@ -1,7 +1,6 @@
-// src/hooks/useAddToCart.js
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { addItem } from "../features/cart/cartSlice";
+import { addItem } from "../../features/cart/cartSlice";
 
 const useAddToCart = () => {
   const dispatch = useDispatch();
