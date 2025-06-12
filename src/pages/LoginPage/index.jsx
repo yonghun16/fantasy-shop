@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+// import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
@@ -42,7 +42,7 @@ const LoginModal = () => {
           <div>
             <p className="font-bold">Email</p>
             <div className="relative">
-              <EnvelopeIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+              {/* <EnvelopeIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" /> */}
               <input
                 type="email"
                 placeholder="이메일을 입력하세요"
@@ -62,7 +62,7 @@ const LoginModal = () => {
           <div>
             <p className="font-bold">Password</p>
             <div className="relative">
-              <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+              {/* <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" /> */}
               <input
                 type="password"
                 placeholder="패스워드를 입력하세요"
