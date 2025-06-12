@@ -11,7 +11,6 @@ import { registerUser } from "../../store/thunkFunctions";
 
 /* import assets */
 import { LuUserRound, LuMail, LuLock, LuCheckCheck } from "react-icons/lu";
-import avatarImg from "../../assets/images/noavatar.png";
 
 
 /* UI */
@@ -34,8 +33,6 @@ const RegisterForm = () => {
 
   // onSubmit Handler
   const onSubmit = (data) => {
-    data.image = avatarImg;
-
     dispatch(registerUser(data));
 
     console.log("제출 성공:", data);
