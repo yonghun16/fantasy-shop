@@ -8,7 +8,7 @@ const useProductDetail = () => {
   const { id } = useParams();
 
   // id에 해당하는 제품 데이터를 찾음
-  const product = dummyProducts.find((item) => item.id === id);
+  const product = dummyProducts.find((item) => item.itemPk === Number(id));
 
   // 사용자가 선택한 제품 수량 (기본값은 1)
   const [count, setCount] = useState(1);
@@ -20,7 +20,7 @@ const useProductDetail = () => {
 
   // 수량 증가 함수 (재고 수량을 초과할 수 없음)
   const handleIncrease = () => {
-    if (product && count < product.quantity) setCount((prev) => prev + 1);
+    if (product && count < product.itemInventory) setCount((prev) => prev + 1);
   };
 
   // 컴포넌트에서 사용할 데이터와 함수들을 반환

@@ -23,7 +23,7 @@ const DetailProductPage = () => {
       {/* 제품 상세 정보 영역 */}
       <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md p-6 gap-8">
         {/* 왼쪽: 제품 이미지 */}
-        <ProductImage src={product.image} alt={product.name} />
+        <ProductImage src={product.itemImageUrl} alt={product.itemName} />
 
         {/* 오른쪽: 제품 설명, 수량 조절, 가격, 액션 버튼 등 */}
         <div className="flex flex-col flex-1 justify-between">
@@ -33,13 +33,13 @@ const DetailProductPage = () => {
           {/* 수량 조절 컴포넌트 (현재 수량과 재고 수에 따라 증가/감소 가능) */}
           <QuantityController
             count={count}
-            max={product.quantity}
+            max={product.itemInventory}
             onIncrease={handleIncrease}
             onDecrease={handleDecrease}
           />
 
           {/* 총 가격 계산 */}
-          <TotalPrice price={product.price} count={count} />
+          <TotalPrice price={product.itemPrice} count={count} />
 
           {/* 장바구니 추가/아이템 정보 수정 및 삭제 등의 액션 버튼 */}
           <ProductActionButtons product={product} count={count} />
