@@ -4,7 +4,13 @@ import img2 from "../../assets/images/test-itme2.png";
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: [],
+  initialState: {
+    items: [
+      { id: 1, name: "sword 1", price: 29000, quantity: 2, imageUrl: img1 },
+      { id: 2, name: "sword 2", price: 150000, quantity: 1, imageUrl: img2 },
+    ],
+  },
+
   reducers: {
     addItem(state, action) {
       const item = action.payload;
