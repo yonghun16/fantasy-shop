@@ -1,4 +1,4 @@
-import { FiShoppingCart, FiEdit } from "react-icons/fi";
+import { LuShoppingCart, LuRefreshCcw, LuPackageX } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../shared/hooks/useAddToCart";
@@ -12,7 +12,7 @@ const ProductActionButtons = ({ product, count }) => {
         color="indigo"
         size="md"
         className="w-full flex justify-center gap-2"
-        icon={<FiShoppingCart />}
+        icon={<LuShoppingCart />}
         iconPosition="left"
         onClick={() => addToCart(product, count)}
       >
@@ -24,13 +24,13 @@ const ProductActionButtons = ({ product, count }) => {
           color="rose"
           size="md"
           className="flex-1 flex justify-center gap-2"
-          icon={<FiEdit />}
+          icon={<LuRefreshCcw />}
           iconPosition="left"
         >
           아이템 정보 수정하기
         </Button>
 
-        <Button color="gray" size="md" className="flex-1">
+        <Button color="gray" size="md" className="flex-1" icon={<LuPackageX />}>
           아이템 삭제하기
         </Button>
       </div>

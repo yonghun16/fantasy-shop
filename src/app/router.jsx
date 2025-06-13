@@ -6,13 +6,12 @@ import { createBrowserRouter } from "react-router-dom";
 const App = lazy(() => import("./App"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
-const MyprofilePage = lazy(() => import("../pages/MyprofilePage"));
+const MyprofilePage = lazy(() => import("../pages/MyProfilePage"));
 const UploadProductPage = lazy(() => import("../pages/UploadProductPage"));
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const DetailProductPage = lazy(() => import("../pages/DetailProductPage"));
 const CartPage = lazy(() => import("../pages/CartPage"));
 const HistoryPage = lazy(() => import("../pages/HistoryPage"));
-
 
 // 라우터 컴포넌트
 const router = createBrowserRouter(

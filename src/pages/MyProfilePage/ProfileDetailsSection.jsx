@@ -1,72 +1,94 @@
 import {
-  FaUser,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaBirthdayCake,
-  FaPhone,
-  FaEdit,
-} from "react-icons/fa";
+  LuUser,
+  LuMail,
+  LuMapPinHouse,
+  LuCake,
+  LuPhone,
+  LuRefreshCcw,
+} from "react-icons/lu";
 import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 import { formatPhoneNumber } from "./useProfileForm";
+import useKakaoAddress from "./useKakaoAddress";
 
-// 인적 사항에 필요한 입력 필드 정보들을 배열로 정의
 const fields = [
-  { label: "이름", icon: <FaUser />, key: "name" },
-  { label: "이메일", icon: <FaEnvelope />, key: "email" },
-  { label: "주소", icon: <FaMapMarkerAlt />, key: "address" },
-  { label: "생일", icon: <FaBirthdayCake />, key: "birth" },
-  { label: "연락처", icon: <FaPhone />, key: "phone" },
+  { label: "이름", icon: <LuUser />, key: "name" },
+  { label: "이메일", icon: <LuMail />, key: "email" },
+  { label: "주소", icon: <LuMapPinHouse />, key: "address" },
+  { label: "가입일", icon: <LuCake />, key: "createAt" },
+  { label: "연락처", icon: <LuPhone />, key: "phone" },
 ];
 
-// profile: 사용자 프로필 정보가 담긴 객체
-// setProfile: profile 상태를 업데이트하는 함수
-// onSubmit: 변경 사항 저장 버튼 클릭 시 실행될 함수
 const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
+  const { openAddressModal, loading } = useKakaoAddress();
+
+  // 주소 입력창 클릭 처리 함수
+  const handleAddressClick = () => {
+    if (loading) {
+      alert("주소 API 로딩 중입니다. 잠시만 기다려주세요.");
+      return;
+    }
+    openAddressModal((data) => {
+      setProfile((prev) => ({ ...prev, address: data.address }));
+    });
+  };
+
   return (
     <section className="mb-6">
       <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
-        <FaUser />
+        <LuUser />
         인적 사항
       </h2>
 
-      {/* 각 필드를 순회하며 라벨과 입력창 렌더링 */}
-      {fields.map(({ label, icon, key }) => (
-        <div className="mb-3" key={key}>
-          {/* 필드 이름 표시 */}
-          <label className="block text-sm text-gray-600 mb-1">{label}</label>
+      {fields.map(({ label, icon, key }) => {
+        // 주소 필드는 클릭 시 모달 열기 이벤트 붙임
+        const isAddressField = key === "address";
 
-          {/* value: 현재 profile 상태에서 해당 키의 값 */}
-          {/* onChange: 입력값이 바뀌면 profile 상태를 복사해서 해당 키 값만 새로 바꿔서 저장 */}
-          <InputBox
-            className="w-full"
-            icon={icon}
-            placeholder={label}
-            value={
-              key === "phone" ? formatPhoneNumber(profile[key]) : profile[key]
-            }
-            type={key === "email" ? "email" : key === "phone" ? "tel" : "text"}
-            onChange={(e) => {
-              const value = e.target.value;
-              setProfile({
-                ...profile,
-                [key]:
-                  key === "phone"
-                    ? value.replace(/\D/g, "").slice(0, 11)
-                    : value,
-              });
-            }}
-            color="indigo"
-          />
-        </div>
-      ))}
+        return (
+          <div className="mb-3" key={key}>
+            <label className="block text-sm text-gray-600 mb-1">{label}</label>
 
-      {/* 변경 사항 저장 버튼 */}
-      {/* 클릭 시 onSubmit 함수 실행 */}
+            <InputBox
+              className="w-full"
+              icon={icon}
+              placeholder={label}
+              value={
+                key === "phone"
+                  ? formatPhoneNumber(profile[key])
+                  : key === "createAt"
+                  ? profile[key]?.slice(0, 10) || ""
+                  : profile[key] || ""
+              }
+              type={key === "phone" ? "tel" : "text"}
+              disabled={key === "email" || key === "createAt"}
+              onChange={(e) => {
+                if (isAddressField) return; // 주소 필드는 직접 입력 막음
+                const value = e.target.value;
+                setProfile({
+                  ...profile,
+                  [key]:
+                    key === "phone"
+                      ? value.replace(/\D/g, "").slice(0, 11)
+                      : value,
+                });
+              }}
+              onClick={isAddressField ? handleAddressClick : undefined}
+              readOnly={isAddressField} // 주소는 직접 입력 불가
+              style={
+                isAddressField
+                  ? { cursor: loading ? "not-allowed" : "pointer" }
+                  : {}
+              }
+              color="indigo"
+            />
+          </div>
+        );
+      })}
+
       <Button
         color="indigo"
         className="mt-4 w-full flex items-center justify-center gap-2 font-semibold"
-        icon={<FaEdit />}
+        icon={<LuRefreshCcw />}
         onClick={onSubmit}
       >
         인적사항 변경

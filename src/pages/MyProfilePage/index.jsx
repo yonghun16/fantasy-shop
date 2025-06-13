@@ -35,7 +35,7 @@ const MyProfilePage = () => {
         <ProfileImageSection user={user} />
 
         {/* 인적 사항 및 비밀번호 변경 카드 */}
-        <div className="bg-white rounded-lg shadow-md p-4 w-full md:w-2/3">
+        <div className="bg-white rounded-lg p-4 w-full md:w-2/3">
           {/* 인적사항 섹션 */}
           <ProfileDetailsSection
             profile={profile}
