@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FiShoppingCart } from "react-icons/fi";
+import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../shared/hooks/useAddToCart";
 
@@ -43,7 +43,7 @@ const ProductGrid = ({ products }) => {
             aria-label="장바구니에 추가" // 접근성 위해 버튼 용도 설명
             onClick={() => addToCart(product)}
           >
-            <FiShoppingCart size={22} />
+            <LuShoppingCart size={22} />
           </button>
         </div>
       ))}

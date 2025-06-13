@@ -40,7 +40,7 @@ export const useProfileForm = () => {
       profile.name === user.name &&
       profile.email === user.email &&
       profile.address === user.address &&
-      profile.birth === user.birth &&
+      profile.createAt === user.createAt &&
       profile.phone === user.phone;
 
     // 변경 사항이 없으면 알림

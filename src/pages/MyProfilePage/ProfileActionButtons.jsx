@@ -1,15 +1,22 @@
-// 공통 버튼 UI 컴포넌트와 아이콘들을 불러옵니다.
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../shared/ui/Button";
-import { FaCreditCard, FaSignOutAlt, FaUserTimes } from "react-icons/fa";
+import { LuCreditCard, LuLogOut, LuUserRoundX } from "react-icons/lu";
 
 const ProfileActionButtons = () => {
+  const navigate = useNavigate();
+
+  const handleUploadClick = () => {
+    navigate("/history/:id");
+  };
+
   return (
     <div className="mt-8 w-full max-w-4xl flex flex-col gap-4">
       {/* 결제 이력 버튼튼*/}
       <Button
         color="indigo"
         className="w-full flex items-center justify-center gap-2 font-semibold"
-        icon={<FaCreditCard />}
+        icon={<LuCreditCard />}
+        onClick={handleUploadClick}
       >
         결제이력
       </Button>
@@ -19,7 +26,7 @@ const ProfileActionButtons = () => {
         <Button
           color="rose"
           className="w-full flex items-center justify-center gap-2 font-semibold"
-          icon={<FaSignOutAlt />}
+          icon={<LuLogOut />}
         >
           Logout
         </Button>
@@ -28,7 +35,7 @@ const ProfileActionButtons = () => {
         <Button
           color="gray"
           className="w-full flex items-center justify-center gap-2 font-semibold"
-          icon={<FaUserTimes />}
+          icon={<LuUserRoundX />}
         >
           회원 탈퇴
         </Button>
