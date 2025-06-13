@@ -17,10 +17,9 @@ const HistoryPage = () => {
       <h2 className="text-2xl font-bold text-center mb-8">결제이력</h2>
 
       <div className="bg-white rounded-md mt-10 mb-10">
-        <div className="grid grid-cols-4 p-4 bg-gray-100 font-semibold text-sm">
+        <div className="grid grid-cols-3 p-4 bg-gray-100 font-semibold text-sm">
           <span>주문 ID</span>
           <span>구입 날짜</span>
-          <span>아이템</span>
           <span className="text-right">결제금액</span>
         </div>
 

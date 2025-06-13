@@ -4,30 +4,13 @@ import img2 from "../../assets/images/test-itme2.png";
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    items: [
-      {
-        id: 1,
-        name: "shield",
-        price: 29000,
-        quantity: 2,
-        imageUrl: img1,
-      },
-      {
-        id: 2,
-        name: "fiery sword",
-        price: 150000,
-        quantity: 1,
-        imageUrl: img2,
-      },
-    ],
-  },
+  initialState: [],
   reducers: {
     addItem(state, action) {
       const item = action.payload;
       const existing = state.items.find((i) => i.id === item.id);
-      if (existing) existing.quantity += item.qunatity;
-      else state.item.push({ ...item, quantity: 1 });
+      if (existing) existing.quantity += item.quantity;
+      else state.items.push({ ...item });
     },
     increaseQuantity(state, action) {
       const item = state.items.find((i) => i.id === action.payload);
