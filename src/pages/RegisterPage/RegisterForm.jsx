@@ -32,7 +32,7 @@ const RegisterForm = () => {
   const agree = watch("agree");
 
   // onSubmit Handler
-  const onSubmit = (data) => {
+  const onSubmit = (data) => { // 모든 유효성 검사를 통과한 data만 받음
     dispatch(registerUser(data));
 
     console.log("제출 성공:", data);

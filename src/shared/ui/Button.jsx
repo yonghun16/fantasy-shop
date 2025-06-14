@@ -3,6 +3,7 @@ import clsx from "clsx";
 // props
 export function Button({
   children,
+  type = "button",
   color = "indigo",
   size = "md",
   disabled = false,
@@ -32,6 +33,8 @@ export function Button({
   // render component
   return (
     <button
+      type={type}
+      disabled={disabled}
       className={clsx(
         baseStyles,
         sizeStyles[size],
@@ -40,7 +43,6 @@ export function Button({
         !disabled && ableStyles,
         className
       )}
-      disabled={disabled}
       {...props}
     >
       {icon && iconPosition === "left" && <span className="mr-2">{icon}</span>}

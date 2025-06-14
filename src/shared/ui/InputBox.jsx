@@ -4,6 +4,7 @@ import clsx from 'clsx';
 export function InputBox({
   label,
   labelColor = 'text-gray-800',
+  type = 'text',
   color = 'indigo',
   size = 'md',
   disabled = false,
@@ -44,6 +45,7 @@ export function InputBox({
       )}>
         {icon && iconPosition === 'left' && <span className={clsx(iconStyles, "absolute left-3")}>{icon}</span>}
         <input
+          type={type}
           disabled={disabled}
           className={clsx(
             baseInputStyles,

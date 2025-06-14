@@ -1,7 +1,6 @@
-// 공통으로 사용하는 InputBox, Button 컴포넌트와 아이콘들을 불러옵니다.
 import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
-import { FaLock, FaKey, FaEdit } from "react-icons/fa";
+import { LuLock, LuCheckCheck, LuRefreshCcw } from "react-icons/lu";
 
 const PasswordChangeSection = ({
   currentPasswordInput,
@@ -11,12 +10,11 @@ const PasswordChangeSection = ({
   setNewPassword,
   setConfirmPassword,
   handlePasswordChange,
-  isCurrentPasswordValid,
 }) => {
   return (
     <section>
       <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
-        <FaLock />
+        <LuLock />
         비밀번호 변경
       </h2>
 
@@ -28,7 +26,7 @@ const PasswordChangeSection = ({
         <InputBox
           className="w-full"
           type="password"
-          icon={<FaKey />}
+          icon={<LuLock />}
           placeholder="현재 비밀번호"
           value={currentPasswordInput} // 입력값 상태
           onChange={(e) => setCurrentPasswordInput(e.target.value)} // 입력값 변경 핸들러
@@ -44,11 +42,10 @@ const PasswordChangeSection = ({
         <InputBox
           className="w-full"
           type="password"
-          icon={<FaKey />}
+          icon={<LuLock />}
           placeholder="새로운 비밀번호"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          disabled={!isCurrentPasswordValid} // 현재 비밀번호가 올바르지 않으면 입력 불가
           color="indigo"
         />
       </div>
@@ -61,11 +58,10 @@ const PasswordChangeSection = ({
         <InputBox
           className="w-full"
           type="password"
-          icon={<FaKey />}
+          icon={<LuCheckCheck />}
           placeholder="비밀번호 확인"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          disabled={!isCurrentPasswordValid} // 현재 비밀번호가 올바르지 않으면 입력 불가
           color="indigo"
         />
       </div>
@@ -74,7 +70,7 @@ const PasswordChangeSection = ({
       <Button
         color="indigo"
         className="mt-4 w-full flex items-center justify-center gap-2 font-semibold"
-        icon={<FaEdit />}
+        icon={<LuRefreshCcw />}
         onClick={handlePasswordChange} // 버튼 클릭 시 비밀번호 변경 처리 함수 실행
       >
         비밀번호 변경

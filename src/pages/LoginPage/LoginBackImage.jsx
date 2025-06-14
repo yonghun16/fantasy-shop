@@ -1,11 +1,11 @@
 import LoginImageCover from "../../assets/images/login-main.png";
 
-const LoginImage = () => {
+const LoginBackImage = () => {
   return (
     <div className="absolute inset-0 w-full h-full">
-      {/* 배경 이미지 + 흐림 효과 */}
+      {/* 배경 이미지 + 불투명 효과 */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-55"
+        className="absolute inset-0 bg-cover bg-center opacity-50"
         style={{
           backgroundImage: `url(${LoginImageCover})`,
         }}
@@ -17,4 +17,4 @@ const LoginImage = () => {
   );
 };
 
-export default LoginImage;
+export default LoginBackImage;

@@ -6,29 +6,16 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [
-      {
-        id: 1,
-        name: "shield",
-        price: 29000,
-        quantity: 2,
-        imageUrl: img1,
-      },
-      {
-        id: 2,
-        name: "fiery sword",
-        price: 150000,
-        quantity: 1,
-        imageUrl: img2,
-      },
+      { id: 1, name: "sword 1", price: 29000, quantity: 2, imageUrl: img1 },
+      { id: 2, name: "sword 2", price: 150000, quantity: 1, imageUrl: img2 },
     ],
   },
+
   reducers: {
     addItem(state, action) {
       const item = action.payload;
       const existing = state.items.find((i) => i.id === item.id);
-      if (existing)
-        existing.quantity += item.quantity; //수정 (qunatity -> quantity)
-      // 기존 코드: state.item.push({ ...item, quantity: 1 });
+      if (existing) existing.quantity += item.quantity;
       else state.items.push({ ...item });
     },
     increaseQuantity(state, action) {
