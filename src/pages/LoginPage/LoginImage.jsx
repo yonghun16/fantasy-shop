@@ -5,7 +5,7 @@ const LoginImage = () => {
     <div className="absolute inset-0 w-full h-full">
       {/* 배경 이미지 + 흐림 효과 */}
       <div
-        className="absolute inset-0 bg-cover bg-center blur-lg brightness-125"
+        className="absolute inset-0 bg-cover bg-center opacity-55"
         style={{
           backgroundImage: `url(${LoginImageCover})`,
         }}
