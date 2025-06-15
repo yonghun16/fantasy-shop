@@ -1,11 +1,15 @@
 /* import libraries */
-import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 /* import components */
 import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 import LoginBackImage from "./LoginBackImage";
+
+/* import hooks, modules */
+import { loginUser } from "../../shared/api/loginUser";
 
 /* import assets */
 import logo from "../../assets/images/logo.png";
@@ -19,21 +23,29 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   // onSubmit Handler
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  // const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     console.log("제출 성공:", data);
-    const from = location.state?.from;
 
-    if (typeof from === "string") {
-      navigate(from);
-    } else {
-      navigate("/");
-    }
+    // const dispatch = useDispatch();
+
+    // dispatch(loginUser(data));
+    reset();
+
+
+    // const from = location.state?.from;
+    // if (typeof from === "string") {
+    //   navigate(from);
+    // } else {
+    //   navigate("/");
+    // }
 
   };
 

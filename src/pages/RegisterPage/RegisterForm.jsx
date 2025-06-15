@@ -1,5 +1,7 @@
+/* import libraries */
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 /* import components */
 import AgreementCheckbox from "./AgreementCheckbox";
@@ -7,7 +9,7 @@ import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 
 /* import hooks, modules */
-import { registerUser } from "../../store/thunkFunctions";
+import { registerUser } from "../../shared/api/registerUser";
 
 /* import assets */
 import { LuUserRound, LuMail, LuLock, LuCheckCheck } from "react-icons/lu";
@@ -15,8 +17,6 @@ import { LuUserRound, LuMail, LuLock, LuCheckCheck } from "react-icons/lu";
 
 /* UI */
 const RegisterForm = () => {
-  const dispatch = useDispatch();
-
   // react-hook-form
   const {
     register,
@@ -32,11 +32,17 @@ const RegisterForm = () => {
   const agree = watch("agree");
 
   // onSubmit Handler
-  const onSubmit = (data) => { // 모든 유효성 검사를 통과한 data만 받음
-    dispatch(registerUser(data));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    console.log("제출 성공:", data);
-    reset();
+  const onSubmit = async (data) => { // 모든 유효성 검사를 통과한 data만 받음
+    try {
+      await dispatch(registerUser(data)).unwrap(); // 성공 시 반환값 받기
+      reset();
+      navigate('/login');
+    } catch (error) {
+      console.log("register post error", error);
+    }
   };
 
 
