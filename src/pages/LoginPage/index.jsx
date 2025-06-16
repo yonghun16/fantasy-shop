@@ -9,7 +9,7 @@ import { Button } from "../../shared/ui/Button";
 import LoginBackImage from "./LoginBackImage";
 
 /* import hooks, modules */
-import { loginUser } from "../../shared/api/loginUser";
+import { loginUser } from "../../features/user/api/loginUser";
 
 /* import assets */
 import logo from "../../assets/images/logo.png";

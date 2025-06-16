@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "./axios";
+import axiosInstance from "../../../shared/api/axios";
 
-// 로그인
-export const loginUser = createAsyncThunk(
-  "user/loginUser",
+// 회원 가입
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
   async (body, thunkAPI) => {
     try {
       // console.log("body", JSON.stringify(body)); // 디버그용
       const response = await axiosInstance.post(
-        "/users/login",
+        "/users/signup",
         JSON.stringify(body),
         {
           headers: {
@@ -16,9 +16,9 @@ export const loginUser = createAsyncThunk(
           },
         }
       );
-      return response.data // payload
+      return response.data     // payload
     } catch (error) {
-      console.log("login post error", error);
+      console.log("register post error", error);
       return thunkAPI.rejectWithValue(error.response.data || error.message)
     }
   }
