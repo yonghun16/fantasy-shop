@@ -18,15 +18,15 @@ function App() {
   const isAuth = useSelector(state => state.user?.isAuth)
   const dispatch = useDispatch()
   const { pathname } = useLocation();
+  const userData = useSelector(state => state.user.userData);
 
   useEffect(() => {
     if (isAuth) {
       dispatch(authUser())
+      console.log(userData)
     }
   }, [isAuth, pathname, dispatch])
 
-  // const userData = useSelector(state => state.user.userData);
-  // console.log(userData)
 
   return (
     <>
