@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from 'react-toastify';
 
 /* import modules */
-import { registerUser } from '../../store/thunkFunctions';
+import { registerUser } from '../../shared/api/registerUser';
+import { loginUser } from '../../shared/api/loginUser';
 
 
 const initialState = {
@@ -25,7 +26,7 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {     // 비동기 액션 처리용 리듀서(ex createAsyncThunk)
     builder
-      // 회원 가입시 통신상태 (pending-진행중, fulfilled-완료, rejected-거부)
+      // 회원 가입시 액션 (pending-진행중, fulfilled-완료, rejected-거부)
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -37,7 +38,23 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         toast.error('회원가입에 실패했습니다.');
-      });
+      })
+
+      // 로그인시 액션
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload;
+        state.isAuth = true;
+        localStorage.setItem('accessToken', action.payload.accessToken);
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error('로그인에 실패했습니다.');
+      })
   }
 });
 
