@@ -1,6 +1,6 @@
 /* import libraries */
 import { useForm } from "react-hook-form";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 /* import components */
@@ -27,7 +27,6 @@ const LoginPage = () => {
   } = useForm();
 
   // onSubmit Handler
-  // const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,19 +35,12 @@ const LoginPage = () => {
     reset();
 
     try {
-      const result = await dispatch(loginUser(data)).unwrap(); // 성공 시 반환값 받기
+      await dispatch(loginUser(data)).unwrap(); // 성공 시 반환값 받기
       reset();
       navigate('/');
     } catch (error) {
       console.log("register post error", error);
     }
-
-    // const from = location.state?.from;
-    // if (typeof from === "string") {
-    //   navigate(from);
-    // } else {
-    //   navigate("/");
-    // }
 
   };
 
