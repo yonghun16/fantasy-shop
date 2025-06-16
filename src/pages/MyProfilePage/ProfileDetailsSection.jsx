@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   LuUser,
   LuMail,
@@ -10,6 +11,7 @@ import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 import { formatPhoneNumber } from "./useProfileForm";
 import useKakaoAddress from "./useKakaoAddress";
+import { useProfileForm } from "./useProfileForm";
 
 const fields = [
   { label: "이름", icon: <LuUser />, key: "name" },
@@ -21,8 +23,9 @@ const fields = [
 
 const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
   const { openAddressModal, loading } = useKakaoAddress();
+  const { isValidEmail } = useProfileForm();
+  const [emailError, setEmailError] = useState("");
 
-  // 주소 입력창 클릭 처리 함수
   const handleAddressClick = () => {
     if (loading) {
       alert("주소 API 로딩 중입니다. 잠시만 기다려주세요.");
@@ -41,8 +44,8 @@ const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
       </h2>
 
       {fields.map(({ label, icon, key }) => {
-        // 주소 필드는 클릭 시 모달 열기 이벤트 붙임
         const isAddressField = key === "address";
+        const isEmailField = key === "email";
 
         return (
           <div className="mb-3" key={key}>
@@ -59,11 +62,13 @@ const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
                   ? profile[key]?.slice(0, 10) || ""
                   : profile[key] || ""
               }
-              type={key === "phone" ? "tel" : "text"}
-              disabled={key === "email" || key === "createAt"}
+              type={key === "phone" ? "tel" : isEmailField ? "email" : "text"}
+              disabled={key === "createAt"}
               onChange={(e) => {
-                if (isAddressField) return; // 주소 필드는 직접 입력 막음
+                if (isAddressField) return;
+
                 const value = e.target.value;
+
                 setProfile({
                   ...profile,
                   [key]:
@@ -72,8 +77,16 @@ const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
                       : value,
                 });
               }}
+              onBlur={(e) => {
+                if (isEmailField) {
+                  const isValid = isValidEmail(e.target.value);
+                  setEmailError(
+                    isValid ? "" : "올바른 이메일 형식이 아닙니다."
+                  );
+                }
+              }}
               onClick={isAddressField ? handleAddressClick : undefined}
-              readOnly={isAddressField} // 주소는 직접 입력 불가
+              readOnly={isAddressField}
               style={
                 isAddressField
                   ? { cursor: loading ? "not-allowed" : "pointer" }
@@ -81,6 +94,9 @@ const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
               }
               color="indigo"
             />
+            {isEmailField && emailError && (
+              <p className="text-sm text-red-500 mt-1">{emailError}</p>
+            )}
           </div>
         );
       })}
