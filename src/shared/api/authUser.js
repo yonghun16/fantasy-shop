@@ -2,16 +2,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "./axios";
 
 // 인증 확인
-export const loginUser = createAsyncThunk(
+export const authUser = createAsyncThunk(
   "user/authUser",
   async (_, thunkAPI) => {
     try {
-      const response = await axiosInstance.post(
-        "/users/auth",
+      console.log("Token:", localStorage.getItem("accessToken"));
+      const response = await axiosInstance.get(
+        "/users/me",
       );
       return response.data // payload
     } catch (error) {
-      console.log("login post error", error);
+      console.log("auth get error", error);
       return thunkAPI.rejectWithValue(error.response.data || error.message)
     }
   }

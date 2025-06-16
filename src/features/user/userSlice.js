@@ -5,15 +5,19 @@ import { toast } from 'react-toastify';
 /* import modules */
 import { registerUser } from '../../shared/api/registerUser';
 import { loginUser } from '../../shared/api/loginUser';
+import { authUser } from '../../shared/api/authUser';
 
 
 const initialState = {
   userData: {
-    id: '',
-    email: '',
-    name: '',
+    userPk: '',
+    userName: '',
     password: '',
-    avatarImg: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    profileImageUrl: '',
+    isAdmin: false
   },
   isAuth: false,
   isLogin: false,
@@ -46,14 +50,31 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userData = action.payload;
         state.isAuth = true;
-        localStorage.setItem('accessToken', action.payload.accessToken);
+        localStorage.setItem('accessToken', action.payload.token);
+        // console.log("Access Token:", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
         toast.error('로그인에 실패했습니다.');
+      })
+
+      // 인증 시 액션
+      .addCase(authUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(authUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload;
+        state.isAuth = true;
+      })
+      .addCase(authUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.userData = initialState.userData;
+        state.isAuth = false;
+        localStorage.removeItem('accessToken');
       })
   }
 });
