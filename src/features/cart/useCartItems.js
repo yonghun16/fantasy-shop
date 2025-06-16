@@ -11,6 +11,7 @@ export const useCartItems = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const userData = useSelector((state) => state.user.userData);
   const navigate = useNavigate();
+  console.log(userData, "유저데이터");
 
   useEffect(() => {
     const loadCart = async () => {
@@ -28,7 +29,7 @@ export const useCartItems = () => {
         }));
         dispatch(setCartItems(mapped));
       } catch {
-        navigate("/login");
+        console.log("error", error);
       }
     };
 
