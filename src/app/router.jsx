@@ -2,6 +2,11 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
+/* import components */
+import RequireAuth from "../shared/lib/router/RequireAuth";
+import RequireNotAuth from "../shared/lib/router/RequireNotAuth";
+import RequireAdmin from "../shared/lib/router/RequireAdmin";
+
 /* import pages */
 const App = lazy(() => import("./App"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
@@ -32,32 +37,29 @@ const router = createBrowserRouter(
 
         /* 로그인 하지 않은 유저만 갈 수 있는 경로 */
         {
-          path: "/register",
-          element: <RegisterPage />,
-        },
-        {
-          path: "/login",
-          element: <LoginPage />,
+          element: <RequireNotAuth />,
+          children: [
+            { path: "/register", element: <RegisterPage />, },
+            { path: "/login", element: <LoginPage />, },
+          ],
         },
 
         /* 로그인 한 유저만 갈 수 있는 경로 */
         {
-          path: "/:id",
-          element: <MyprofilePage />,
-        },
-        {
-          path: "/cart/:id",
-          element: <CartPage />,
-        },
-        {
-          path: "/history/:id",
-          element: <HistoryPage />,
-        },
+          element: <RequireAuth />,
+          children: [
+            { path: "/myprofile/:id", element: <MyprofilePage />, },
+            { path: "/cart/:id", element: <CartPage />, },
+            { path: "/history/:id", element: <HistoryPage />, },
 
+          ],
+        },
         /* 관리자만 갈 수 있는 경로 */
         {
-          path: "/uploadproduct",
-          element: <UploadProductPage />,
+          element: <RequireAdmin />,
+          children: [
+            { path: "/uploadproduct", element: <UploadProductPage />, },
+          ],
         },
       ],
     },

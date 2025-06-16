@@ -18,12 +18,12 @@ function App() {
   const isAuth = useSelector(state => state.user?.isAuth)
   const dispatch = useDispatch()
   const { pathname } = useLocation();
-  const userData = useSelector(state => state.user.userData);
+  // const userData = useSelector(state => state.user.userData);  // 디버깅용
 
   useEffect(() => {
     if (isAuth) {
       dispatch(authUser())
-      console.log(userData)
+      // console.log(userData)   // 디버깅용
     }
   }, [isAuth, pathname, dispatch])
 
