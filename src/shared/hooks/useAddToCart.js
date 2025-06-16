@@ -17,7 +17,7 @@ const useAddToCart = () => {
       const { quantity } = response.data;
 
       toast.success(
-        `"${product.name}"이(가) 장바구니에 추가되었습니다. (수량: ${quantity})`
+        `"${product.itemName}"이(가) 장바구니에 추가되었습니다. (수량: ${quantity})`
       );
 
       console.log("장바구니 응답:", response.data);
