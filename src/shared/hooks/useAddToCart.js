@@ -1,31 +1,30 @@
-import { useDispatch } from "react-redux";
+import axiosInstance from "../api/axios";
 import { toast } from "react-toastify";
-import { addItem } from "../../features/cart/cartSlice";
 
 const useAddToCart = () => {
-  // Redux store에 액션을 보내기 위해 dispatch 함수를 가져옵니다.
-  const dispatch = useDispatch();
+  const addToCart = async (product, count) => {
+    if (count <= 0 || product.quantity <= 0) {
+      toast.warn("아이템의 잔여 수량이 없습니다.");
+      return;
+    }
 
-  // product - 상품 정보 객체입니다. (id, name, price, image 등을 포함)
-  // quantity - 추가할 수량입니다. 기본값은 1입니다.
-  const addToCart = (product, quantity = 1) => {
-    // product 객체에서 필요한 값만 구조 분해 할당으로 추출합니다.
-    const { itemPk, itemName, itemPrice, itemImageUrl } = product;
+    try {
+      const response = await axiosInstance.post("/cart", {
+        itemPk: product.itemPk,
+        quantity: count,
+      });
 
-    // Redux store에 addItem 액션을 보냅니다.
-    // 이 액션은 cartSlice에서 처리되어 장바구니 상태가 업데이트됩니다.
-    dispatch(
-      addItem({
-        id: itemPk,
-        name: itemName,
-        price: itemPrice,
-        quantity,
-        imageUrl: itemImageUrl,
-      })
-    );
+      const { quantity } = response.data;
 
-    // 사용자에게 알림 메시지를 보여줍니다.
-    toast.success("장바구니에 아이템이 추가되었습니다!");
+      toast.success(
+        `"${product.name}"이(가) 장바구니에 추가되었습니다. (수량: ${quantity})`
+      );
+
+      console.log("장바구니 응답:", response.data);
+    } catch (error) {
+      toast.error("장바구니 추가에 실패했습니다.");
+      console.error("장바구니 에러:", error);
+    }
   };
 
   return addToCart;
