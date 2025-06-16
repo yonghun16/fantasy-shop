@@ -1,34 +1,52 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { dummyProducts } from "../LandingPage/dummyProducts";
+import { useState, useEffect } from "react";
+import axiosInstance from "../../shared/api/axios";
 
-// 상세 페이지에서 사용할 데이터를 제공하는 커스텀 훅
 const useProductDetail = () => {
-  // URL에서 id 파라미터 추출
-  const { id } = useParams();
+  const { id } = useParams(); //상품 id 추출
+  const [product, setProduct] = useState(null); // 상품 데이터 상태
+  const [count, setCount] = useState(1); // 사용자가 선택한 수량
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null); // 에러 상태
 
-  // id에 해당하는 제품 데이터를 찾음
-  const product = dummyProducts.find((item) => item.itemPk === Number(id));
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const response = await axiosInstance.get(`/item/${id}`);
+        setProduct(response.data);
+      } catch (err) {
+        setError("상품 정보를 불러오는 데 실패했습니다.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // 사용자가 선택한 제품 수량 (기본값은 1)
-  const [count, setCount] = useState(1);
+    if (id) fetchProduct();
+  }, [id]);
 
-  // 수량 감소 함수 (최소 1까지만 줄어들 수 있음)
-  const handleDecrease = () => {
-    if (count > 1) setCount((prev) => prev - 1);
-  };
-
-  // 수량 증가 함수 (재고 수량을 초과할 수 없음)
+  // 수량 증가 함수
   const handleIncrease = () => {
-    if (product && count < product.itemInventory) setCount((prev) => prev + 1);
+    if (product && count < product.itemInventory) {
+      setCount((prev) => prev + 1);
+    }
   };
 
-  // 컴포넌트에서 사용할 데이터와 함수들을 반환
+  // 수량 감소 함수
+  const handleDecrease = () => {
+    if (count > 1) {
+      setCount((prev) => prev - 1);
+    }
+  };
+
   return {
-    product, // 제품 정보 객체
-    count, // 현재 선택된 수량
-    handleIncrease, // 수량 증가 함수
-    handleDecrease, // 수량 감소 함수
+    product,
+    count,
+    handleIncrease,
+    handleDecrease,
+    loading,
+    error,
   };
 };
 

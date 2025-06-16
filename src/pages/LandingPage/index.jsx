@@ -6,7 +6,6 @@ import Pagination from "./Pagination";
 import useProductFilter from "./useProductFilter";
 
 const LandingPage = () => {
-  // 커스텀 훅에서 상품 필터링, 정렬, 검색, 페이지네이션 관련 상태와 함수들을 가져옴
   const {
     searchTerm, // 검색어 상태
     setSearchTerm, // 검색어 변경 함수
@@ -22,6 +21,8 @@ const LandingPage = () => {
     handleNextPage, // 다음 페이지 이동 함수
     categories, // 카테고리 목록
     sortOptions, // 정렬 옵션 목록
+    loading,
+    error,
   } = useProductFilter();
 
   return (
@@ -55,7 +56,15 @@ const LandingPage = () => {
       />
 
       {/* 현재 페이지에 보여줄 아이템 */}
-      <ProductGrid products={paginatedProducts} />
+      <div>
+        {loading ? (
+          <div className="text-center py-20 text-gray-500">불러오는 중...</div>
+        ) : error ? (
+          <div className="text-center py-20 text-red-500">{error}</div>
+        ) : (
+          <ProductGrid products={paginatedProducts} />
+        )}
+      </div>
 
       {/* 페이지네이션 */}
       <Pagination
