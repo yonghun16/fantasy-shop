@@ -8,9 +8,26 @@ import TotalPrice from "./TotalPrice";
 
 const DetailProductPage = () => {
   // 커스텀 훅을 사용해 제품 정보와 수량, 수량 증가/감소 함수 가져오기
-  const { product, count, handleIncrease, handleDecrease } = useProductDetail();
+  const { product, count, handleIncrease, handleDecrease, loading, error } =
+    useProductDetail();
 
-  // 제품 정보가 없는 경우 (잘못된 접근 등), '찾을 수 없음' 메시지를 표시
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-96 text-gray-500">
+        불러오는 중...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-96 text-red-500">
+        {error}
+      </div>
+    );
+  }
+
+  // loading이 끝났고, error도 없는데 제품 정보가 없는 경우 (잘못된 접근 등)
   if (!product) return <NotFoundMessage />;
 
   return (

@@ -60,5 +60,6 @@ export const useProfileForm = () => {
     profile,
     setProfile,
     handleUpdateProfile,
+    isValidEmail,
   };
 };
