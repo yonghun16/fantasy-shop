@@ -15,7 +15,6 @@ import { loginUser } from "../../features/user/api/loginUser";
 import logo from "../../assets/images/logo.png";
 import { LuLock, LuMail } from "react-icons/lu";
 
-
 /* UI */
 const LoginPage = () => {
   // react-hook-form
@@ -37,11 +36,10 @@ const LoginPage = () => {
     try {
       await dispatch(loginUser(data)).unwrap(); // 성공 시 반환값 받기
       reset();
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.log("register post error", error);
     }
-
   };
 
   return (
@@ -50,17 +48,29 @@ const LoginPage = () => {
       <LoginBackImage />
 
       {/* 로그인 폼 */}
-      <div className="relative bg-white rounded-lg p-12 w-[450px] border border-gray-200">
+      <div className="relative bg-transparent border-none md:bg-white rounded-lg p-12 w-[450px] border border-gray-200">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <div className="flex flex-col items-center text-center gap-1 font-bold text-3xl mb-7">
-            <img src={logo} alt="로그인 메인 이미지" className="w-24" />
-            <p>판타지 쇼핑몰에 <br /> 오신걸 환영합니다. 용사여!</p>
+          <h3
+            className="block md:hidden text-2xl text-center font-bold relative"
+            style={{ top: "-30px" }}
+          >
+            로그인
+          </h3>
+          <div className="flex flex-col items-center text-center gap-1 font-bold text-3xl">
+            <img
+              src={logo}
+              alt="로그인 메인 이미지"
+              className="w-24 hidden md:block"
+            />
+            <p className="mb-30">
+              판타지 쇼핑몰에 <br /> 오신걸 환영합니다. 용사여!
+            </p>
           </div>
 
-          <div className="relative">
+          <div className="relative ">
             <InputBox
               type="email"
-              label="Email"
+              label={<span className="hidden md:block">Email</span>}
               icon={<LuMail />}
               placeholder="이메일을 입력하세요"
               className="w-full"
@@ -74,7 +84,7 @@ const LoginPage = () => {
           <div className="relative">
             <InputBox
               type="password"
-              label="Password"
+              label={<span className="hidden md:block">Password</span>}
               icon={<LuLock />}
               placeholder="패스워드를 입력하세요"
               className="w-full"
@@ -85,15 +95,14 @@ const LoginPage = () => {
             )}
           </div>
 
-          <Button
-            type="submit"
-          >
+          <Button className="mt-10" type="submit">
             로그인
           </Button>
-
-          <div className="flex justify-center items-center gap-2 text-sm">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-sm text-center">
             <p>처음이신가요?</p>
-            <a href="register" className="text-indigo-500 hover:underline">회원가입</a>
+            <a href="register" className="text-indigo-500 hover:underline">
+              회원가입
+            </a>
           </div>
         </form>
       </div>
