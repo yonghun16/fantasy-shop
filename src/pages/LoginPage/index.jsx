@@ -62,7 +62,7 @@ const LoginPage = () => {
               alt="로그인 메인 이미지"
               className="w-24 hidden md:block"
             />
-            <p className="mb-30">
+            <p className="mb-30 md:mb-0">
               판타지 쇼핑몰에 <br /> 오신걸 환영합니다. 용사여!
             </p>
           </div>
