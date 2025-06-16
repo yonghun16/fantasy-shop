@@ -1,20 +1,18 @@
-import {
-  LuMinus,
-  LuPlus,
-  LuShoppingCart,
-  LuTrash,
-  LuTrash2,
-} from "react-icons/lu";
+import { LuMinus, LuPlus, LuShoppingCart, LuTrash2 } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decreaseQuantity,
   deleteItem,
   increaseQuantity,
+  setCartItems,
 } from "../../features/cart/cartSlice";
+import { useCartItems } from "../../features/cart/useCartItems";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
+  useCartItems();
   const cartItems = useSelector((state) => state.cart.items);
+  console.log(cartItems, "아이템");
 
   return (
     <div className="border border-gray-300 rounded-md p-6 bg-white">

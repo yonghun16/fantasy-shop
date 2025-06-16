@@ -1,6 +1,7 @@
 import { LuCreditCard } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import { useSelector } from "react-redux";
+import { usePayment } from "../../features/cart/usePayment";
 
 const CartSummary = () => {
   const cartItems = useSelector((state) => state.cart?.items ?? []);
@@ -9,6 +10,8 @@ const CartSummary = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  const { handlePayment } = usePayment();
 
   return (
     <div className="border border-gray-300 rounded p-6">
@@ -48,7 +51,12 @@ const CartSummary = () => {
         </span>
       </div>
 
-      <Button color="indigo" size="md" className="w-full cursor-pointer">
+      <Button
+        color="indigo"
+        size="md"
+        className="w-full cursor-pointer"
+        onClick={handlePayment}
+      >
         결제하기
       </Button>
     </div>
