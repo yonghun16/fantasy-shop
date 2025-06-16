@@ -25,6 +25,8 @@ function App() {
     }
   }, [isAuth, pathname, dispatch])
 
+  // const userData = useSelector(state => state.user.userData);
+  // console.log(userData)
 
   return (
     <>

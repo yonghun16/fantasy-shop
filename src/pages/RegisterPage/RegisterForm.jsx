@@ -9,7 +9,7 @@ import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 
 /* import hooks, modules */
-import { registerUser } from "../../shared/api/registerUser";
+import { registerUser } from "../../features/user/api/registerUser";
 
 /* import assets */
 import { LuUserRound, LuMail, LuLock, LuCheckCheck } from "react-icons/lu";

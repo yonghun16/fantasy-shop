@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from 'react-toastify';
 
 /* import modules */
-import { registerUser } from '../../shared/api/registerUser';
-import { loginUser } from '../../shared/api/loginUser';
+import { registerUser } from '../../features/user/api/registerUser';
+import { loginUser } from '../../features/user/api/loginUser';
 import { authUser } from '../../shared/api/authUser';
 
 
