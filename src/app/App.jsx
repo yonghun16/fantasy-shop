@@ -1,6 +1,8 @@
 /* import library */
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../assets/styles/tailwind.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -8,7 +10,22 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "../shared/layout/Header";
 import Footer from "../shared/layout/Footer";
 
+/* import actions */
+import { authUser } from "../shared/api/authUser";
+
 function App() {
+
+  const isAuth = useSelector(state => state.user?.isAuth)
+  const dispatch = useDispatch()
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(authUser())
+    }
+  }, [isAuth, pathname, dispatch])
+
+
   return (
     <>
       <Header />
