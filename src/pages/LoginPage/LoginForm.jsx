@@ -9,7 +9,7 @@ const LoginForm = ({ register, errors, className }) => {
       <div className="relative">
         <InputBox
           type="email"
-          label="Email"
+          label={<span className="hidden md:block">Email</span>}
           icon={<LuMail />}
           placeholder="이메일을 입력하세요"
           className="w-full"
@@ -29,7 +29,7 @@ const LoginForm = ({ register, errors, className }) => {
       <div className="relative">
         <InputBox
           type="password"
-          label="Password"
+          label={<span className="hidden md:block">Password</span>}
           icon={<LuLock />}
           placeholder="패스워드를 입력하세요"
           className="w-full"
