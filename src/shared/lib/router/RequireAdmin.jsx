@@ -7,7 +7,7 @@ const RequireAdmin = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const userData = useSelector((state) => state.user.userData);
 
-  if (!isAuth || !userData?.userPk || !userData?.admin) {
+  if (!isAuth || !userData?.userPk || !userData?.isAdmin) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
