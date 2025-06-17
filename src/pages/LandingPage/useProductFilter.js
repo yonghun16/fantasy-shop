@@ -36,9 +36,7 @@ const useProductFilter = () => {
       }
 
       try {
-        console.log("요청 params:", params);
         const response = await axiosInstance.get("/item", { params });
-        console.log("응답 데이터:", response.data);
         setProducts(response.data);
       } catch (err) {
         setError("상품 정보를 불러오는 데 실패했습니다.");

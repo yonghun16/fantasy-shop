@@ -5,7 +5,7 @@ import useAddToCart from "../../shared/hooks/useAddToCart";
 
 const BASE_URL = "http://13.211.52.203:8080";
 
-const ProductGrid = ({ products }) => {
+const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();
 
   return (
@@ -43,7 +43,9 @@ const ProductGrid = ({ products }) => {
           <button
             className="absolute bottom-3 right-3 text-gray-400 hover:text-indigo-600 transition-colors"
             aria-label="장바구니에 추가" // 접근성 위해 버튼 용도 설명
-            onClick={() => addToCart(product)}
+            onClick={() => {
+              addToCart(product, count);
+            }}
           >
             <LuShoppingCart size={22} />
           </button>

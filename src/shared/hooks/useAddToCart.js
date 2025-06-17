@@ -3,7 +3,12 @@ import { toast } from "react-toastify";
 
 const useAddToCart = () => {
   const addToCart = async (product, count) => {
-    if (count <= 0 || product.quantity <= 0) {
+    if (
+      !product ||
+      !product.quantity ||
+      Number(count) <= 0 ||
+      Number(product.quantity) <= 0
+    ) {
       toast.warn("아이템의 잔여 수량이 없습니다.");
       return;
     }

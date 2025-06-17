@@ -30,7 +30,9 @@ const ProductActionButtons = ({ product, count }) => {
           className="w-full flex justify-center gap-2"
           icon={<LuShoppingCart />}
           iconPosition="left"
-          onClick={() => addToCart(product, count)}
+          onClick={() => {
+            addToCart(product, count);
+          }}
         >
           장바구니에 담기
         </Button>
