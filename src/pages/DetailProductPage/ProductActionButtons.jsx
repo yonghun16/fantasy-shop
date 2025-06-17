@@ -1,13 +1,25 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { LuShoppingCart, LuRefreshCcw, LuPackageX } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../shared/hooks/useAddToCart";
 import EditProductModal from "./EditProductModal";
+import DeleteConfirmModal from "./DeleteConfirmModal";
+import { useNavigate } from "react-router-dom";
 
 const ProductActionButtons = ({ product, count }) => {
   const addToCart = useAddToCart();
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
+
+  const userData = useSelector((state) => state.user.userData);
+  const isAdmin = userData?.isAdmin;
+
+  const handleDeleteSuccess = () => {
+    navigate("/");
+  };
 
   return (
     <>
@@ -23,32 +35,42 @@ const ProductActionButtons = ({ product, count }) => {
           장바구니에 담기
         </Button>
 
-        <div className="flex gap-3">
-          <Button
-            color="rose"
-            size="md"
-            className="flex-1 flex justify-center gap-2"
-            icon={<LuRefreshCcw />}
-            iconPosition="left"
-            onClick={() => setIsEditing(true)}
-          >
-            아이템 정보 수정하기
-          </Button>
+        {isAdmin && (
+          <div className="flex gap-3">
+            <Button
+              color="rose"
+              size="md"
+              className="flex-1 flex justify-center gap-2"
+              icon={<LuRefreshCcw />}
+              iconPosition="left"
+              onClick={() => setIsEditing(true)}
+            >
+              아이템 정보 수정하기
+            </Button>
 
-          <Button
-            color="gray"
-            size="md"
-            className="flex-1"
-            icon={<LuPackageX />}
-          >
-            아이템 삭제하기
-          </Button>
-        </div>
+            <Button
+              color="gray"
+              size="md"
+              className="flex-1"
+              icon={<LuPackageX />}
+              onClick={() => setIsDeleting(true)}
+            >
+              아이템 삭제하기
+            </Button>
+          </div>
+        )}
       </div>
+
       <EditProductModal
         isOpen={isEditing}
         onClose={() => setIsEditing(false)}
         product={product}
+      />
+      <DeleteConfirmModal
+        isOpen={isDeleting}
+        onClose={() => setIsDeleting(false)}
+        itemPk={product.itemPk}
+        onDeleteSuccess={handleDeleteSuccess}
       />
     </>
   );
