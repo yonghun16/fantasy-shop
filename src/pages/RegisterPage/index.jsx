@@ -1,10 +1,10 @@
 import RegisterLayout from "./RegisterLayout";
 import RegisterForm from "./components/RegisterForm";
 import RegisterDesktopBackImage from "./components/RegisterDesktopBackImage";
-import SignupTitle from "./components/SignupTitle";
+import RegisterTitle from "./components/RegisterTitle";
 
 const RegisterPage = () => (
-  <RegisterLayout backImage={<RegisterDesktopBackImage />} logo={<SignupTitle />}>
+  <RegisterLayout backImage={<RegisterDesktopBackImage />} logo={<RegisterTitle />}>
     <RegisterForm />
   </RegisterLayout>
 );

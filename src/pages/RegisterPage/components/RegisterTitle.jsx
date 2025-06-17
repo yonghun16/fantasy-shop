@@ -1,6 +1,6 @@
 import logo from "../../../assets/images/logo.png";
 
-const SignupTitle = () => {
+const RegisterTitle = () => {
   return (
     <div className="text-center">
       {/* 데스크탑에선 텍스트 */}
@@ -17,4 +17,4 @@ const SignupTitle = () => {
   );
 }
 
-export default SignupTitle
+export default RegisterTitle
