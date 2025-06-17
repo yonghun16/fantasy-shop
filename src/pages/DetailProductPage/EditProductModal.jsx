@@ -3,6 +3,7 @@ import axiosInstance from "../../shared/api/axios";
 import { InputBox } from "../../shared/ui/InputBox";
 import { Button } from "../../shared/ui/Button";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
 const EditProductModal = ({ isOpen, onClose, product }) => {
   // 입력 상태 관리
@@ -66,11 +67,11 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("상품 정보가 수정되었습니다.");
+      toast.success("상품 정보가 수정되었습니다.");
       onClose();
     } catch (err) {
       console.error(err);
-      alert("상품 수정 실패");
+      toast.error("상품 수정 실패");
     } finally {
       setLoading(false); // 로딩 상태 해제
     }
@@ -85,7 +86,6 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
     { label: "가격", name: "itemPrice", type: "number" },
     { label: "재고", name: "itemInventory", type: "number" },
     { label: "성능", name: "itemEffect" },
-    { label: "카테고리", name: "itemCategory" },
   ];
 
   return (
@@ -113,6 +113,34 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
               className="w-full"
             />
           ))}
+
+          {/* 카테고리 선택 버튼 */}
+          <div>
+            <p className="block text-sm font-medium mb-1 text-gray-800">
+              카테고리
+            </p>
+            <div className="flex w-full gap-2">
+              {["검", "활", "지팡이", "방패"].map((category) => (
+                <div className="flex-1" key={category}>
+                  <Button
+                    type="button"
+                    color={
+                      formData.itemCategory === category ? "indigo" : "gray"
+                    }
+                    onClick={() =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        itemCategory: category,
+                      }))
+                    }
+                    className="w-full text-sm"
+                  >
+                    {category}
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* 설명 입력 (textarea 별도 처리) */}
           <div>
