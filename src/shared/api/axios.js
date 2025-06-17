@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.PROD
-    ? "http://13.211.52.203:8080"
+    ? "https://yonghun16.duckdns.org/fantasyshop"
     : "http://13.211.52.203:8080", // meta.env.PROD ? 배포서버주소 : 테스트서버주소
   withCredentials: true, //axios, XMLHttpRequest, fetch API에서 요청에 쿠키, 인증 정보(자격 증명)를 포함할지 여부를 지정하는 옵션(기존 옵션: credentials: 'include')
 });
