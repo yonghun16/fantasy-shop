@@ -42,7 +42,7 @@ const ProductGrid = ({ products, count = 1 }) => {
           {/* 장바구니 아이콘 */}
           <button
             className="absolute bottom-3 right-3 text-gray-400 hover:text-indigo-600 transition-colors"
-            aria-label="장바구니에 추가" // 접근성 위해 버튼 용도 설명
+            aria-label="장바구니에 추가"
             onClick={() => {
               addToCart(product, count);
             }}

@@ -13,27 +13,32 @@ const ProductActionButtons = ({ product, count }) => {
   const addToCart = useAddToCart();
   const navigate = useNavigate();
 
+  // 수정 모달, 삭제 모달의 열림 여부 상태
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // 현재 로그인한 사용자가 관리자(admin)인지 여부 확인
   const isAdmin = useSelector((state) => state.user.userData?.isAdmin);
 
-  // 새로고침 후 localStorage에 있는 토스트 메시지 처리
+  // 새로고침 후 localStorage에 저장된 토스트 메시지가 있으면 띄워주기
   useEffect(() => {
     const toastMessage = localStorage.getItem("toastMessage");
     if (toastMessage) {
       toast.success(toastMessage);
-      localStorage.removeItem("toastMessage");
+      localStorage.removeItem("toastMessage"); // 메시지 제거
     }
   }, []);
 
+  // 장바구니 담기 클릭 핸들러
   const handleAddToCart = () => addToCart(product, count);
 
+  // 삭제 성공 시 메인 페이지로 이동
   const handleDeleteSuccess = () => navigate("/");
 
   return (
     <>
       <div className="flex flex-col gap-3">
+        {/* 장바구니 담기 버튼 */}
         <Button
           color="indigo"
           size="md"
@@ -45,8 +50,10 @@ const ProductActionButtons = ({ product, count }) => {
           장바구니에 담기
         </Button>
 
+        {/* 관리자만 볼 수 있는 수정/삭제 버튼 */}
         {isAdmin && (
           <div className="flex gap-3">
+            {/* 아이템 수정 버튼 */}
             <Button
               color="rose"
               size="md"
@@ -58,6 +65,7 @@ const ProductActionButtons = ({ product, count }) => {
               아이템 정보 수정하기
             </Button>
 
+            {/* 아이템 삭제 버튼 */}
             <Button
               color="gray"
               size="md"
@@ -71,13 +79,14 @@ const ProductActionButtons = ({ product, count }) => {
         )}
       </div>
 
-      {/* 모달 영역 */}
+      {/* 수정 모달 */}
       <EditProductModal
         isOpen={isEditing}
         onClose={() => setIsEditing(false)}
         product={product}
       />
 
+      {/* 삭제 확인 모달 */}
       <DeleteConfirmModal
         isOpen={isDeleting}
         onClose={() => setIsDeleting(false)}
