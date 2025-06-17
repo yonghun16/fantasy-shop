@@ -20,9 +20,14 @@ export const useRegisterForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log("제출된 데이터", data);
+    const body = { 
+      userName: data.userName,
+      email: data.email,
+      password: data.password,
+    }
+
     try {
-      await dispatch(registerUser(data)).unwrap();
+      await dispatch(registerUser(body)).unwrap();
       reset();
       navigate("/login");
     } catch (error) {

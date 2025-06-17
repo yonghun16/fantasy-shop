@@ -1,5 +1,5 @@
 /* import assets */
-import RegisterImageCover from "../../assets/images/register-main.png";
+import RegisterImageCover from "../../../assets/images/register-main.png";
 
 /* UI */
 const RegisterImage = () => {
