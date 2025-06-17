@@ -1,24 +1,12 @@
-/* import components */
-import RegisterForm from "./RegisterForm";
-import RegisterImage from "./RegisterImage";
+import RegisterLayout from "./RegisterLayout";
+import RegisterForm from "./components/RegisterForm";
+import RegisterDesktopBackImage from "./components/RegisterDesktopBackImage";
+import RegisterTitle from "./components/RegisterTitle";
 
-/* UI */
-const RegisterPage = () => {
-  return (
-    <div className="flex items-center justify-center">
-      <div className="flex w-full max-w-6xl h-screen max-h-[1000px]">
-        {/* 왼쪽: 폼 */}
-        <div className="flex w-full items-center justify-center px-4 md:w-1/2" >
-          <RegisterForm />
-        </div>
-
-        {/* 오른쪽: 이미지 */}
-        <div className="relative max-h-[1000px] hidden md:block md:w-1/2 ">
-          <RegisterImage />
-        </div>
-      </div>
-    </div>
-  );
-};
+const RegisterPage = () => (
+  <RegisterLayout backImage={<RegisterDesktopBackImage />} logo={<RegisterTitle />}>
+    <RegisterForm />
+  </RegisterLayout>
+);
 
 export default RegisterPage;
