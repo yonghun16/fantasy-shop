@@ -31,7 +31,9 @@ function App() {
   return (
     <>
       <Header />
-      <Outlet />
+      <section className="mt-12 mb-12 md:mt-0 md:mb-0">
+        <Outlet />
+      </section>
       <Footer />
       <ToastContainer position="top-center" autoClose={2000} />
     </>

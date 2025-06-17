@@ -22,7 +22,7 @@ const Footer = () => {
         <CopyRight />
       </div>
 
-      {/* 데스크탑 푸터 */}
+      {/* 모바일 푸터 */}
       <div className="flex md:hidden bg-white w-full">
         <MobileFooter />
       </div>

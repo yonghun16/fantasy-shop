@@ -50,20 +50,14 @@ const LoginPage = () => {
       {/* 로그인 폼 */}
       <div className="relative bg-transparent border-none md:bg-white rounded-lg p-12 w-[450px] border border-gray-200">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <h3
-            className="block md:hidden text-2xl text-center font-bold relative"
-            style={{ top: "-30px" }}
-          >
-            로그인
-          </h3>
           <div className="flex flex-col items-center text-center gap-1 font-bold text-3xl">
             <img
               src={logo}
               alt="로그인 메인 이미지"
               className="w-24 hidden md:block"
             />
-            <p className="mb-30 md:mb-0">
-              판타지 쇼핑몰에 <br /> 오신걸 환영합니다. 용사여!
+            <p className="mb-20 md:mb-0 leading-relaxed">
+              판타지 쇼핑몰에 <br /> 오신걸 환영합니다. <br /> 용사님!
             </p>
           </div>
 
@@ -73,7 +67,7 @@ const LoginPage = () => {
               label={<span className="hidden md:block">Email</span>}
               icon={<LuMail />}
               placeholder="이메일을 입력하세요"
-              className="w-full"
+              className="w-full h-12"
               {...register("email", { required: "이메일을 입력하세요." })}
             />
             {errors.email && (
@@ -98,7 +92,7 @@ const LoginPage = () => {
           <Button className="mt-10" type="submit">
             로그인
           </Button>
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-sm text-center">
+          <div className="flex flex-col md:flex-row mt-10 md:mt-0 justify-center items-center gap-4 text-sm text-center">
             <p>처음이신가요?</p>
             <a href="register" className="text-indigo-500 hover:underline">
               회원가입
