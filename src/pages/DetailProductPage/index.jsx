@@ -1,34 +1,21 @@
-import useProductDetail from "./useProductDetail";
-import ProductInfo from "./ProductInfo";
-import QuantityController from "./QuantityController";
-import ProductActionButtons from "./ProductActionButtons";
-import NotFoundMessage from "./NotFoundMessage";
-import ProductImage from "./ProductImage";
-import TotalPrice from "./TotalPrice";
+import useProductDetail from "./hooks/useProductDetail";
+import ProductInfo from "./DetailProductComponent/ProductInfo";
+import QuantityController from "./DetailProductComponent/QuantityController";
+import ProductActionButtons from "./DetailProductComponent/ProductActionButtons";
+import ProductPageStatus from "./DetailProductComponent/ProductPageStatus";
+import ProductImage from "./DetailProductComponent/ProductImage";
+import TotalPrice from "./DetailProductComponent/TotalPrice";
 
 const DetailProductPage = () => {
-  // 커스텀 훅을 사용해 제품 정보와 수량, 수량 증가/감소 함수 가져오기
   const { product, count, handleIncrease, handleDecrease, loading, error } =
     useProductDetail();
 
-  if (loading) {
+  // 상태에 따라 메시지 보여주고, 문제가 없으면 null 반환됨
+  if (loading || error || !product) {
     return (
-      <div className="flex justify-center items-center h-96 text-gray-500">
-        불러오는 중...
-      </div>
+      <ProductPageStatus loading={loading} error={error} product={product} />
     );
   }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-96 text-red-500">
-        {error}
-      </div>
-    );
-  }
-
-  // loading이 끝났고, error도 없는데 제품 정보가 없는 경우 (잘못된 접근 등)
-  if (!product) return <NotFoundMessage />;
 
   return (
     <div className="max-w-6xl mx-auto p-6">
