@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axiosInstance from "../../shared/api/axios";
+import axiosInstance from "../../../shared/api/axios";
 
 const useProductDetail = () => {
   const { id } = useParams(); //상품 id 추출

@@ -1,10 +1,10 @@
-import useProductDetail from "./useProductDetail";
-import ProductInfo from "./ProductInfo";
-import QuantityController from "./QuantityController";
-import ProductActionButtons from "./ProductActionButtons";
-import NotFoundMessage from "./NotFoundMessage";
-import ProductImage from "./ProductImage";
-import TotalPrice from "./TotalPrice";
+import useProductDetail from "./hooks/useProductDetail";
+import ProductInfo from "./DetailProductComponent/ProductInfo";
+import QuantityController from "./DetailProductComponent/QuantityController";
+import ProductActionButtons from "./DetailProductComponent/ProductActionButtons";
+import NotFoundMessage from "./DetailProductComponent/NotFoundMessage";
+import ProductImage from "./DetailProductComponent/ProductImage";
+import TotalPrice from "./DetailProductComponent/TotalPrice";
 
 const DetailProductPage = () => {
   // 커스텀 훅을 사용해 제품 정보와 수량, 수량 증가/감소 함수 가져오기

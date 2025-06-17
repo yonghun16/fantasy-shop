@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import axiosInstance from "../../shared/api/axios";
+import axiosInstance from "../../../shared/api/axios";
 
 const ITEMS_PER_PAGE = 10;
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
-import useAddToCart from "../../shared/hooks/useAddToCart";
+import useAddToCart from "../../../shared/hooks/useAddToCart";
 
 const BASE_URL = "http://13.211.52.203:8080";
 

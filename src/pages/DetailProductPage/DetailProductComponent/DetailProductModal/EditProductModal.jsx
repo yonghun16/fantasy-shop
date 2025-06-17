@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../shared/api/axios";
-import { InputBox } from "../../shared/ui/InputBox";
-import { Button } from "../../shared/ui/Button";
+import axiosInstance from "../../../../shared/api/axios";
+import { InputBox } from "../../../../shared/ui/InputBox";
+import { Button } from "../../../../shared/ui/Button";
 import clsx from "clsx";
 import { toast } from "react-toastify";
 

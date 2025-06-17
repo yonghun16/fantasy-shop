@@ -1,9 +1,9 @@
-import BannerImages from "./bannerImages";
-import CategoryFilter from "./CategoryFilter";
-import SearchAndSort from "./SearchAndSort";
-import ProductGrid from "./ProductGrid";
-import Pagination from "./Pagination";
-import useProductFilter from "./useProductFilter";
+import BannerImages from "./LandingComponent/BannerImages";
+import CategoryFilter from "./LandingComponent/CategoryFilter";
+import SearchAndSort from "./LandingComponent/SearchAndSort";
+import ProductGrid from "./LandingComponent/ProductGrid";
+import Pagination from "./LandingComponent/Pagination";
+import useProductFilter from "./hooks/useProductFilter";
 
 const LandingPage = () => {
   const {

@@ -1,5 +1,5 @@
-import axiosInstance from "../../shared/api/axios";
-import { Button } from "../../shared/ui/Button";
+import axiosInstance from "../../../../shared/api/axios";
+import { Button } from "../../../../shared/ui/Button";
 import { toast } from "react-toastify";
 
 const DeleteConfirmModal = ({ isOpen, onClose, itemPk, onDeleteSuccess }) => {

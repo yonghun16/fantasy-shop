@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { LuShoppingCart, LuRefreshCcw, LuPackageX } from "react-icons/lu";
-import { Button } from "../../shared/ui/Button";
+import { Button } from "../../../shared/ui/Button";
 import "react-toastify/dist/ReactToastify.css";
-import useAddToCart from "../../shared/hooks/useAddToCart";
-import EditProductModal from "./EditProductModal";
-import DeleteConfirmModal from "./DeleteConfirmModal";
+import useAddToCart from "../../../shared/hooks/useAddToCart";
+import EditProductModal from "./DetailProductModal/EditProductModal";
+import DeleteConfirmModal from "./DetailProductModal/DeleteConfirmModal";
 import { useNavigate } from "react-router-dom";
 
 const ProductActionButtons = ({ product, count }) => {
