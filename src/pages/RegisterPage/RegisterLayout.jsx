@@ -1,4 +1,4 @@
-const RegisterLayout = ({ children, imageComponent, logo }) => {
+const RegisterLayout = ({ children, backImage, logo }) => {
   return (
     <div className="flex items-center justify-center">
       <div className="flex w-full max-w-6xl h-screen max-h-[1000px]">
@@ -23,7 +23,7 @@ const RegisterLayout = ({ children, imageComponent, logo }) => {
 
         {/* 오른쪽: 이미지 영역 (모바일에서는 숨김) */}
         <div className="relative max-h-[1000px] hidden md:block md:w-1/2">
-          {imageComponent}
+          {backImage}
         </div>
       </div>
     </div>

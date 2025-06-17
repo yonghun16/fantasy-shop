@@ -1,8 +1,8 @@
 /* import assets */
-import RegisterImageCover from "../../../assets/images/register-main.png";
+import registerImage from "../../../assets/images/register-main.png";
 
 /* UI */
-const RegisterImage = () => {
+const RegisterDesktopBackImage = () => {
   return (
     <>
       {/* 오버레이 그라데이션 */}
@@ -17,11 +17,11 @@ const RegisterImage = () => {
       <div
         className="bg-cover bg-center w-full h-full z-0"
         style={{
-          backgroundImage: `url("${RegisterImageCover}")`,
+          backgroundImage: `url("${registerImage}")`,
         }}
       />
     </>
   )
 }
 
-export default RegisterImage
+export default RegisterDesktopBackImage
