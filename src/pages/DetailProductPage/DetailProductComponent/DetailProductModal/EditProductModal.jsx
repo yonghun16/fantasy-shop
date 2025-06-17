@@ -57,8 +57,10 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
       await axiosInstance.put(`/item/${product.itemPk}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      toast.success("상품 정보가 수정되었습니다.");
+      // 새로고침 후 보여줄 메시지 저장
+      localStorage.setItem("toastMessage", "상품 정보가 수정되었습니다.");
       onClose();
+      window.location.reload();
     } catch (err) {
       console.error(err);
       toast.error("상품 수정 실패");

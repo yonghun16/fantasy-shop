@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { LuShoppingCart, LuRefreshCcw, LuPackageX } from "react-icons/lu";
 import { Button } from "../../../shared/ui/Button";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
 import EditProductModal from "./DetailProductModal/EditProductModal";
 import DeleteConfirmModal from "./DetailProductModal/DeleteConfirmModal";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductActionButtons = ({ product, count }) => {
@@ -17,7 +18,17 @@ const ProductActionButtons = ({ product, count }) => {
 
   const isAdmin = useSelector((state) => state.user.userData?.isAdmin);
 
+  // 새로고침 후 localStorage에 있는 토스트 메시지 처리
+  useEffect(() => {
+    const toastMessage = localStorage.getItem("toastMessage");
+    if (toastMessage) {
+      toast.success(toastMessage);
+      localStorage.removeItem("toastMessage");
+    }
+  }, []);
+
   const handleAddToCart = () => addToCart(product, count);
+
   const handleDeleteSuccess = () => navigate("/");
 
   return (
