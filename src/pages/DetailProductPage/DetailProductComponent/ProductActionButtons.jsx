@@ -2,24 +2,23 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { LuShoppingCart, LuRefreshCcw, LuPackageX } from "react-icons/lu";
 import { Button } from "../../../shared/ui/Button";
-import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
 import EditProductModal from "./DetailProductModal/EditProductModal";
 import DeleteConfirmModal from "./DetailProductModal/DeleteConfirmModal";
-import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductActionButtons = ({ product, count }) => {
   const addToCart = useAddToCart();
-  const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.user.userData);
-  const isAdmin = userData?.isAdmin;
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleDeleteSuccess = () => {
-    navigate("/");
-  };
+  const isAdmin = useSelector((state) => state.user.userData?.isAdmin);
+
+  const handleAddToCart = () => addToCart(product, count);
+  const handleDeleteSuccess = () => navigate("/");
 
   return (
     <>
@@ -30,9 +29,7 @@ const ProductActionButtons = ({ product, count }) => {
           className="w-full flex justify-center gap-2"
           icon={<LuShoppingCart />}
           iconPosition="left"
-          onClick={() => {
-            addToCart(product, count);
-          }}
+          onClick={handleAddToCart}
         >
           장바구니에 담기
         </Button>
@@ -63,11 +60,13 @@ const ProductActionButtons = ({ product, count }) => {
         )}
       </div>
 
+      {/* 모달 영역 */}
       <EditProductModal
         isOpen={isEditing}
         onClose={() => setIsEditing(false)}
         product={product}
       />
+
       <DeleteConfirmModal
         isOpen={isDeleting}
         onClose={() => setIsDeleting(false)}

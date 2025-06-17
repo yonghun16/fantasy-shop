@@ -5,102 +5,79 @@ import { Button } from "../../../../shared/ui/Button";
 import clsx from "clsx";
 import { toast } from "react-toastify";
 
-const EditProductModal = ({ isOpen, onClose, product }) => {
-  // 입력 상태 관리
-  const [formData, setFormData] = useState({
-    itemName: "",
-    itemDescription: "",
-    itemPrice: 0,
-    itemInventory: 0,
-    itemEffect: "",
-    itemCategory: "",
-    itemImage: null,
-  });
+const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
 
-  // 저장 버튼 클릭 시 로딩 상태
+const getInitialFormData = (product) => ({
+  itemName: product?.itemName || "",
+  itemDescription: product?.itemDescription || "",
+  itemPrice: product?.itemPrice || 0,
+  itemInventory: product?.itemInventory || 0,
+  itemEffect: product?.itemEffect || "",
+  itemCategory: product?.itemCategory || "",
+  itemImage: null,
+});
+
+const inputFields = [
+  { label: "이름", name: "itemName" },
+  { label: "가격", name: "itemPrice", type: "number" },
+  { label: "재고", name: "itemInventory", type: "number" },
+  { label: "성능", name: "itemEffect" },
+];
+
+const EditProductModal = ({ isOpen, onClose, product }) => {
+  const [formData, setFormData] = useState(getInitialFormData(product));
   const [loading, setLoading] = useState(false);
 
-  // 모달이 열릴 때마다 전달받은 상품 정보로 formData 초기화
   useEffect(() => {
     if (product) {
-      setFormData({
-        itemName: product.itemName || "",
-        itemDescription: product.itemDescription || "",
-        itemPrice: product.itemPrice || 0,
-        itemInventory: product.itemInventory || 0,
-        itemEffect: product.itemEffect || "",
-        itemCategory: product.itemCategory || "",
-        itemImage: null, // 기존 이미지는 불러오지 않음 (새 이미지 업로드만 가능)
-      });
+      setFormData(getInitialFormData(product));
     }
   }, [product]);
 
-  // 입력값 변경 핸들러
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "itemImage") {
-      // 파일 입력일 경우, 첫 번째 파일 저장
-      setFormData((prev) => ({ ...prev, itemImage: files[0] }));
-    } else {
-      // 텍스트나 숫자 입력일 경우
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "itemImage" ? files[0] : value,
+    }));
   };
 
-  // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // FormData 객체 생성 (이미지 포함 전송을 위해 multipart/form-data 사용)
     const data = new FormData();
-    for (const key in formData) {
-      const value = formData[key];
+    Object.entries(formData).forEach(([key, value]) => {
       if (value !== null && value !== undefined) {
         data.append(key, value);
       }
-    }
+    });
 
     try {
-      // 상품 수정 API 요청
       await axiosInstance.put(`/item/${product.itemPk}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
       toast.success("상품 정보가 수정되었습니다.");
       onClose();
     } catch (err) {
       console.error(err);
       toast.error("상품 수정 실패");
     } finally {
-      setLoading(false); // 로딩 상태 해제
+      setLoading(false);
     }
   };
 
-  // 모달이 닫혀있으면 렌더링하지 않음
   if (!isOpen) return null;
-
-  // input 필드 정보
-  const inputFields = [
-    { label: "이름", name: "itemName" },
-    { label: "가격", name: "itemPrice", type: "number" },
-    { label: "재고", name: "itemInventory", type: "number" },
-    { label: "성능", name: "itemEffect" },
-  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.7)]">
       <div className="absolute inset-0" onClick={onClose} />
-
-      {/* 모달 콘텐츠 박스 */}
       <div className="bg-white z-10 rounded-lg shadow-lg p-6 w-full max-w-xl relative">
         <h2 className="text-lg font-semibold mb-4 text-center">
           아이템 정보 수정
         </h2>
 
-        {/* 수정 폼 */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* InputBox 렌더링 */}
           {inputFields.map(({ label, name, type = "text" }) => (
             <InputBox
               key={name}
@@ -114,35 +91,29 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           ))}
 
-          {/* 카테고리 선택 버튼 */}
+          {/* 카테고리 선택 */}
           <div>
             <p className="block text-sm font-medium mb-1 text-gray-800">
               카테고리
             </p>
             <div className="flex w-full gap-2">
-              {["검", "활", "지팡이", "방패"].map((category) => (
-                <div className="flex-1" key={category}>
-                  <Button
-                    type="button"
-                    color={
-                      formData.itemCategory === category ? "indigo" : "gray"
-                    }
-                    onClick={() =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        itemCategory: category,
-                      }))
-                    }
-                    className="w-full text-sm"
-                  >
-                    {category}
-                  </Button>
-                </div>
+              {CATEGORY_OPTIONS.map((category) => (
+                <Button
+                  key={category}
+                  type="button"
+                  color={formData.itemCategory === category ? "indigo" : "gray"}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, itemCategory: category }))
+                  }
+                  className="flex-1 text-sm"
+                >
+                  {category}
+                </Button>
               ))}
             </div>
           </div>
 
-          {/* 설명 입력 (textarea 별도 처리) */}
+          {/* 설명 */}
           <div>
             <label
               htmlFor="itemDescription"
@@ -156,15 +127,15 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
               value={formData.itemDescription}
               onChange={handleChange}
               required
+              rows={3}
               className={clsx(
                 "w-full px-4 py-2 text-base rounded-md border border-gray-200 bg-gray-50 text-gray-900",
                 "focus:outline-none focus:border-indigo-500"
               )}
-              rows={3}
             />
           </div>
 
-          {/* 이미지 파일 업로드 */}
+          {/* 이미지 */}
           <div>
             <label
               htmlFor="itemImage"
@@ -181,7 +152,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           </div>
 
-          {/* 하단 버튼 영역 */}
+          {/* 하단 버튼 */}
           <div className="flex justify-end gap-3 pt-4">
             <Button type="submit" color="indigo" disabled={loading}>
               {loading ? "저장 중..." : "저장"}
