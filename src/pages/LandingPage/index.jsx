@@ -26,7 +26,7 @@ const LandingPage = () => {
   } = useProductFilter();
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-4">
+    <div className="w-full max-w-screen-xl mx-auto px-0 sm:px-4">
       {/* 상단 배너 이미지 */}
       <BannerImages />
 
