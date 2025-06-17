@@ -1,6 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axiosInstance from "../../shared/api/axios";
-import useDebouncedValue from "./useDebouncedValue";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -11,12 +10,15 @@ const useProductFilter = () => {
 
   const categories = ["모든 아이템", "검", "활", "지팡이", "방패"];
   const sortOptions = ["최신 등록순", "낮은 가격순", "높은 가격순"];
+
+  // 검색 input 상태 (입력창용)
+  const [inputValue, setInputValue] = useState("");
+
+  // 실제 검색에 반영되는 검색어 상태
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("모든 아이템");
   const [sortOption, setSortOption] = useState("최신 등록순");
   const [currentPage, setCurrentPage] = useState(1);
-
-  const debouncedSearchTerm = useDebouncedValue(searchTerm, 300);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,23 +26,16 @@ const useProductFilter = () => {
       setError(null);
 
       const params = {};
-
-      if (activeCategory !== "모든 아이템") {
-        params.itemCategory = activeCategory;
-      } else {
-        params.itemCategory = "all";
-      }
-
-      if (debouncedSearchTerm.trim() !== "") {
-        params.itemNameKeyword = debouncedSearchTerm.trim();
-      }
+      params.itemCategory =
+        activeCategory === "모든 아이템" ? "all" : activeCategory;
+      if (searchTerm.trim()) params.itemNameKeyword = searchTerm.trim();
 
       try {
-        const response = await axiosInstance.get("/item", { params });
-        setProducts(response.data);
+        const res = await axiosInstance.get("/item", { params });
+        setProducts(res.data);
       } catch (err) {
-        setError("상품 정보를 불러오는 데 실패했습니다.");
         console.error(err);
+        setError("상품 정보를 불러오는 데 실패했습니다.");
       } finally {
         setLoading(false);
       }
@@ -48,7 +43,7 @@ const useProductFilter = () => {
 
     fetchProducts();
     setCurrentPage(1);
-  }, [activeCategory, debouncedSearchTerm]);
+  }, [activeCategory, searchTerm]);
 
   const filteredProducts = useMemo(() => {
     return [...products].sort((a, b) => {
@@ -59,25 +54,35 @@ const useProductFilter = () => {
   }, [products, sortOption]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
+    start,
+    start + ITEMS_PER_PAGE
   );
 
-  const handlePrevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  const handlePrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
+  const handleNextPage = () =>
+    setCurrentPage((p) => Math.min(p + 1, totalPages));
+
+  // 검색 버튼 클릭 시 호출: 입력된 inputValue를 실제 검색어에 반영하고 페이지 초기화
+  const handleSearch = () => {
+    setSearchTerm(inputValue);
+    setCurrentPage(1);
   };
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  // 카테고리 변경 시 호출: 선택된 카테고리로 변경, 페이지 초기화
+  const handleCategoryChange = (cat) => {
+    setActiveCategory(cat);
+    setCurrentPage(1);
   };
 
   return {
+    inputValue,
+    setInputValue,
     searchTerm,
     setSearchTerm,
     activeCategory,
-    setActiveCategory,
+    handleCategoryChange,
     sortOption,
     setSortOption,
     currentPage,
@@ -90,6 +95,7 @@ const useProductFilter = () => {
     sortOptions,
     loading,
     error,
+    handleSearch,
   };
 };
 
