@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import axiosInstance from "../../shared/api/axios";
+import useDebouncedValue from "./useDebouncedValue";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -15,12 +16,29 @@ const useProductFilter = () => {
   const [sortOption, setSortOption] = useState("최신 등록순");
   const [currentPage, setCurrentPage] = useState(1);
 
+  const debouncedSearchTerm = useDebouncedValue(searchTerm, 300);
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
+
+      const params = {};
+
+      if (activeCategory !== "모든 아이템") {
+        params.itemCategory = activeCategory;
+      } else {
+        params.itemCategory = "all";
+      }
+
+      if (debouncedSearchTerm.trim() !== "") {
+        params.itemNameKeyword = debouncedSearchTerm.trim();
+      }
+
       try {
-        const response = await axiosInstance.get("/item");
+        console.log("요청 params:", params);
+        const response = await axiosInstance.get("/item", { params });
+        console.log("응답 데이터:", response.data);
         setProducts(response.data);
       } catch (err) {
         setError("상품 정보를 불러오는 데 실패했습니다.");
@@ -29,25 +47,18 @@ const useProductFilter = () => {
         setLoading(false);
       }
     };
+
     fetchProducts();
-  }, []);
+    setCurrentPage(1);
+  }, [activeCategory, debouncedSearchTerm]);
 
   const filteredProducts = useMemo(() => {
-    return products
-      .filter((product) => {
-        return (
-          product.itemName.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          (activeCategory === "모든 아이템" ||
-            product.itemCategory === activeCategory)
-        );
-      })
-      .sort((a, b) => {
-        if (sortOption === "낮은 가격순") return a.itemPrice - b.itemPrice;
-        if (sortOption === "높은 가격순") return b.itemPrice - a.itemPrice;
-        // 최신 등록순 정렬은 createdAt 기준으로 내림차순 정렬 (더 최신이 위로)
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-  }, [products, searchTerm, activeCategory, sortOption]);
+    return [...products].sort((a, b) => {
+      if (sortOption === "낮은 가격순") return a.itemPrice - b.itemPrice;
+      if (sortOption === "높은 가격순") return b.itemPrice - a.itemPrice;
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  }, [products, sortOption]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
