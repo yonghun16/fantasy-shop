@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 /* import components */
 import { Button } from '../../../ui/Button'
 import { InputBox } from '../../../ui/InputBox'
@@ -10,10 +12,8 @@ import { LuFacebook } from "react-icons/lu";
 import { LuInstagram } from "react-icons/lu";
 import { LuGithub } from "react-icons/lu";
 
-/* dummy data */
-const shopName = "판타지 쇼핑몰";
-const newLetterInfo = "뉴스레터 구독"
 
+const shopName = useSelector((state) => state.company.companyData.companyName);
 
 const NewsLetter = () => {
   return (
@@ -21,7 +21,7 @@ const NewsLetter = () => {
       <div className='flex items-center justify-center'>
         <img src={logoImg} className='w-12' alt='fantasyshop' />
         <div className='text-2xl font-semibold whitespace-nowrap pr-5'>{shopName}</div>
-        <div className='text-lg font-semibold whitespace-nowrap'>{newLetterInfo}</div>
+        <div className='text-lg font-semibold whitespace-nowrap'>뉴스레터 구독</div>
       </div>
 
       <div className='flex justify-center mt-4' >

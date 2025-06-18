@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Logo from "./Logo";
 import HeaderIcons from "./HeaderIcons";
 
+
 /* styles */
 const desktopHeaderStyle = clsx(
   "hidden md:flex",
@@ -12,7 +13,6 @@ const desktopHeaderStyle = clsx(
   "border-t border-b border-gray-200",
   "bg-gray-50 p-5"
 );
-
 
 const DesktopHeader = () => {
   return (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 
+
 const useMenuState = (locate) => {
   const location = useLocation()
   const [menuState, setMenuState] = useState(locate)

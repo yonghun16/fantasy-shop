@@ -1,4 +1,8 @@
 import logo from "../../assets/images/logo.png";
+import { useSelector } from "react-redux";
+
+
+const shopName = useSelector((state) => state.company.companyData.companyName);
 
 const RegisterTitle = () => {
   return (
@@ -12,7 +16,7 @@ const RegisterTitle = () => {
         alt="판타지쇼핑몰 로고"
         className="mx-auto block md:hidden w-25"
       />
-      <h2 className="text-2xl font-semibold block md:hidden">판타지 쇼핑몰</h2>
+      <h2 className="text-2xl font-semibold block md:hidden">{shopName}</h2>
     </div>
   );
 }
