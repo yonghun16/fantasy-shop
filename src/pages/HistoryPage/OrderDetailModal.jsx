@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import { Button } from "../../shared/ui/Button";
 
-const OrderDetailModal = ({ isOpen, onClose, order }) => {
-  if (!isOpen || !order) return null;
+const OrderDetailModal = ({ isOpen, onClose, orderDetail }) => {
+  if (!isOpen || !orderDetail) return null;
 
   return (
     <div
@@ -16,30 +16,25 @@ const OrderDetailModal = ({ isOpen, onClose, order }) => {
         <h2 className="text-lg font-bold mb-4">주문 상세</h2>
 
         <div className="mb-3">
-          <strong>주문 번호:</strong> #{order.paymentPk}
+          <strong>주문 번호:</strong> #{orderDetail.paymentPk}
         </div>
 
         <div className="mb-3">
           <strong>결제일:</strong>{" "}
-          {format(new Date(order.paymentDate), "yyyy-MM-dd HH:mm")}
+          {format(new Date(orderDetail.paymentDate), "yyyy-MM-dd HH:mm")}
         </div>
 
         <div className="mb-3">
-          <strong>총 금액:</strong> {order.totalPrice.toLocaleString()} G
+          <strong>총 금액:</strong> {orderDetail.totalPrice.toLocaleString()} G
         </div>
 
         <div className="mt-4">
           <strong>아이템 목록:</strong>
           <ul className="mt-3 space-y-3">
-            {order.items.map((item, idx) => (
+            {orderDetail.items.map((item, idx) => (
               <li key={idx} className="flex items-center gap-3">
-                <img
-                  src={item.imageUrl}
-                  alt={item.name}
-                  className="w-8 h-8 object-cover rounded"
-                />
                 <span>
-                  {item.name} / {item.quantity}개
+                  {item.itemName} / {item.quantity}개
                 </span>
               </li>
             ))}

@@ -1,104 +1,27 @@
-/* import libraries */
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+/* components */
+import LoginForm from "./LoginForm";
+import LoginTitle from "./LoginTitle";
+import RegisterLink from "./RegisterLink";
 
-/* import components */
-import { InputBox } from "../../shared/ui/InputBox";
-import { Button } from "../../shared/ui/Button";
+/* assets */
 import LoginBackImage from "./LoginBackImage";
 
-/* import hooks, modules */
-import { loginUser } from "../../features/user/api/loginUser";
-
-/* import assets */
-import logo from "../../assets/images/logo.png";
-import { LuLock, LuMail } from "react-icons/lu";
-
-/* UI */
 const LoginPage = () => {
-  // react-hook-form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-
-  // onSubmit Handler
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const onSubmit = async (data) => {
-    console.log("제출 성공:", data);
-    reset();
-
-    try {
-      await dispatch(loginUser(data)).unwrap(); // 성공 시 반환값 받기
-      reset();
-      navigate("/");
-    } catch (error) {
-      console.log("register post error", error);
-    }
-  };
-
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* 배경 이미지 */}
+    <div className="relative flex items-center justify-center min-h-screen w-full overflow-hidden">
+
+      {/* 로그인 백그라운드 이미지 */}
       <LoginBackImage />
 
-      {/* 로그인 폼 */}
-      <div className="relative bg-transparent border-none md:bg-white rounded-lg p-12 w-[450px] border border-gray-200">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <div className="flex flex-col items-center text-center gap-1 font-bold text-3xl">
-            <img
-              src={logo}
-              alt="로그인 메인 이미지"
-              className="w-24 hidden md:block"
-            />
-            <p className="mb-20 md:mb-0 leading-relaxed">
-              판타지 쇼핑몰에 <br /> 오신걸 환영합니다. <br /> 용사님!
-            </p>
-          </div>
+      <div className="relative p-12 w-[450px] md:bg-white rounded-lg border-none">
+        {/* 로그인 타이틀 */}
+        <LoginTitle />
 
-          <div className="relative ">
-            <InputBox
-              type="email"
-              label={<span className="hidden md:block">Email</span>}
-              icon={<LuMail />}
-              placeholder="이메일을 입력하세요"
-              className="w-full h-12"
-              {...register("email", { required: "이메일을 입력하세요." })}
-            />
-            {errors.email && (
-              <p className="text-rose-500 text-sm">{errors.email.message}</p>
-            )}
-          </div>
+        {/* 로그인 폼 */}
+        <LoginForm />
 
-          <div className="relative">
-            <InputBox
-              type="password"
-              label={<span className="hidden md:block">Password</span>}
-              icon={<LuLock />}
-              placeholder="패스워드를 입력하세요"
-              className="w-full"
-              {...register("password", { required: "비밀번호를 입력하세요." })}
-            />
-            {errors.password && (
-              <p className="text-rose-500 text-sm">{errors.password.message}</p>
-            )}
-          </div>
-
-          <Button className="mt-10" type="submit">
-            로그인
-          </Button>
-          <div className="flex flex-col md:flex-row mt-10 md:mt-0 justify-center items-center gap-4 text-sm text-center">
-            <p>처음이신가요?</p>
-            <a href="register" className="text-indigo-500 hover:underline">
-              회원가입
-            </a>
-          </div>
-        </form>
+        {/* 회원가입 링크 */}
+        <RegisterLink />
       </div>
     </div>
   );

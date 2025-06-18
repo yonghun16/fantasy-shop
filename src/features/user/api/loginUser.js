@@ -6,19 +6,15 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (body, thunkAPI) => {
     try {
-      // console.log("body", JSON.stringify(body)); // 디버그용
-      const response = await axiosInstance.post(
-        "/users/login",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+      // console.log("body", JSON.stringify(body)); // debug
+      const response = await axiosInstance.post( "/users/login", body, {
+          headers: { "Content-Type": "application/json", },
         }
       );
-      return response.data // payload
+      return response.data
     } catch (error) {
-      console.log("login post error", error);
+      const errorMessage = error?.response?.data || error.message || "Login failed";
+      console.error("Login Error:", errorMessage);
       return thunkAPI.rejectWithValue(error.response.data || error.message)
     }
   }

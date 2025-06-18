@@ -27,6 +27,10 @@ const ProfileActionButtons = () => {
           color="rose"
           className="w-full flex items-center justify-center gap-2 font-semibold"
           icon={<LuLogOut />}
+          onClick={() => {
+            localStorage.removeItem('accessToken');
+            navigate("/")
+          }}
         >
           Logout
         </Button>

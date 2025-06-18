@@ -1,41 +1,19 @@
-/* import libraries */
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  persistReducer,
-  persistStore,
-} from "redux-persist";
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
-/* import slices */
-import cartReducer from "../features/cart/cartSlice";
-import userReducer from "../features/user/userSlice";
+/* rootReducer,persistConfig */
+import persistConfig from "./persistConfig";
+import rootReducer from "./rootReducer";
 
-/* root reducer (여러 리듀서 합치기) */
-export const rootReducer = combineReducers({
-  user: userReducer,
-  cart: cartReducer,
-});
-
-const persistConfig = {
-  key: "root", // root state key
-  storage, // local storage
-};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER], // redux-persist Action Ignored
-      },
+      serializableCheck: { ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER] },
     }),
 });
 

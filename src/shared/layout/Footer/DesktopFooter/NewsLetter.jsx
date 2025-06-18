@@ -1,9 +1,9 @@
 /* import components */
-import { Button } from '../../ui/Button'
-import { InputBox } from '../../ui/InputBox'
+import { Button } from '../../../ui/Button'
+import { InputBox } from '../../../ui/InputBox'
 
 /* import assets */
-import logoImg from '../../../assets/images/logo.png'
+import logoImg from '../../../../assets/images/logo.png'
 import { LuMail } from "react-icons/lu";
 import { LuTwitter } from "react-icons/lu";
 import { LuFacebook } from "react-icons/lu";

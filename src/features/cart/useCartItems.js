@@ -16,19 +16,20 @@ export const useCartItems = () => {
     const loadCart = async () => {
       try {
         if (!isAuth || !userData.userPk) {
-          await dispatch(authUser().unwrap);
+          await dispatch(authUser().unwrap());
         }
         const data = await getCartItems();
+        console.log(data, "item data");
         const mapped = data.map((item) => ({
           id: item.itemPk,
           name: item.itemName,
           quantity: item.quantity,
-          price: item.price,
+          price: item.itemPrice,
           imageUrl: item.imageUrl,
         }));
         dispatch(setCartItems(mapped));
       } catch {
-        navigate("/login");
+        console.log("error", error);
       }
     };
 
