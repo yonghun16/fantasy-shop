@@ -17,6 +17,8 @@ const useProductDetail = () => {
     try {
       setLoading(true); // 요청 시작 시 로딩 상태 true
       const { data } = await axiosInstance.get(`/item/${id}`);
+      console.log(data);
+
       setProduct(data); // 받아온 상품 데이터 저장
     } catch (err) {
       console.error(err); // 디버깅용 콘솔 출력

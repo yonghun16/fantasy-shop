@@ -4,9 +4,12 @@ import { InputBox } from "../../../../shared/ui/InputBox";
 import { Button } from "../../../../shared/ui/Button";
 import clsx from "clsx";
 import { toast } from "react-toastify";
+import ImageDropzone from "../ImageDropzone";
 
 // 선택 가능한 카테고리 목록
 const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
+
+const BASE_URL = "http://13.211.52.203:8080";
 
 // 초기 폼 데이터 생성 함수
 const getInitialFormData = (product) => ({
@@ -81,6 +84,8 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
   // 모달이 열리지 않았으면 null 반환 (렌더링하지 않음)
   if (!isOpen) return null;
 
+  console.log("product.itemImageUrl:", product?.itemImageUrl);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.7)]">
       {/* 바깥 영역 클릭 시 닫기 */}
@@ -153,18 +158,18 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
 
           {/* 이미지 업로드 필드 */}
           <div>
-            <label
-              htmlFor="itemImage"
-              className="block text-sm font-medium mb-1 text-gray-800"
-            >
+            <label className="block text-sm font-medium mb-1 text-gray-800">
               이미지
             </label>
-            <input
-              type="file"
-              id="itemImage"
-              name="itemImage"
-              onChange={handleChange}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-md"
+            <ImageDropzone
+              onFileSelect={(file) =>
+                setFormData((prev) => ({ ...prev, itemImage: file }))
+              }
+              initialImage={
+                product?.itemImageUrl?.startsWith("http")
+                  ? product.itemImageUrl
+                  : `${BASE_URL}${product.itemImageUrl}`
+              }
             />
           </div>
 
