@@ -7,18 +7,13 @@ export const registerUser = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       // console.log("body", JSON.stringify(body)); // 디버그용
-      const response = await axiosInstance.post(
-        "/users/signup",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data     // payload
+      const response = await axiosInstance.post("/users/signup", body, {
+        headers: { "Content-Type": "application/json", },
+      });
+      return response.data
     } catch (error) {
-      console.log("register post error", error);
+      const errorMessage = error?.response?.data || error.message || "Register failed";
+      console.error("Login Error:", errorMessage);
       return thunkAPI.rejectWithValue(error.response.data || error.message)
     }
   }
