@@ -9,7 +9,7 @@ import ImageDropzone from "../ImageDropzone";
 // 선택 가능한 카테고리 목록
 const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
 
-const BASE_URL = "http://13.211.52.203:8080";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // 초기 폼 데이터 생성 함수
 const getInitialFormData = (product) => ({

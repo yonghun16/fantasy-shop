@@ -3,7 +3,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
 
-const BASE_URL = "http://13.211.52.203:8080";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();

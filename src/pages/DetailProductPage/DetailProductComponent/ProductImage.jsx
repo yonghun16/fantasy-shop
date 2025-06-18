@@ -1,4 +1,4 @@
-const BASE_URL = "http://13.211.52.203:8080";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ProductImage = ({ src, alt }) => (
   <div className="flex-1 flex justify-center items-center w-full h-full">
