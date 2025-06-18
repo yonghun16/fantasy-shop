@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   companyData: {
+    companyName: '판타지 쇼핑몰',
     owner: '고길동',
     address: '소환사의 협곡 11시 방향 고대엘프의 숨겨진 동굴',
     businessNumber: '123-12-12345',
