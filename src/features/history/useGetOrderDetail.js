@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { getPaymentDetail } from "../../shared/api/payment";
+import { getPaymentDetail } from "../../shared/api/history";
 
-const usePAymentDetail = () => {
-  const [order, setOrder] = useState(null);
+const useGetOrderDetail = () => {
+  const [orderDetail, setOrderDetail] = useState(null);
   const [error, setError] = useState(null);
 
   const fetchOrderDetail = async (paymentPk) => {
@@ -10,18 +10,20 @@ const usePAymentDetail = () => {
 
     try {
       const res = await getPaymentDetail(paymentPk);
-      setOrder(data);
+      setOrderDetail(res.data);
+      return res.data;
     } catch (err) {
       console.error("주문 상세 조회 실패", err);
       setError(err);
     }
   };
+
   return {
-    order,
+    orderDetail,
     error,
     fetchOrderDetail,
-    setOrder,
+    setOrderDetail,
   };
 };
 
-export default usePAymentDetail;
+export default useGetOrderDetail;

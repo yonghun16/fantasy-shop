@@ -1,7 +1,6 @@
 import { LuUser } from "react-icons/lu";
 import { InputBox } from "../../shared/ui/InputBox";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "../../shared/api/cart";
 import { useSelector } from "react-redux";
 
 const ShippingInfoForm = () => {

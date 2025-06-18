@@ -1,26 +1,25 @@
 import { useState } from "react";
-import { mockOrders } from "./mockData";
 import OrderItemRow from "./OrderItemRow";
-import useMockPaymentDetail from "../../features/history/useMockPaymentDetail";
 import OrderDetailModal from "./OrderDetailModal";
+import useGetOrderDetail from "../../features/history/useGetOrderDetail";
 
-const OrderList = () => {
+const OrderList = ({ orders }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { order, fetchOrderDetail, setOrder } = useMockPaymentDetail();
+  const { orderDetail, fetchOrderDetail, setOrderDetail } = useGetOrderDetail();
 
   const handleOrderClick = async (paymentPk) => {
-    await fetchOrderDetail(paymentPk);
+    const detail = await fetchOrderDetail(paymentPk);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setOrder(null);
+    setOrderDetail(null);
   };
 
   return (
     <>
-      {mockOrders.map((order) => (
+      {orders.map((order) => (
         <OrderItemRow
           key={order.paymentPk}
           order={order}
@@ -31,7 +30,7 @@ const OrderList = () => {
       <OrderDetailModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        order={order}
+        orderDetail={orderDetail}
       />
     </>
   );

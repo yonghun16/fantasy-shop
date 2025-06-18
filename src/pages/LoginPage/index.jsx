@@ -30,7 +30,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    console.log("제출 성공:", data);
+    // console.log("제출 성공:", data);  // 디버그용
     reset();
 
     try {
@@ -68,6 +68,7 @@ const LoginPage = () => {
               icon={<LuMail />}
               placeholder="이메일을 입력하세요"
               className="w-full h-12"
+              autoComplete="email"
               {...register("email", { required: "이메일을 입력하세요." })}
             />
             {errors.email && (
@@ -82,6 +83,7 @@ const LoginPage = () => {
               icon={<LuLock />}
               placeholder="패스워드를 입력하세요"
               className="w-full"
+              autoComplete="current-password"
               {...register("password", { required: "비밀번호를 입력하세요." })}
             />
             {errors.password && (

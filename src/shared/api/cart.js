@@ -14,8 +14,3 @@ export const postPayment = async (paymentData) => {
   const res = await axiosInstance.post("/payments", paymentData);
   return res.data;
 };
-
-export const getPaymentDetail = async (paymentPk) => {
-  const res = await axiosInstance.get(`/payments/${paymentPk}`);
-  return res.data;
-};
