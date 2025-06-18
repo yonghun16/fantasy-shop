@@ -4,7 +4,7 @@ import { InputBox } from "../../../shared/ui/InputBox";
 
 // Error Text helper
 const ErrorText = ({ errorMessage }) => (
-  <p className="text-rose-500 text-sm -mt-3">{errorMessage}</p>
+  <p className="text-rose-500 text-sm -mt-5">{errorMessage}</p>
 );
 
 
