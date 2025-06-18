@@ -15,6 +15,7 @@ const LoginInput = ({ type, label, placeholder, icon, register, error, autoCompl
   <div className="relative">
     <InputBox
       type={type}
+      id={label}
       label={<span className="hidden md:block">{label}</span>}
       icon={icons[icon]}
       placeholder={placeholder}

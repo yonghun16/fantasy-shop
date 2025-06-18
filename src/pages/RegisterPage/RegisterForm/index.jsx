@@ -26,8 +26,8 @@ const RegisterForm = () => {
   const { register, formState: { errors } } = formMethods;
 
   return (
-    <div className="flex items-center justify-center p-6 h-[550px] border border-gray-200 rounded-md">
-      <form className="space-y-4 w-[400px]" onSubmit={onSubmit}>
+    <div className="flex items-center justify-center p-6 w-full h-[550px] border md:border md:border-gray-200 border-transparent rounded-md">
+      <form className="space-y-6 w-full" onSubmit={onSubmit}>
         <RegisterInputField
           id="userName"
           label="이름*"
