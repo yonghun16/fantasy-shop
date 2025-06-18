@@ -11,20 +11,20 @@ export const useCartItems = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const userData = useSelector((state) => state.user.userData);
   const navigate = useNavigate();
-  console.log(userData, "유저데이터");
 
   useEffect(() => {
     const loadCart = async () => {
       try {
         if (!isAuth || !userData.userPk) {
-          await dispatch(authUser().unwrap);
+          await dispatch(authUser().unwrap());
         }
         const data = await getCartItems();
+        console.log(data, "item data");
         const mapped = data.map((item) => ({
           id: item.itemPk,
           name: item.itemName,
           quantity: item.quantity,
-          price: item.price,
+          price: item.itemPrice,
           imageUrl: item.imageUrl,
         }));
         dispatch(setCartItems(mapped));

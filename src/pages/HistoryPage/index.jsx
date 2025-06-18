@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { mockOrders } from "./mockData";
 import OrderList from "./OrderList";
+import useGetOrders from "../../features/history/useGetOrders";
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 5;
 
 const HistoryPage = () => {
   const [page, setPage] = useState(1);
-  const pageCount = Math.ceil(mockOrders.length / ITEMS_PER_PAGE);
-  const pagedOrders = mockOrders.slice(
+  const { orders, error } = useGetOrders();
+
+  if (error) return <p>주문 목록을 불러오는 중 오류가 발생했습니다.</p>;
+  if (!orders.length)
+    return <p className="text-center mt-10">주문 내역이 없습니다.</p>;
+
+  const pageCount = Math.ceil(orders.length / ITEMS_PER_PAGE);
+  const pagedOrders = orders.slice(
     (page - 1) * ITEMS_PER_PAGE,
     page * ITEMS_PER_PAGE
   );
@@ -50,7 +56,7 @@ const HistoryPage = () => {
         <button
           onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
           disabled={page === pageCount}
-          className="px-2 py-1 text-gray-500 disabled:text-gray-300"
+          className="px-2 py-1 text-gray-500 disabled:text-gray-300 cursor-pointer"
         >
           다음 &gt;
         </button>
