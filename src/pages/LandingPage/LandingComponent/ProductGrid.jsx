@@ -1,12 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
+import { toast } from "react-toastify";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();
+  const navigate = useNavigate();
+
+  const handleAddToCart = (product) => {
+    // localStorage에서 accessToken 읽기
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      navigate("/login");
+      toast.warn("장바구니는 로그인 후 이용 가능합니다.");
+      return;
+    }
+    // 토큰 있으면 장바구니 추가
+    addToCart(product, count);
+  };
 
   return (
     // 아이템들을 그리드 형태로 보여주는 컨테이너
@@ -43,9 +57,7 @@ const ProductGrid = ({ products, count = 1 }) => {
           <button
             className="absolute bottom-3 right-3 text-gray-400 hover:text-indigo-600 transition-colors"
             aria-label="장바구니에 추가"
-            onClick={() => {
-              addToCart(product, count);
-            }}
+            onClick={() => handleAddToCart(product)}
           >
             <LuShoppingCart size={22} />
           </button>

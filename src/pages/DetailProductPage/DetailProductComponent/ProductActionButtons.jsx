@@ -30,7 +30,18 @@ const ProductActionButtons = ({ product, count }) => {
   }, []);
 
   // 장바구니 담기 클릭 핸들러
-  const handleAddToCart = () => addToCart(product, count);
+  const handleAddToCart = () => {
+    // localStorage에서 accessToken 읽기
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      // 로그인 안된 상태면 로그인 페이지로 이동
+      navigate("/login");
+      toast.warn("장바구니는 로그인 후 이용 가능합니다.");
+      return;
+    }
+    // 로그인 되어있으면 장바구니 추가 실행
+    addToCart(product, count);
+  };
 
   // 삭제 성공 시 메인 페이지로 이동
   const handleDeleteSuccess = () => navigate("/");
