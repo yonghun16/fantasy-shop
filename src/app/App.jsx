@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 /* import component */
+import ScrollToTop from "./ScrollToTop";
 import Header from "../shared/layout/Header";
 import Footer from "../shared/layout/Footer";
 
@@ -31,6 +32,7 @@ function App() {
   return (
     <>
       <Header />
+      <ScrollToTop />
       <section className="mt-12 mb-12 md:mt-0 md:mb-0">
         <Outlet />
       </section>
