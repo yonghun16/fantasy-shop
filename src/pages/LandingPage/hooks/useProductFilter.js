@@ -32,6 +32,7 @@ const useProductFilter = () => {
 
       try {
         const res = await axiosInstance.get("/item", { params });
+        console.log("상품 목록 응답:", res.data);
         setProducts(res.data);
       } catch (err) {
         console.error(err);
