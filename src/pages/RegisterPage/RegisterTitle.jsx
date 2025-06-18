@@ -2,9 +2,8 @@ import logo from "../../assets/images/logo.png";
 import { useSelector } from "react-redux";
 
 
-const shopName = useSelector((state) => state.company.companyData.companyName);
-
 const RegisterTitle = () => {
+  const shopName = useSelector((state) => state.company.companyData.companyName);
   return (
     <div className="text-center">
       {/* 데스크탑에선 텍스트 */}

@@ -13,9 +13,9 @@ import { LuInstagram } from "react-icons/lu";
 import { LuGithub } from "react-icons/lu";
 
 
-const shopName = useSelector((state) => state.company.companyData.companyName);
-
 const NewsLetter = () => {
+  const shopName = useSelector((state) => state.company.companyData.companyName);
+
   return (
     <div className='flex flex-col'>
       <div className='flex items-center justify-center'>

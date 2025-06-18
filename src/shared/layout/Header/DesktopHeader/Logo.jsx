@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 import logoImg from '../../../../assets/images/logo.png'
 
 
-const shopName = useSelector((state) => state.company.companyData.companyName);
-
 const Logo = () => {
+  const shopName = useSelector((state) => state.company.companyData.companyName);
   return (
     <Link
       className="flex items-center gap-2"
