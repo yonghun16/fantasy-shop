@@ -1,31 +1,15 @@
-import clsx from "clsx";
-
-/* components */
-import Logo from "./Logo";
-import HeaderIcons from "./HeaderIcons";
-import MobileHeaderComponent from "./MobileHeaderComponent";
-
-/* styles */
-const desktopHeaderStyle = clsx(
-  "hidden md:flex",
-  "w-full h-12",
-  "items-center justify-between",
-  "border-t border-b border-gray-200",
-  "bg-gray-50 p-5"
-);
+import DesktopHeader from "./DesktopHeader";
+import MobileHeader from "./MobileHeader";
 
 
 const Header = () => {
   return (
     <header>
       {/* 데스크탑 헤더 */}
-      <div className={desktopHeaderStyle}>
-        <Logo />
-        <HeaderIcons />
-      </div>
+      <DesktopHeader />
 
       {/* 모바일 헤더 */}
-      <MobileHeaderComponent />
+      <MobileHeader />
     </header>
   );
 };

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 /* assets */
-import logoImg from '../../../assets/images/logo.png'
+import logoImg from '../../../../assets/images/logo.png'
 
 /* dummy data */
 const shopName = "판타지 쇼핑몰";

@@ -1,8 +1,7 @@
-/* import library */
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from 'react-toastify';
 
-/* import modules */
+/* modules */
 import { registerUser } from '../../features/user/api/registerUser';
 import { loginUser } from '../../features/user/api/loginUser';
 import { authUser } from '../../shared/api/authUser';

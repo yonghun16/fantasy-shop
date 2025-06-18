@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 /* import assets */
 import { LuShoppingCart } from "react-icons/lu";
-import avatarImg from "../../../assets/images/noavatar.png";
+import avatarImg from "../../../../assets/images/noavatar.png";
 
 
 const HeaderIcons = () => {
@@ -13,10 +13,12 @@ const HeaderIcons = () => {
 
   return (
     <div className="flex gap-4 items-center">
+      {/* 장바구니 버튼 */}
       <Link to={`/cart/${userPk}`} aria-label="장바구니">
         <LuShoppingCart className="text-gray-600 text-2xl hover:text-indigo-500" />
       </Link>
 
+      {/* 내프로필 버튼 */}
       <Link to={`/myprofile/${userPk}`} aria-label="프로필 페이지">
         <img
           src={profileImageUrl}

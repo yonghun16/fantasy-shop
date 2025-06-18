@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom"
 
 /* import hooks, components */
-import useMenuState from "./hooks/useMenuState"
+import useMenuState from "./useMenuState"
 
 /* import assets */
 import { HiChevronLeft } from "react-icons/hi2";
@@ -11,8 +11,7 @@ import { HiChevronLeft } from "react-icons/hi2";
 /* dummy data */
 const shopName = "판타지 쇼핑몰";
 
-/* UI */
-const MobileHeaderComponent = () => {
+const MobileHeader = () => {
   const menuState = useMenuState(shopName)
 
   return (
@@ -34,4 +33,4 @@ const MobileHeaderComponent = () => {
   );
 };
 
-export default MobileHeaderComponent;
+export default MobileHeader;
