@@ -2,31 +2,36 @@
 import { InputBox } from "../../../shared/ui/InputBox";
 
 
-// Error Text helper
-const ErrorText = ({ errorMessage }) => (
-  <p className="text-rose-500 text-sm -mt-5">{errorMessage}</p>
-);
-
-
 const RegisterInputField = ({
-  label, type, id,
-  placeholder, autoComplete = "off",
+  label,
+  id,
+  type = "text",
+  disabled = false,
+
+  placeholder,
+  autoComplete = "off",
   icon,
-  register, validation,
+  className = "w-full",
+  register,
+  validation,
   errorMessage,
 }) => (
   <>
     <InputBox
       label={label}
-      type={type}
       id={id}
+      type={type}
+      disabled={disabled}
+
       placeholder={placeholder}
       autoComplete={autoComplete}
       icon={icon}
-      className="w-full"
+      className={className}
       {...register(id, validation)}
     />
-    {errorMessage && <ErrorText errorMessage={errorMessage} />}
+    {errorMessage && (
+      <p className="text-rose-500 text-sm -mt-5">{errorMessage}</p>
+    )}
   </>
 );
 

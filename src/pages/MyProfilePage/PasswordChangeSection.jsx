@@ -1,82 +1,82 @@
-import { InputBox } from "../../shared/ui/InputBox";
+/* components, hook */
+import useProfileDetailsForm from "../../features/myprofile/useProfileDetailsForm"; // react-hook-form formMethods
+import useProfileValidationOptions from "../../features/myprofile/useProfileValidationOptions";  // 유효셩 검사 
+import ProfileInputField from "./components/ProfileInputfield";
 import { Button } from "../../shared/ui/Button";
+
+/* assets */
 import { LuLock, LuCheckCheck, LuRefreshCcw } from "react-icons/lu";
 
-const PasswordChangeSection = ({
-  currentPasswordInput,
-  newPassword,
-  confirmPassword,
-  setCurrentPasswordInput,
-  setNewPassword,
-  setConfirmPassword,
-  handlePasswordChange,
-}) => {
-  return (
-    <section>
-      <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
-        <LuLock />
-        비밀번호 변경
-      </h2>
+const PasswordChangeSection = () => {
+  const { register, errors, newPassword, onSubmit } = useProfileDetailsForm();
+  const validationOptions = useProfileValidationOptions();
 
-      {/* 현재 비밀번호 입력 필드 */}
-      <div className="mb-3">
-        <label className="block text-sm text-gray-600 mb-1">
-          현재 비밀번호
-        </label>
-        <InputBox
-          className="w-full"
+  return (
+    <section className="mb-2 p-6 bg-white border border-gray-300 rounded-md">
+      <form className="space-y-5" onSubmit={onSubmit}>
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
+          <LuLock /> 비밀번호 변경
+        </h2>
+
+        <ProfileInputField
+          id="userEmail"
+          type="email"
+          autoComplete="email"
+          className="w-full hidden"
+          readOnly
+          register={register}
+        />
+
+        <ProfileInputField
+          label="현재 비밀번호"
+          id="currentPassword"
           type="password"
+          autoComplete="password"
           icon={<LuLock />}
           placeholder="현재 비밀번호"
-          value={currentPasswordInput} // 입력값 상태
-          onChange={(e) => setCurrentPasswordInput(e.target.value)} // 입력값 변경 핸들러
-          color="indigo"
-        />
-      </div>
-
-      {/* 새 비밀번호 입력 필드 */}
-      <div className="mb-3">
-        <label className="block text-sm text-gray-600 mb-1">
-          새로운 비밀번호
-        </label>
-        <InputBox
           className="w-full"
+          register={register}
+          validation={validationOptions.currentPassword}
+          errorMessage={errors.currentPassword}
+        />
+
+        <ProfileInputField
+          label="새 비밀번호"
+          id="newPassword"
           type="password"
+          autoComplete="password"
           icon={<LuLock />}
-          placeholder="새로운 비밀번호"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          color="indigo"
-        />
-      </div>
-
-      {/* 비밀번호 확인 입력 필드 */}
-      <div className="mb-3">
-        <label className="block text-sm text-gray-600 mb-1">
-          비밀번호 확인
-        </label>
-        <InputBox
+          placeholder="새 비밀번호"
           className="w-full"
-          type="password"
-          icon={<LuCheckCheck />}
-          placeholder="비밀번호 확인"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          color="indigo"
+          register={register}
+          validation={validationOptions.newPassword}
+          errorMessage={errors.newPassword}
         />
-      </div>
 
-      {/* 비밀번호 변경 버튼 */}
-      <Button
-        color="indigo"
-        className="mt-4 w-full flex items-center justify-center gap-2 font-semibold"
-        icon={<LuRefreshCcw />}
-        onClick={handlePasswordChange} // 버튼 클릭 시 비밀번호 변경 처리 함수 실행
-      >
-        비밀번호 변경
-      </Button>
+        <ProfileInputField
+          label="새 비밀번호 확인"
+          id="confirmNewPassword"
+          type="password"
+          autoComplete="password"
+          icon={<LuCheckCheck  />}
+          placeholder="새 비밀번호 확인"
+          className="w-full"
+          register={register}
+          validation={validationOptions.confirmNewPassword(newPassword)}
+          errorMessage={errors.confirmNewPassword}
+        />
+
+        <Button
+          type="submit"
+          color="indigo"
+          className="mt-10 w-full"
+          icon={<LuRefreshCcw />}
+        >
+          비밀번호 변경
+        </Button>
+      </form>
     </section>
-  );
-};
+  )
+}
 
-export default PasswordChangeSection;
+export default PasswordChangeSection

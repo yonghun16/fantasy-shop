@@ -7,11 +7,16 @@ import { registerUser } from "../../features/user/api/registerUser";
 
 export const useRegisterForm = () => {
   // react-hook-form
-  const formMethods = useForm({
+  const {
+    register,
+    formState: { errors },
+    watch, 
+    reset,
+    handleSubmit, 
+  } = useForm({
     mode: "onTouched",  // 사용자가 input을 터치하고 벗어났을 때 유효성 검사 실행
   });
 
-  const { watch, handleSubmit, reset } = formMethods;
   const password = watch("password");  // password에 watch(감시) 등록
   const agree = watch("agree");  // agree에 watch(감시) 등록
 
@@ -36,7 +41,9 @@ export const useRegisterForm = () => {
   };
 
   return {
-    formMethods,
+    register,
+    errors,
+    watch,
     password,
     agree,
     onSubmit: handleSubmit(onSubmit),

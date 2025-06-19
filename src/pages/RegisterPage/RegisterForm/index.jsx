@@ -11,19 +11,9 @@ import { Button } from "../../../shared/ui/Button";
 import { LuUserRound, LuMail, LuLock, LuCheckCheck } from "react-icons/lu";
 
 
-// Validation
-const {
-  userNameValidationOptions,
-  emailValidationOptions,
-  passwordValidationOptions,
-  confirmPasswordValidation,
-  agreeValidationOptions,
-} = useRegisterValidationOptions();
-
-
 const RegisterForm = () => {
-  const { formMethods, password, agree, onSubmit } = useRegisterForm();
-  const { register, formState: { errors } } = formMethods;
+  const { register, errors, password, agree, onSubmit } = useRegisterForm();
+  const validationOptions = useRegisterValidationOptions();
 
   return (
     <div className="flex items-center justify-center p-6 w-full h-[550px] border md:border md:border-gray-200 border-transparent rounded-md">
@@ -35,7 +25,7 @@ const RegisterForm = () => {
           placeholder="이름을 입력하세요"
           icon={<LuUserRound />}
           register={register}
-          validation={userNameValidationOptions}
+          validation={validationOptions.userName}
           errorMessage={errors.userName?.message}
         />
 
@@ -47,7 +37,7 @@ const RegisterForm = () => {
           placeholder="이메일을 입력하세요"
           icon={<LuMail />}
           register={register}
-          validation={emailValidationOptions}
+          validation={validationOptions.email}
           errorMessage={errors.email?.message}
         />
 
@@ -59,7 +49,7 @@ const RegisterForm = () => {
           placeholder="비밀번호를 입력하세요"
           icon={<LuLock />}
           register={register}
-          validation={passwordValidationOptions}
+          validation={validationOptions.password}
           errorMessage={errors.password?.message}
         />
 
@@ -71,11 +61,11 @@ const RegisterForm = () => {
           placeholder="비밀번호를 다시 입력하세요"
           icon={<LuCheckCheck />}
           register={register}
-          validation={confirmPasswordValidation(password)}
+          validation={validationOptions.confirmPassword(password)}
           errorMessage={errors.confirmPassword?.message}
         />
 
-        <AgreementCheckbox {...register("agree", agreeValidationOptions)} />
+        <AgreementCheckbox {...register("agree", validationOptions.agree)} />
         {errors.agree && (
           <p className="text-rose-500 text-sm -mt-3">{errors.agree.message}</p>
         )}
