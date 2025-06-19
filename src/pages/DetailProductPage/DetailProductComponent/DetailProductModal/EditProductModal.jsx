@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../../../shared/api/axios";
+import clsx from "clsx";
 import { InputBox } from "../../../../shared/ui/InputBox";
 import { Button } from "../../../../shared/ui/Button";
-import clsx from "clsx";
-import { toast } from "react-toastify";
 import ImageDropzone from "../ImageDropzone";
+import useEditProduct from "../../hooks/useEditProduct";
 
 // 선택 가능한 카테고리 목록
 const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
@@ -31,8 +30,13 @@ const inputFields = [
 ];
 
 const EditProductModal = ({ isOpen, onClose, product }) => {
-  const [formData, setFormData] = useState(getInitialFormData(product)); // 폼 상태
-  const [loading, setLoading] = useState(false); // 로딩 상태
+  // form 상태
+  const [formData, setFormData] = useState(getInitialFormData(product));
+  // mutation 훅 사용, 성공 시 모달 닫고 새로고침
+  const editProductMutation = useEditProduct(() => {
+    onClose();
+    window.location.reload();
+  });
 
   // 모달 열릴 때마다 formData 초기화
   useEffect(() => {
@@ -51,9 +55,8 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
   };
 
   // 폼 제출 핸들러
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     // FormData 객체 생성 후 모든 formData 필드 추가
     const data = new FormData();
@@ -63,22 +66,8 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
       }
     });
 
-    try {
-      // PUT 요청으로 상품 정보 업데이트
-      await axiosInstance.put(`/item/${product.itemPk}`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      // 새로고침 후 성공 메시지 출력하기 위해 localStorage에 저장
-      localStorage.setItem("toastMessage", "상품 정보가 수정되었습니다.");
-      onClose();
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-      toast.error("상품 수정 실패");
-    } finally {
-      setLoading(false);
-    }
+    // mutate로 상품 정보 수정 요청
+    editProductMutation.mutate({ productPk: product.itemPk, formData: data });
   };
 
   // 모달이 열리지 않았으면 null 반환 (렌더링하지 않음)
@@ -175,8 +164,12 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
 
           {/* 하단 버튼 영역 */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="submit" color="indigo" disabled={loading}>
-              {loading ? "저장 중..." : "저장"}
+            <Button
+              type="submit"
+              color="indigo"
+              disabled={editProductMutation.isLoading}
+            >
+              {editProductMutation.isLoading ? "저장 중..." : "저장"}
             </Button>
             <Button type="button" color="gray" onClick={onClose}>
               취소
