@@ -1,94 +1,50 @@
-import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { InputBox } from "../../../../shared/ui/InputBox";
 import { Button } from "../../../../shared/ui/Button";
 import ImageDropzone from "../ImageDropzone";
-import useEditProduct from "../../../../features/DetailProduct/useEditProduct";
+import useEditProductForm from "../../../../features/DetailProduct/useEditProductForm";
+import { useSelector, useDispatch } from "react-redux";
+import { closeEditModal } from "../../../../features/DetailProduct/modalSlice";
 
-// 선택 가능한 카테고리 목록
 const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
-
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// 초기 폼 데이터 생성 함수
-const getInitialFormData = (product) => ({
-  itemName: product?.itemName || "",
-  itemDescription: product?.itemDescription || "",
-  itemPrice: product?.itemPrice || 0,
-  itemInventory: product?.itemInventory || 0,
-  itemEffect: product?.itemEffect || "",
-  itemCategory: product?.itemCategory || "",
-  itemImage: null, // 새 이미지 파일 업로드를 위해 null로 초기화
-});
+const EditProductModal = () => {
+  const dispatch = useDispatch();
+  const { isOpen, product } = useSelector((state) => state.modal.editModal);
 
-// 텍스트 입력 필드 정보
-const inputFields = [
-  { label: "이름", name: "itemName" },
-  { label: "가격", name: "itemPrice", type: "number" },
-  { label: "재고", name: "itemInventory", type: "number" },
-  { label: "성능", name: "itemEffect" },
-];
-
-const EditProductModal = ({ isOpen, onClose, product }) => {
-  // form 상태
-  const [formData, setFormData] = useState(getInitialFormData(product));
-  // mutation 훅 사용, 성공 시 모달 닫고 새로고침
-  const editProductMutation = useEditProduct(() => {
-    onClose();
+  const {
+    formData,
+    handleChange,
+    handleImageSelect,
+    handleCategorySelect,
+    handleSubmit,
+    isLoading,
+  } = useEditProductForm(product, () => {
+    dispatch(closeEditModal());
     window.location.reload();
   });
 
-  // 모달 열릴 때마다 formData 초기화
-  useEffect(() => {
-    if (product) {
-      setFormData(getInitialFormData(product));
-    }
-  }, [product]);
-
-  // input, textarea, file input 변경 핸들러
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "itemImage" ? files[0] : value, // 이미지 input은 파일 객체로 저장
-    }));
-  };
-
-  // 폼 제출 핸들러
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // FormData 객체 생성 후 모든 formData 필드 추가
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        data.append(key, value);
-      }
-    });
-
-    // mutate로 상품 정보 수정 요청
-    editProductMutation.mutate({ productPk: product.itemPk, formData: data });
-  };
-
-  // 모달이 열리지 않았으면 null 반환 (렌더링하지 않음)
   if (!isOpen) return null;
-
-  console.log("product.itemImageUrl:", product?.itemImageUrl);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.7)]">
-      {/* 바깥 영역 클릭 시 닫기 */}
-      <div className="absolute inset-0" onClick={onClose} />
-
-      {/* 모달 컨텐츠 */}
+      <div
+        className="absolute inset-0"
+        onClick={() => dispatch(closeEditModal())}
+      />
       <div className="bg-white z-10 rounded-lg shadow-lg p-6 w-full max-w-xl relative">
         <h2 className="text-lg font-semibold mb-4 text-center">
           아이템 정보 수정
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* input 필드 렌더링 */}
-          {inputFields.map(({ label, name, type = "text" }) => (
+          {[
+            { label: "이름", name: "itemName" },
+            { label: "가격", name: "itemPrice", type: "number" },
+            { label: "재고", name: "itemInventory", type: "number" },
+            { label: "성능", name: "itemEffect" },
+          ].map(({ label, name, type = "text" }) => (
             <InputBox
               key={name}
               label={label}
@@ -101,7 +57,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           ))}
 
-          {/* 카테고리 선택 버튼 */}
+          {/* 카테고리 선택 */}
           <div>
             <p className="block text-sm font-medium mb-1 text-gray-800">
               카테고리
@@ -112,9 +68,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
                   key={category}
                   type="button"
                   color={formData.itemCategory === category ? "indigo" : "gray"}
-                  onClick={() =>
-                    setFormData((prev) => ({ ...prev, itemCategory: category }))
-                  }
+                  onClick={() => handleCategorySelect(category)}
                   className="flex-1 text-sm"
                 >
                   {category}
@@ -123,7 +77,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             </div>
           </div>
 
-          {/* 설명 입력 필드 */}
+          {/* 설명 */}
           <div>
             <label
               htmlFor="itemDescription"
@@ -145,15 +99,13 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           </div>
 
-          {/* 이미지 업로드 필드 */}
+          {/* 이미지 */}
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-800">
               이미지
             </label>
             <ImageDropzone
-              onFileSelect={(file) =>
-                setFormData((prev) => ({ ...prev, itemImage: file }))
-              }
+              onFileSelect={handleImageSelect}
               initialImage={
                 product?.itemImageUrl?.startsWith("http")
                   ? product.itemImageUrl
@@ -162,16 +114,16 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           </div>
 
-          {/* 하단 버튼 영역 */}
+          {/* 버튼 */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button
-              type="submit"
-              color="indigo"
-              disabled={editProductMutation.isLoading}
-            >
-              {editProductMutation.isLoading ? "저장 중..." : "저장"}
+            <Button type="submit" color="indigo" disabled={isLoading}>
+              {isLoading ? "저장 중..." : "저장"}
             </Button>
-            <Button type="button" color="gray" onClick={onClose}>
+            <Button
+              type="button"
+              color="gray"
+              onClick={() => dispatch(closeEditModal())}
+            >
               취소
             </Button>
           </div>
