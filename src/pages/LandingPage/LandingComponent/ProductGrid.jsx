@@ -24,12 +24,12 @@ const ProductGrid = ({ products, count = 1 }) => {
 
   return (
     // 아이템들을 그리드 형태로 보여주는 컨테이너
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
       {products.map((product) => (
         // 각 아이템 카드: key는 제품 고유 id
         <div
           key={product.itemPk}
-          className="relative border border-gray-200 rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white flex flex-col"
+          className="relative border border-gray-200 rounded-lg overflow-hidden shadow hover:border-indigo-500 transition bg-white flex flex-col"
         >
           {/* 아이템 상세 페이지로 이동하는 링크 */}
           <Link to={`/detailproduct/${product.itemPk}`}>

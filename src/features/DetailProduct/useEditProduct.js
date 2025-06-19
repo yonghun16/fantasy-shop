@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "../../../shared/api/axios";
+import axiosInstance from "../../shared/api/axios";
 import { toast } from "react-toastify";
 
 const useEditProduct = (onSuccessCallback) => {

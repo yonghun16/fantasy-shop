@@ -9,7 +9,6 @@ const bannerImages = [bannerImage1, bannerImage2, bannerImage3, bannerImage4];
 
 const BannerImages = () => {
   const [index, setIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
   const elapsed = useRef(0);
   const timer = useRef(null);
@@ -20,7 +19,6 @@ const BannerImages = () => {
   const resetTimer = () => {
     clearInterval(timer.current);
     elapsed.current = 0;
-    setProgress(0);
   };
 
   const goToPrev = () => {
@@ -41,8 +39,6 @@ const BannerImages = () => {
 
       if (elapsed.current >= DURATION) {
         goToNext(); // 다음 배너로 이동하면서 resetTimer 호출됨
-      } else {
-        setProgress((elapsed.current / DURATION) * 100);
       }
     }, INTERVAL);
 
@@ -51,8 +47,8 @@ const BannerImages = () => {
 
   return (
     <div
-      className="relative w-full group"
-      style={{ paddingBottom: "28.66%" }}
+      className="relative w-full group mb-5"
+      style={{ paddingBottom: "24%" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -62,19 +58,11 @@ const BannerImages = () => {
           key={i}
           src={src}
           alt={`Banner ${i + 1}`}
-          className={`absolute top-0 left-0 w-full h-full object-fill transition-opacity duration-1000 ${
+          className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
             i === index ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
         />
       ))}
-
-      {/* 진행 바 */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-black/20 z-20">
-        <div
-          className="h-full bg-white/60 transition-[width] duration-50"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
 
       {/* 이전 버튼 */}
       <button
