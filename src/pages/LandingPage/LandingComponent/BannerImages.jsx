@@ -47,7 +47,7 @@ const BannerImages = () => {
 
   return (
     <div
-      className="relative w-full group mb-5"
+      className="relative w-full group mb-5 min-h-[170px]"
       style={{ paddingBottom: "24%" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
