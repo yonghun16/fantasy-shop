@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 // styles
 const baseStyles =
-  "inline-flex items-center justify-center font-medium rounded-md transition whitespace-nowrap";
+  "flex items-center justify-center font-medium rounded-md transition whitespace-nowrap";
 
 const sizeStyles = {
   md: "px-4 py-2 text-base",
