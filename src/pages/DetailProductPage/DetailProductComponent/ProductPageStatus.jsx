@@ -1,4 +1,3 @@
-// ProductPageStatus.jsx
 const ProductPageStatus = ({ loading, error, product }) => {
   if (loading) {
     return (

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "../../../shared/api/axios";
+import axiosInstance from "../../shared/api/axios";
 
 // 상품 상세 정보를 가져오는 비동기 함수
 const fetchProductDetail = async (id) => {

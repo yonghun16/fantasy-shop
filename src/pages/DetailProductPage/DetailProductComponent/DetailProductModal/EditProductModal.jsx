@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { InputBox } from "../../../../shared/ui/InputBox";
 import { Button } from "../../../../shared/ui/Button";
 import ImageDropzone from "../ImageDropzone";
-import useEditProduct from "../../hooks/useEditProduct";
+import useEditProduct from "../../../../features/DetailProduct/useEditProduct";
 
 // 선택 가능한 카테고리 목록
 const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
