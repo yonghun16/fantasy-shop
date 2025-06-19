@@ -8,12 +8,12 @@ import { Button } from "../../shared/ui/Button";
 import { LuLock, LuCheckCheck, LuRefreshCcw } from "react-icons/lu";
 
 const PasswordChangeSection = () => {
-  const { register, errors, newPassword, onSubmit } = useProfileDetailsForm("updatePassword");
+  const { register, errors, newPassword, onUpdatePassword } = useProfileDetailsForm();
   const validationOptions = useProfileValidationOptions();
 
   return (
     <section className="mb-2 p-6 bg-white border border-gray-300 rounded-md">
-      <form className="space-y-5" onSubmit={onSubmit}>
+      <form className="space-y-5" onSubmit={onUpdatePassword}>
         <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
           <LuLock /> 비밀번호 변경
         </h2>

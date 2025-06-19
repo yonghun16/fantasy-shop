@@ -31,7 +31,7 @@ const MyProfilePage = () => {
 
   return (
     <div className="flex flex-col items-center p-6 min-h-screen max-w-5xl mx-auto">
-      <ProfileHeader />
+      <ProfileHeader userData={userData}/>
 
       <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6 items-start">
         {/* 프로필 사진 섹션 */}

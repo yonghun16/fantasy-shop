@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../shared/api/axios";
 
 
-const useProfileDetailsForm = (submitType) => {
+const useProfileDetailsForm = () => {
   // react-hook-form
   const {
     register,
@@ -17,7 +17,7 @@ const useProfileDetailsForm = (submitType) => {
   const newPassword = watch("newPassword");  // password에 watch(감시) 등록
 
   // onSubmit Handler
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, submitType) => {
     if (submitType === "updateProfile") {
       const body = {
         userName: data.userName,
@@ -26,6 +26,7 @@ const useProfileDetailsForm = (submitType) => {
         profileImage: data.profileImage
       };
       try {
+        console.log("보내기전", body)
         await axiosInstance.put("/users/me", body, {
           headers: { "Content-Type": "multipart/form-data" },
         });
@@ -63,7 +64,8 @@ const useProfileDetailsForm = (submitType) => {
     watch,
     setValue,
     newPassword,
-    onSubmit: handleSubmit(onSubmit),
+    onUpdateProfile: handleSubmit((data) => onSubmit(data, "updateProfile")),
+    onUpdatePassword: handleSubmit((data) => onSubmit(data, "updatePassword")),
   };
 }
 
