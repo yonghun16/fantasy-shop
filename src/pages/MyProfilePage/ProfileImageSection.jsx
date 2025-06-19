@@ -7,10 +7,10 @@ import { LuPencil, LuUpload } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 
 
-const ProfileImageSection = () => {
-  const userData = useSelector((state) => state.user.userData);
+const ProfileImageSection = ({userData}) => {
   const isAdmin = useSelector((state) => state.user.userData.isAdmin);
 
+  console.log(userData)
   return (
     <div className="md:w-1/3 flex flex-col self-center md:self-start">
       <div className="flex flex-col items-center">
