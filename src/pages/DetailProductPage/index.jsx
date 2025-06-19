@@ -18,7 +18,7 @@ const DetailProductPage = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6 mt-5 mb-15">
       {/* 상단 제목 */}
       <h2 className="text-2xl font-semibold text-center mb-6">
         아이템 상세보기
