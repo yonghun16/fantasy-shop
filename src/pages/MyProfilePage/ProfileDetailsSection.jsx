@@ -1,4 +1,3 @@
-
 /* components, hook */
 import useProfileDetailsForm from "../../features/myprofile/useProfileDetailsForm";
 import useProfileValidationOptions from "../../features/myprofile/useProfileValidationOptions";  // 유효셩 검사 
@@ -16,7 +15,9 @@ const ProfileDetailsSection = ({userData}) => {
 
   // 카카오 주소 찾기 API 
   const { openAddressModal, loading } = useKakaoAddress();
-  const address = watch("address"); 
+  const address = watch("address");
+  const isAddressChanged = (userData.address ?? "").trim() !== (address ?? "").trim();  // 이전 주소가 변경 되었을 때만, 세부주소 활성화
+
   const handleSearchAddress = () => {
     if (loading) return alert("주소 API가 아직 로드되지 않았습니다.");
     openAddressModal((data) => {
@@ -63,7 +64,7 @@ const ProfileDetailsSection = ({userData}) => {
           register={register}
           validation={validationOptions.address}
           errorMessage={errors.address}
-          value={address}
+          value={address ?? ""}
           readOnly
           onClick={handleSearchAddress}
         />
@@ -76,6 +77,7 @@ const ProfileDetailsSection = ({userData}) => {
           register={register}
           validation={validationOptions.detaileAaddress}
           errorMessage={errors.detaileAaddress}
+          disabled={!isAddressChanged}
         />
 
         <ProfileInputField
