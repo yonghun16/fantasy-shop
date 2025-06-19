@@ -27,7 +27,7 @@ const ItemStats = ({ register, watch }) => {
               </div>
               <input
                 type="number"
-                placeholder="0-999"
+                placeholder="0-9999.99"
                 disabled={!isActive}
                 className={`
                 w-full text-center 
@@ -40,11 +40,17 @@ const ItemStats = ({ register, watch }) => {
                 hover:bg-gray-50
                 focus:border-indigo-500 focus:outline-none focus:bg-indigo-50`}
                 min={0}
-                max={999}
+                max={9999.99}
                 {...register(`stats.${label}`, {
                   valueAsNumber: true,
                   min: 0,
-                  max: 999,
+                  max: 9999.99,
+                  validate: (value) => {
+                    if (!isActive) return true; // 비활성 input → 검증 통과
+                    return (
+                      value <= 9999.99 || "최대 9999.99 까지 입력 가능합니다."
+                    );
+                  },
                 })}
               />
             </div>
