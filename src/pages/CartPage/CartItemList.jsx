@@ -7,11 +7,13 @@ import {
 } from "../../features/cart/cartSlice";
 import { useCartItems } from "../../features/cart/useCartItems";
 import { toast } from "react-toastify";
+import useDeleteCartItems from "../../features/cart/useDeleteCartItems";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
   useCartItems();
   const cartItems = useSelector((state) => state.cart.items);
+  const { handleDeleteCartItem } = useDeleteCartItems();
 
   return (
     <div className="border border-gray-300 rounded-md p-6 bg-white">
@@ -67,10 +69,7 @@ const CartItemList = () => {
 
                 {/*아이템 삭제*/}
                 <LuTrash2
-                  onClick={() => {
-                    dispatch(deleteItem(item.id));
-                    toast.success("아이템이 삭제되었습니다.");
-                  }}
+                  onClick={() => handleDeleteCartItem(item.id)}
                   className="cursor-pointer"
                 />
               </div>
