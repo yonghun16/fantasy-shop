@@ -9,7 +9,7 @@ import { Button } from "../../shared/ui/Button";
 import { LuUser, LuMail, LuMapPinHouse, LuPhone, LuRefreshCcw } from "react-icons/lu";
 
 
-const ProfileDetailsSection = ({userData}) => {
+const ProfileDetailsSection = ({ userData }) => {
   const { register, watch, errors, setValue, onSubmit } = useProfileDetailsForm("updateProfile");
   const validationOptions = useProfileValidationOptions();
 
