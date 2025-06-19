@@ -1,73 +1,54 @@
+import { useDispatch } from "react-redux";
 import { LuShoppingCart, LuRefreshCcw, LuPackageX } from "react-icons/lu";
 import { Button } from "../../../shared/ui/Button";
-import EditProductModal from "./DetailProductModal/EditProductModal";
-import DeleteConfirmModal from "./DetailProductModal/DeleteConfirmModal";
 import useProductActions from "../../../features/DetailProduct/useProductActions";
+import {
+  openEditModal,
+  openDeleteModal,
+} from "../../../features/DetailProduct/modalSlice";
 
 const ProductActionButtons = ({ product, count }) => {
-  const {
-    isEditing,
-    isDeleting,
-    isAdmin,
-    setIsEditing,
-    setIsDeleting,
-    handleAddToCart,
-    handleDeleteSuccess,
-  } = useProductActions(product, count);
+  const { isAdmin, handleAddToCart } = useProductActions(product, count);
+  const dispatch = useDispatch();
 
   return (
-    <>
-      <div className="flex flex-col gap-3">
-        <Button
-          color="indigo"
-          size="md"
-          className="w-full flex justify-center gap-2"
-          icon={<LuShoppingCart />}
-          iconPosition="left"
-          onClick={handleAddToCart}
-        >
-          장바구니에 담기
-        </Button>
+    <div className="flex flex-col gap-3">
+      <Button
+        color="indigo"
+        size="md"
+        className="w-full flex justify-center gap-2"
+        icon={<LuShoppingCart />}
+        iconPosition="left"
+        onClick={handleAddToCart}
+      >
+        장바구니에 담기
+      </Button>
 
-        {isAdmin && (
-          <div className="flex flex-wrap gap-3">
-            <Button
-              color="rose"
-              size="md"
-              className="flex-1 flex justify-center gap-2"
-              icon={<LuRefreshCcw />}
-              iconPosition="left"
-              onClick={() => setIsEditing(true)}
-            >
-              아이템 정보 수정하기
-            </Button>
+      {isAdmin && (
+        <div className="flex flex-wrap gap-3">
+          <Button
+            color="rose"
+            size="md"
+            className="flex-1 flex justify-center gap-2"
+            icon={<LuRefreshCcw />}
+            iconPosition="left"
+            onClick={() => dispatch(openEditModal(product))}
+          >
+            아이템 정보 수정하기
+          </Button>
 
-            <Button
-              color="gray"
-              size="md"
-              className="flex-1"
-              icon={<LuPackageX />}
-              onClick={() => setIsDeleting(true)}
-            >
-              아이템 삭제하기
-            </Button>
-          </div>
-        )}
-      </div>
-
-      <EditProductModal
-        isOpen={isEditing}
-        onClose={() => setIsEditing(false)}
-        product={product}
-      />
-
-      <DeleteConfirmModal
-        isOpen={isDeleting}
-        onClose={() => setIsDeleting(false)}
-        itemPk={product.itemPk}
-        onDeleteSuccess={handleDeleteSuccess}
-      />
-    </>
+          <Button
+            color="gray"
+            size="md"
+            className="flex-1"
+            icon={<LuPackageX />}
+            onClick={() => dispatch(openDeleteModal(product.itemPk))}
+          >
+            아이템 삭제하기
+          </Button>
+        </div>
+      )}
+    </div>
   );
 };
 

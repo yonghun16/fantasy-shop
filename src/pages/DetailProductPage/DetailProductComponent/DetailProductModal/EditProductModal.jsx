@@ -3,11 +3,16 @@ import { InputBox } from "../../../../shared/ui/InputBox";
 import { Button } from "../../../../shared/ui/Button";
 import ImageDropzone from "../ImageDropzone";
 import useEditProductForm from "../../../../features/DetailProduct/useEditProductForm";
+import { useSelector, useDispatch } from "react-redux";
+import { closeEditModal } from "../../../../features/DetailProduct/modalSlice";
 
 const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const EditProductModal = ({ isOpen, onClose, product }) => {
+const EditProductModal = () => {
+  const dispatch = useDispatch();
+  const { isOpen, product } = useSelector((state) => state.modal.editModal);
+
   const {
     formData,
     handleChange,
@@ -16,7 +21,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
     handleSubmit,
     isLoading,
   } = useEditProductForm(product, () => {
-    onClose();
+    dispatch(closeEditModal());
     window.location.reload();
   });
 
@@ -24,7 +29,10 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.7)]">
-      <div className="absolute inset-0" onClick={onClose} />
+      <div
+        className="absolute inset-0"
+        onClick={() => dispatch(closeEditModal())}
+      />
       <div className="bg-white z-10 rounded-lg shadow-lg p-6 w-full max-w-xl relative">
         <h2 className="text-lg font-semibold mb-4 text-center">
           아이템 정보 수정
@@ -49,7 +57,7 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           ))}
 
-          {/* 카테고리 */}
+          {/* 카테고리 선택 */}
           <div>
             <p className="block text-sm font-medium mb-1 text-gray-800">
               카테고리
@@ -106,12 +114,16 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
             />
           </div>
 
-          {/* 버튼 영역 */}
+          {/* 버튼 */}
           <div className="flex justify-end gap-3 pt-4">
             <Button type="submit" color="indigo" disabled={isLoading}>
               {isLoading ? "저장 중..." : "저장"}
             </Button>
-            <Button type="button" color="gray" onClick={onClose}>
+            <Button
+              type="button"
+              color="gray"
+              onClick={() => dispatch(closeEditModal())}
+            >
               취소
             </Button>
           </div>
