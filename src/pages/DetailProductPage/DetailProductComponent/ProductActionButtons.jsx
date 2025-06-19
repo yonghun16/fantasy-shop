@@ -63,7 +63,7 @@ const ProductActionButtons = ({ product, count }) => {
 
         {/* 관리자만 볼 수 있는 수정/삭제 버튼 */}
         {isAdmin && (
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {/* 아이템 수정 버튼 */}
             <Button
               color="rose"

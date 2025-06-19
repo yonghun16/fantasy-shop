@@ -3,7 +3,7 @@ import CategoryFilter from "./LandingComponent/CategoryFilter";
 import SearchAndSort from "./LandingComponent/SearchAndSort";
 import ProductGrid from "./LandingComponent/ProductGrid";
 import Pagination from "./LandingComponent/Pagination";
-import useProductFilter from "./hooks/useProductFilter";
+import useProductFilter from "../../features/Landing/useProductFilter";
 
 const LandingPage = () => {
   const {
@@ -26,7 +26,7 @@ const LandingPage = () => {
   } = useProductFilter();
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-0 sm:px-4">
+    <div className="w-full max-w-screen-xl mx-auto px-0 xl:px-4">
       <BannerImages />
 
       <CategoryFilter
@@ -35,7 +35,7 @@ const LandingPage = () => {
         setActiveCategory={handleCategoryChange}
       />
 
-      <div className="border-b border-gray-200 mb-6 w-full"></div>
+      <div className="border-b border-gray-200 mb-6 w-[97%] mx-auto"></div>
 
       <SearchAndSort
         inputValue={inputValue}

@@ -5,7 +5,7 @@ const ProductImage = ({ src, alt }) => (
     <img
       src={`${BASE_URL}${src}`}
       alt={alt}
-      className="max-w-[450px] max-h-[450px] w-auto h-auto object-contain rounded-md"
+      className="max-w-full max-h-[600px] w-auto h-auto object-contain rounded-md"
     />
   </div>
 );
