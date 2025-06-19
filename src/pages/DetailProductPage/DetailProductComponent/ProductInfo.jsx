@@ -1,4 +1,4 @@
-import { GiBroadsword } from "react-icons/gi";
+import { LuSword } from "react-icons/lu";
 
 const ProductInfo = ({ product }) => {
   const { itemName, itemPrice, itemEffect, itemDescription } = product;
@@ -12,7 +12,7 @@ const ProductInfo = ({ product }) => {
       </p>
 
       <div className="mt-4 flex items-center gap-2 text-gray-700">
-        <GiBroadsword className="text-lg" />
+        <LuSword className="text-lg" />
         <span className="text-sm font-semibold">데미지 {itemEffect}</span>
       </div>
 
