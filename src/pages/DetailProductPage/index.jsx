@@ -5,6 +5,7 @@ import ProductActionButtons from "./DetailProductComponent/ProductActionButtons"
 import ProductPageStatus from "./DetailProductComponent/ProductPageStatus";
 import ProductImage from "./DetailProductComponent/ProductImage";
 import TotalPrice from "./DetailProductComponent/TotalPrice";
+import ModalController from "./DetailProductComponent/DetailProductModal/ModalController";
 
 const DetailProductPage = () => {
   const { product, count, handleIncrease, handleDecrease, loading, error } =
@@ -18,7 +19,7 @@ const DetailProductPage = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6 mt-5 mb-15">
       {/* 상단 제목 */}
       <h2 className="text-2xl font-semibold text-center mb-6">
         아이템 상세보기
@@ -49,6 +50,8 @@ const DetailProductPage = () => {
 
           {/* 장바구니 추가/아이템 정보 수정 및 삭제 등의 액션 버튼 */}
           <ProductActionButtons product={product} count={count} />
+          {/* 모달 렌더링 컴포넌트 */}
+          <ModalController />
         </div>
       </div>
     </div>

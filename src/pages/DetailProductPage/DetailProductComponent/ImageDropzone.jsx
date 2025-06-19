@@ -1,35 +1,8 @@
-import { useDropzone } from "react-dropzone";
-import { useState, useEffect, useCallback } from "react";
+import useImageDropzone from "../../../features/DetailProduct/useImageDropzone";
 
 const ImageDropzone = ({ onFileSelect, initialImage }) => {
-  const [preview, setPreview] = useState(null);
-
-  const onDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        setPreview(URL.createObjectURL(file));
-        onFileSelect(file);
-      }
-    },
-    [onFileSelect]
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { "image/*": [] },
-    maxFiles: 1,
-  });
-
-  // 기존 이미지가 있는 경우 초기 미리보기 설정
-  useEffect(() => {
-    if (!preview && initialImage) {
-      setPreview(initialImage);
-    }
-  }, [initialImage, preview]);
-
-  console.log("ImageDropzone - initialImage:", initialImage);
-  console.log("preview:", preview);
+  const { preview, getRootProps, getInputProps, isDragActive } =
+    useImageDropzone(onFileSelect, initialImage);
 
   return (
     <div
