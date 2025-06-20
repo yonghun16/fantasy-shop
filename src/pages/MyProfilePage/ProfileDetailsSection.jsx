@@ -29,8 +29,9 @@ const ProfileDetailsSection = ({ userData }) => {
   return (
     <section className="mb-6 p-6 bg-white border border-gray-300 rounded-md">
       <form className="space-y-5" onSubmit={onUpdateProfile}>
-        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
-          <LuUser /> 인적 사항
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <span className="text-rose-500"><LuUser /></span>
+          <span className="text-black">인적 사항</span>
         </h2>
 
         <ProfileInputField
