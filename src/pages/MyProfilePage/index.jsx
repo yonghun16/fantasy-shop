@@ -30,7 +30,7 @@ const MyProfilePage = () => {
   });
 
   if (isLoading) return (
-    <div className="flex items-center justify-center h-screen-1/2">불러오는 중...</div>
+    <div className="flex items-center justify-center h-screen">불러오는 중...</div>
   );
   if (isError) return <div>에러 발생: {error.message}</div>;
 
