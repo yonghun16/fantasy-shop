@@ -8,6 +8,8 @@ import ProfileDetailsSection from "./ProfileDetailsSection";
 import PasswordChangeSection from "./PasswordChangeSection";
 import ProfileActionButtons from "./ProfileActionButtons";
 
+
+// 사용자 정보 불러오기 API
 const fetchUserData = async () => {
   const { data } = await axiosInstance.get("/users/me", {
     headers: { "Content-Type": "application/json" },
@@ -15,6 +17,7 @@ const fetchUserData = async () => {
   return data;
 };
 
+// react-query를 이용한 사용자 정보 불러오기
 const MyProfilePage = () => {
   const {
     data: userData,
@@ -30,9 +33,15 @@ const MyProfilePage = () => {
   });
 
   if (isLoading) return (
-    <div className="flex items-center justify-center h-screen">불러오는 중...</div>
+    <div className="flex items-center justify-center h-screen">
+      불러오는 중...
+    </div>
   );
-  if (isError) return <div>에러 발생: {error.message}</div>;
+  if (isError) return (
+    <div className="flex items-center justify-center h-screen">
+      에러 발생: {error.message}
+    </div>
+  );
 
   return (
     <div className="flex flex-col items-center p-6 min-h-screen max-w-5xl mx-auto">
