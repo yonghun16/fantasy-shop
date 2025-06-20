@@ -4,6 +4,7 @@ import axiosInstance from "../../shared/api/axios";
 // 상품 상세 정보를 가져오는 비동기 함수
 const fetchProductDetail = async (id) => {
   const { data } = await axiosInstance.get(`/item/${id}`);
+  console.log(data);
   return data; // 응답받은 데이터 반환
 };
 

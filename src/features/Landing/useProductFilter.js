@@ -4,12 +4,18 @@ import useProductsQuery from "./useProductsQuery";
 const ITEMS_PER_PAGE = 10;
 
 const useProductFilter = () => {
-  const categories = ["모든 아이템", "검", "활", "지팡이", "방패"];
+  const categories = [
+    { label: "모든 아이템", value: "all" },
+    { label: "검", value: "sword" },
+    { label: "활", value: "bow" },
+    { label: "지팡이", value: "wand" },
+    { label: "방패", value: "shield" },
+  ];
   const sortOptions = ["최신 등록순", "낮은 가격순", "높은 가격순"];
 
   const [inputValue, setInputValue] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState("모든 아이템");
+  const [activeCategory, setActiveCategory] = useState("all");
   const [sortOption, setSortOption] = useState("최신 등록순");
   const [currentPage, setCurrentPage] = useState(1);
 
