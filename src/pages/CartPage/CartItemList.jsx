@@ -2,11 +2,9 @@ import { LuMinus, LuPlus, LuShoppingCart, LuTrash2 } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decreaseQuantity,
-  deleteItem,
   increaseQuantity,
 } from "../../features/cart/cartSlice";
 import { useCartItems } from "../../features/cart/useCartItems";
-import { toast } from "react-toastify";
 import useDeleteCartItems from "../../features/cart/useDeleteCartItems";
 
 const CartItemList = () => {
@@ -69,7 +67,7 @@ const CartItemList = () => {
 
                 {/*아이템 삭제*/}
                 <LuTrash2
-                  onClick={() => handleDeleteCartItem(item.id)}
+                  onClick={() => handleDeleteCartItem(item.cartPk)}
                   className="cursor-pointer"
                 />
               </div>

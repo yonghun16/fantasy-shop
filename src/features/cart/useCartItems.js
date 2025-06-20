@@ -7,7 +7,6 @@ import { authUser } from "../../shared/api/authUser";
 
 export const useCartItems = () => {
   const dispatch = useDispatch();
-
   const isAuth = useSelector((state) => state.user.isAuth);
   const userData = useSelector((state) => state.user.userData);
   const navigate = useNavigate();
@@ -19,13 +18,13 @@ export const useCartItems = () => {
           await dispatch(authUser().unwrap());
         }
         const data = await getCartItems();
-        console.log(data, "item data");
         const mapped = data.map((item) => ({
           id: item.itemPk,
           name: item.itemName,
           quantity: item.quantity,
           price: item.itemPrice,
           imageUrl: item.imageUrl,
+          cartPk: item.cartPk,
         }));
         dispatch(setCartItems(mapped));
       } catch {
