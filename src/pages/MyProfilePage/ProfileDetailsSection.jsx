@@ -60,12 +60,11 @@ const ProfileDetailsSection = ({ userData }) => {
           label="주소"
           id="address"
           placeholder="주소"
-          defaultValue={userData.address}
           icon={<LuMapPinHouse />}
           register={register}
           validation={validationOptions.address}
           errorMessage={errors.address}
-          value={address ?? ""}
+          value={userData.address ?? ""}
           readOnly
           onClick={handleSearchAddress}
         />
