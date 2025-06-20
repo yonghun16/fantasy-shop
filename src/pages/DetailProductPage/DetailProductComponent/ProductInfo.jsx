@@ -1,8 +1,18 @@
 import { LuSword, LuShield, LuWand } from "react-icons/lu";
 import { GiPocketBow } from "react-icons/gi";
 
+const categoryIconMap = {
+  sword: LuSword,
+  bow: GiPocketBow,
+  shield: LuShield,
+  wand: LuWand,
+};
+
 const ProductInfo = ({ product }) => {
-  const { itemName, itemPrice, itemEffect, itemDescription } = product;
+  const { itemName, itemPrice, itemEffect, itemDescription, itemCategory } =
+    product;
+
+  const IconComponent = categoryIconMap[itemCategory];
 
   return (
     <div>
@@ -13,7 +23,7 @@ const ProductInfo = ({ product }) => {
       </p>
 
       <div className="mt-4 flex items-center gap-2 text-gray-700">
-        <LuSword className="text-lg" />
+        {IconComponent && <IconComponent className="text-lg" />}
         <span className="text-sm font-semibold">{itemEffect}</span>
       </div>
 
