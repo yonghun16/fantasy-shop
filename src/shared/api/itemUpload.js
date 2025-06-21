@@ -1,6 +1,5 @@
 import axiosInstance from "./axios";
 
-// 아이템 등록 (POST)
 export const postItem = async (formValues) => {
   const formData = new FormData();
 
@@ -10,7 +9,7 @@ export const postItem = async (formValues) => {
   formData.append("itemInventory", formValues.itemInventory);
   formData.append("itemEffect", formValues.itemEffect);
   formData.append("itemCategory", formValues.itemCategory);
-  formData.append("itemImage", formValues.itemImage); // 이미지 파일
+  formData.append("itemImage", formValues.itemImage);
 
   const res = await axiosInstance.post("/item", formData, {
     headers: {

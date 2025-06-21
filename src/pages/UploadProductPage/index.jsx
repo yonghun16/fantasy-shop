@@ -7,8 +7,12 @@ import { Button } from "../../shared/ui/Button";
 import { LuUpload } from "react-icons/lu";
 import { postItem } from "../../shared/api/itemUpload";
 import { useImageUploader } from "../../features/uploadProduct/useImageUploader";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ItemForm = () => {
+  const navigate = useNavigate();
+
   const formMethods = useForm({
     mode: "onTouched",
   });
@@ -45,7 +49,9 @@ const ItemForm = () => {
     try {
       const res = await postItem(payload);
       console.log("등록 성공:", res);
+      toast.success("아이템 등록이 완료되었습니다.");
       reset();
+      navigate("/");
     } catch (err) {
       console.error("등록 실패:", err);
     }

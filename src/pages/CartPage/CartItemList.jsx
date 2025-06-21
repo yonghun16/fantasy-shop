@@ -1,18 +1,18 @@
 import { LuMinus, LuPlus, LuShoppingCart, LuTrash2 } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  decreaseQuantity,
-  deleteItem,
-  increaseQuantity,
-} from "../../features/cart/cartSlice";
 import { useCartItems } from "../../features/cart/useCartItems";
-import { toast } from "react-toastify";
 import useDeleteCartItems from "../../features/cart/useDeleteCartItems";
+import {
+  decreaseQuantityAsync,
+  increaseQuantityAsync,
+} from "../../features/cart/cartThunk";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
   useCartItems();
   const cartItems = useSelector((state) => state.cart.items);
+  const isLoading = useSelector((state) => state.cart.isLoading);
+
   const { handleDeleteCartItem } = useDeleteCartItems();
 
   return (
@@ -22,7 +22,9 @@ const CartItemList = () => {
         주문내역
       </h2>
 
-      {cartItems.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center m-10">Loading...</div>
+      ) : cartItems.length === 0 ? (
         <p className="text-gray-500">장바구니가 비어 있습니다.</p>
       ) : (
         <ul className="space-y-6">
@@ -50,13 +52,13 @@ const CartItemList = () => {
               <div className="flex items-center gap-6">
                 <div className="flex items-center border rounded-md">
                   <LuMinus
-                    onClick={() => dispatch(decreaseQuantity(item.id))}
+                    onClick={() => dispatch(decreaseQuantityAsync(item))}
                     className="w-6 h-6 text-lg font-bold flex items-center justify-center border-r px-1 text-gray-700 cursor-pointer"
                   />
 
                   <span className="w-6 text-center">{item.quantity}</span>
                   <LuPlus
-                    onClick={() => dispatch(increaseQuantity(item.id))}
+                    onClick={() => dispatch(increaseQuantityAsync(item))}
                     className="w-6 h-6 text-lg font-bold flex items-center justify-center border-l px-1 text-gray-700 cursor-pointer"
                   />
                 </div>
@@ -69,7 +71,7 @@ const CartItemList = () => {
 
                 {/*아이템 삭제*/}
                 <LuTrash2
-                  onClick={() => handleDeleteCartItem(item.id)}
+                  onClick={() => handleDeleteCartItem(item.cartPk)}
                   className="cursor-pointer"
                 />
               </div>
