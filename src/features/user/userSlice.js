@@ -66,13 +66,14 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         setLoading(state, false);
         state.isAuth = true;
+        toast.success('로그인을 성공했습니다.')
         localStorage.setItem('accessToken', action.payload.token);
         // console.log("Access Token:", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         setLoading(state, false);
         state.error = action.payload;
-        toast.error('로그인에 실패했습니다.');
+        toast.error('로그인을 실패했습니다.');
       })
 
       // 인증
@@ -98,14 +99,14 @@ const userSlice = createSlice({
       })
       .addCase(withdrawUser.fulfilled, (state, action) => {
         setLoading(state, false);
-        console.log("action.payload", action.payload);
+        toast.success('회원탈퇴를 성공했습니다.')
         // state.isAuth = false;
       })
       .addCase(withdrawUser.rejected, (state, action) => {
         setLoading(state, false);
         state.error = action.payload;
         console.log("action.payload", action.payload);
-        toast.error('회원탈퇴에 실패했습니다.');
+        toast.error('회원탈퇴를 실패했습니다.');
       })
   }
 });

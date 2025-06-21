@@ -32,7 +32,7 @@ const PasswordChangeSection = () => {
           label="현재 비밀번호"
           id="currentPassword"
           type="password"
-          autoComplete="password"
+          autoComplete="new-password"
           icon={<LuLock />}
           placeholder="현재 비밀번호"
           className="w-full"
@@ -45,7 +45,7 @@ const PasswordChangeSection = () => {
           label="새 비밀번호"
           id="newPassword"
           type="password"
-          autoComplete="password"
+          autoComplete="new-password"
           icon={<LuLock />}
           placeholder="새 비밀번호"
           className="w-full"
@@ -58,7 +58,7 @@ const PasswordChangeSection = () => {
           label="새 비밀번호 확인"
           id="confirmNewPassword"
           type="password"
-          autoComplete="password"
+          autoComplete="new-password"
           icon={<LuCheckCheck  />}
           placeholder="새 비밀번호 확인"
           className="w-full"

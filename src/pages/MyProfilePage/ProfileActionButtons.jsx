@@ -50,14 +50,21 @@ const ProfileActionButtons = () => {
           className="w-full"
           icon={<LuUserRoundX />}
           onClick={() => {
-            dispatch(withdrawUser());
-            // navigate("/")
+            dispatch(withdrawUser())
+              .unwrap()
+              .then(() => {
+                localStorage.removeItem('accessToken');
+                navigate("/");
+              })
+              .catch((error) => {
+                console.error("회원 탈퇴 실패:", error);
+              });
           }}
         >
           회원 탈퇴
         </Button>
       </div>
-    </section>
+    </section >
   );
 };
 

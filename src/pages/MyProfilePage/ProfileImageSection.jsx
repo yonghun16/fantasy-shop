@@ -10,6 +10,7 @@ import useProfileImageUpload from "../../features/myprofile/useProfileImageUploa
 import { LuPencil, LuUpload } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import loadingImg from "../../assets/images/loading.jpg";
+import noAvatarImg from "../../assets/images/noavatar.png";
 
 
 const ProfileImageSection = () => {
@@ -36,6 +37,10 @@ const ProfileImageSection = () => {
             alt=" "
             className="w-50 h-50 rounded-full object-cover border-none"
             onLoad={() => setIsLoading(false)}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = noAvatarImg;
+            }}
           />
 
           {/* 프로필 이미지 변경 버튼 */}
