@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 /* components, hook */
 import useProfileDetailsForm from "../../features/myprofile/useProfileDetailsForm";
 import useProfileValidationOptions from "../../features/myprofile/useProfileValidationOptions";  // 유효셩 검사 
@@ -9,9 +11,11 @@ import { Button } from "../../shared/ui/Button";
 import { LuUser, LuMail, LuMapPinHouse, LuPhone, LuRefreshCcw } from "react-icons/lu";
 
 
-const ProfileDetailsSection = ({ userData }) => {
+const ProfileDetailsSection = () => {
   const { register, watch, errors, setValue, onUpdateProfile } = useProfileDetailsForm();
   const validationOptions = useProfileValidationOptions();
+
+  const userData = useSelector((state) => state.user.userData);
 
   // 카카오 주소 찾기 API 
   const { openAddressModal, loading } = useKakaoAddress();

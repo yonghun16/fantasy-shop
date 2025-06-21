@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { withdrawUser } from "../../features/user/api/withdrawUser";
 
 /* components, assets */
 import { Button } from "../../shared/ui/Button";
@@ -9,6 +11,7 @@ import { LuCreditCard, LuLogOut, LuUserRoundX } from "react-icons/lu";
 const ProfileActionButtons = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
 
   // 결제 이력 이동
   const handleUploadClick = () => {
@@ -46,6 +49,11 @@ const ProfileActionButtons = () => {
           color="gray"
           className="w-full"
           icon={<LuUserRoundX />}
+          onClick={() => {
+            localStorage.removeItem('accessToken');
+            dispatch(withdrawUser());
+            // navigate("/")
+          }}
         >
           회원 탈퇴
         </Button>

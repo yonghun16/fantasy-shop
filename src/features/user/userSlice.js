@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import { registerUser } from '../../features/user/api/registerUser';
 import { loginUser } from '../../features/user/api/loginUser';
 import { authUser } from '../../shared/api/authUser';
+import { withdrawUser } from '../../features/user/api/withdrawUser';
 
 
-const initialState = {
+export const initialState = {
   userData: {
     userPk: '',
     userName: '',
@@ -33,7 +34,15 @@ const setLoading = (state, loading) => {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser(state) {
+      state.userData = initialState.userData;
+      state.isAuth = false;
+      state.isLogin = false;
+      state.isLoading = false;
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {     // 비동기 액션 처리용 리듀서(ex createAsyncThunk)
     builder
       // 회원 가입 (pending-진행중, fulfilled-완료, rejected-거부)
@@ -73,6 +82,7 @@ const userSlice = createSlice({
       .addCase(authUser.fulfilled, (state, action) => {
         setLoading(state, false);
         state.userData = action.payload;
+        console.log(action.payload);
         state.isAuth = true;
       })
       .addCase(authUser.rejected, (state, action) => {
@@ -81,6 +91,20 @@ const userSlice = createSlice({
         state.userData = initialState.userData;
         state.isAuth = false;
         localStorage.removeItem('accessToken');
+      })
+
+      // 회원 탈퇴
+      .addCase(withdrawUser.pending, (state) => {
+        setLoading(state, true);
+      })
+      .addCase(withdrawUser.fulfilled, (state) => {
+        setLoading(state, false);
+        // state.isAuth = false;
+      })
+      .addCase(withdrawUser.rejected, (state, action) => {
+        setLoading(state, false);
+        state.error = action.payload;
+        toast.error('회원탈퇴에 실패했습니다.');
       })
   }
 });
