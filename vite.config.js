@@ -8,6 +8,30 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    VitePWA({
+      registerType: 'autoUpdate', // 서비스워커 자동 갱신
+      manifest: {
+        name: 'My Vite PWA',
+        short_name: 'VitePWA',
+        description: 'My awesome Progressive Web App built with Vite',
+        theme_color: '#6366F1',
+        icons: [
+          {
+            src: 'pwa-192x192.png', // public 폴더에 아이콘 넣기
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+      workbox: {
+        // workbox 옵션 필요 시 추가
+      },
+    }),
   ],
   build: {
     minify: 'terser',
