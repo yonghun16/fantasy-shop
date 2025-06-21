@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import profileHeaderBgImg from "../../assets/images/notice4.png";
 
-const ProfileHeader = ({userData}) => {
+const ProfileHeader = () => {
+  const userData = useSelector((state) => state.user.userData);
 
   return (
     <section className="hidden md:block w-full max-w-5xl mb-10 overflow-hidden bg-white">

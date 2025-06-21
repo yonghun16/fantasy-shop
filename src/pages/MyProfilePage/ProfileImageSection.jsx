@@ -1,21 +1,28 @@
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /* assets */
 import { LuPencil, LuUpload } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import axiosInstance from "../../shared/api/axios";
 import { toast } from "react-toastify";
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import loadingImg from "../../assets/images/loading.jpg"
+
 
 const ProfileImageSection = () => {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const userData = useSelector((state) => state.user.userData);
 
   const isAdmin = useSelector((state) => state.user.userData.isAdmin);
   const [previewImage, setPreviewImage] = useState(userData.profileImageUrl);
+  const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    setPreviewImage(userData.profileImageUrl);
+  }, [userData.profileImageUrl]);
 
   // 이미지 업로드 처리 함수
   const handleImageChange = async (event) => {
@@ -38,8 +45,9 @@ const ProfileImageSection = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("프로필 이미지가 업로드되었습니다.");
+      console.log(res.data)
       // 서버에서 응답된 이미지 URL로 업데이트
-      setPreviewImage(res.data.imageUrl || reader.result);
+      setPreviewImage(res.data.profileImageUrl);
     } catch (err) {
       toast.error("프로필 업로드 실패");
       console.error(err);
@@ -52,9 +60,14 @@ const ProfileImageSection = () => {
         <div className="relative">
           {/* 프로필 이미지 */}
           <img
-            src={`${BASE_URL}${previewImage}`}
-            alt="Profile"
-            className="w-50 h-50 rounded-full object-cover border-4 border-white"
+            src={
+              isLoading
+                ? loadingImg
+                : `${BASE_URL}${previewImage}`
+            }
+            alt=" "
+            className="w-50 h-50 rounded-full object-cover border-none"
+            onLoad={() => setIsLoading(false)}
           />
 
           {/* 숨겨진 파일 선택 input */}

@@ -50,7 +50,6 @@ const ProfileActionButtons = () => {
           className="w-full"
           icon={<LuUserRoundX />}
           onClick={() => {
-            localStorage.removeItem('accessToken');
             dispatch(withdrawUser());
             // navigate("/")
           }}

@@ -6,9 +6,7 @@ export const withdrawUser = createAsyncThunk(
   "user/withdrawUser",
   async (_, thunkAPI) => {
     try {
-      const response = await axiosInstance.delete("/users/withdraw", {
-        headers: { "Content-Type": "application/json", },
-      });
+      const response = await axiosInstance.delete("/users/withdraw");
       return response.data // payload
     } catch (error) {
       console.log("Withdraw error", error);

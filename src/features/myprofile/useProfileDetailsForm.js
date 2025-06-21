@@ -32,7 +32,6 @@ const useProfileDetailsForm = () => {
 
         toast.success("인적사항이 성공적으로 변경되었습니다!");
         queryClient.invalidateQueries({ queryKey: ["userData"] });
-
       } catch (error) {
         toast.error("인적사항 변경에 실패했습니다.\n다시 시도해 주세요.", {
           style: { whiteSpace: "pre-line" },

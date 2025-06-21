@@ -82,7 +82,6 @@ const userSlice = createSlice({
       .addCase(authUser.fulfilled, (state, action) => {
         setLoading(state, false);
         state.userData = action.payload;
-        console.log(action.payload);
         state.isAuth = true;
       })
       .addCase(authUser.rejected, (state, action) => {
@@ -97,13 +96,15 @@ const userSlice = createSlice({
       .addCase(withdrawUser.pending, (state) => {
         setLoading(state, true);
       })
-      .addCase(withdrawUser.fulfilled, (state) => {
+      .addCase(withdrawUser.fulfilled, (state, action) => {
         setLoading(state, false);
+        console.log("action.payload", action.payload);
         // state.isAuth = false;
       })
       .addCase(withdrawUser.rejected, (state, action) => {
         setLoading(state, false);
         state.error = action.payload;
+        console.log("action.payload", action.payload);
         toast.error('회원탈퇴에 실패했습니다.');
       })
   }
