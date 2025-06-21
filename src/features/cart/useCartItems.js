@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCartItems } from "../../shared/api/cart";
-import { setCartItems } from "./cartSlice";
+import { setCartItems, setCartLoading } from "./cartSlice";
 import { authUser } from "../../shared/api/authUser";
 
 export const useCartItems = () => {
@@ -13,6 +13,7 @@ export const useCartItems = () => {
 
   useEffect(() => {
     const loadCart = async () => {
+      dispatch(setCartLoading(true));
       try {
         if (!isAuth || !userData.userPk) {
           await dispatch(authUser().unwrap());

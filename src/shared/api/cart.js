@@ -5,6 +5,11 @@ export const getCartItems = async () => {
   return res.data;
 };
 
+export const updateCartItems = async (items) => {
+  const res = await axiosInstance.put("/cart", { items });
+  return res.data;
+};
+
 export const deleteCartItems = async (cartPk) => {
   const res = await axiosInstance.delete(`/cart/${cartPk}`);
   return res.data;
