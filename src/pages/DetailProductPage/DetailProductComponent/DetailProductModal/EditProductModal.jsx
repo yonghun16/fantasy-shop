@@ -6,7 +6,12 @@ import useEditProductForm from "../../../../features/DetailProduct/useEditProduc
 import { useSelector, useDispatch } from "react-redux";
 import { closeEditModal } from "../../../../features/DetailProduct/modalSlice";
 
-const CATEGORY_OPTIONS = ["검", "활", "지팡이", "방패"];
+const CATEGORY_OPTIONS = [
+  { label: "검", value: "sword" },
+  { label: "활", value: "bow" },
+  { label: "지팡이", value: "wand" },
+  { label: "방패", value: "shield" },
+];
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const EditProductModal = () => {
@@ -63,15 +68,15 @@ const EditProductModal = () => {
               카테고리
             </p>
             <div className="flex w-full gap-2">
-              {CATEGORY_OPTIONS.map((category) => (
+              {CATEGORY_OPTIONS.map(({ label, value }) => (
                 <Button
-                  key={category}
+                  key={value}
                   type="button"
-                  color={formData.itemCategory === category ? "indigo" : "gray"}
-                  onClick={() => handleCategorySelect(category)}
+                  color={formData.itemCategory === value ? "indigo" : "gray"}
+                  onClick={() => handleCategorySelect(value)}
                   className="flex-1 text-sm"
                 >
-                  {category}
+                  {label}
                 </Button>
               ))}
             </div>
