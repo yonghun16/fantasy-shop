@@ -12,17 +12,15 @@ import { LuUser, LuMail, LuMapPinHouse, LuPhone, LuRefreshCcw } from "react-icon
 
 
 const ProfileDetailsSection = () => {
-  const userData = useSelector((state) => state.user.userData);
   const { register, watch, errors, setValue, onUpdateProfile } = useProfileDetailsForm();
   const validationOptions = useProfileValidationOptions();
 
+  const userData = useSelector((state) => state.user.userData);
 
   // 카카오 주소 찾기 API 
   const { openAddressModal, loading } = useKakaoAddress();
   const address = watch("address");
-  const isAddressChanged =
-    (userData.address ?? "").trim() !== (address ?? "").trim() &&
-    (address ?? "").trim() !== "";
+  const isAddressChanged = (userData.address ?? "").trim() !== (address ?? "").trim();  // 이전 주소가 변경 되었을 때만, 세부주소 활성화
 
   const handleSearchAddress = () => {
     if (loading) return alert("주소 API가 아직 로드되지 않았습니다.");
