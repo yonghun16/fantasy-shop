@@ -33,9 +33,9 @@ const CartItemList = () => {
           {cartItems.map((item) => (
             <li
               key={item.id}
-              className="flex flex-wrap items-start justify-between border-b border-gray-200 pb-4"
+              className="flex flex-wrap items-center justify-between border-b border-gray-200 pb-4"
             >
-              {/* 이미지 + 아이템 정보 */}
+              {/*이미지 + 아이템 정보*/}
               <div className="flex items-center gap-4">
                 <img
                   src={item.imageUrl}
@@ -50,13 +50,14 @@ const CartItemList = () => {
                 </div>
               </div>
 
-              {/* 수량 + 가격 + 삭제 버튼 */}
-              <div className="flex items-center gap-6 mt-4 w-full justify-end sm:mt-0 sm:w-auto">
+              {/*수량+가격*/}
+              <div className="flex items-center justify-end gap-6 w-full sm:w-auto">
                 <div className="flex items-center border rounded-md">
                   <LuMinus
                     onClick={() => dispatch(decreaseQuantityAsync(item))}
                     className="w-6 h-6 text-lg font-bold flex items-center justify-center border-r px-1 text-gray-700 cursor-pointer"
                   />
+
                   <span className="w-6 text-center">{item.quantity}</span>
                   <LuPlus
                     onClick={() => dispatch(increaseQuantityAsync(item))}
@@ -64,8 +65,13 @@ const CartItemList = () => {
                   />
                 </div>
                 <p className="text-indigo-600 font-semibold min-w-[60px] text-right">
-                  {(item?.price ?? 0) * (item?.quantity ?? 0).toLocaleString()} G
+                  {(
+                    (item?.price ?? 0) * (item?.quantity ?? 0)
+                  ).toLocaleString()}
+                  G
                 </p>
+
+                {/*아이템 삭제*/}
                 <LuTrash2
                   onClick={() => handleDeleteCartItem(item.cartPk)}
                   className="cursor-pointer"
