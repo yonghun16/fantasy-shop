@@ -19,6 +19,8 @@ export const useCartItems = () => {
           await dispatch(authUser().unwrap());
         }
         const data = await getCartItems();
+        console.log("data", data);
+        
         const mapped = data.map((item) => ({
           id: item.itemPk,
           name: item.itemName,

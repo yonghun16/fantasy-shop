@@ -12,7 +12,7 @@ const CATEGORY_OPTIONS = [
   { label: "지팡이", value: "wand" },
   { label: "방패", value: "shield" },
 ];
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 
 const EditProductModal = () => {
   const dispatch = useDispatch();
@@ -114,7 +114,7 @@ const EditProductModal = () => {
               initialImage={
                 product?.itemImageUrl?.startsWith("http")
                   ? product.itemImageUrl
-                  : `${BASE_URL}${product.itemImageUrl}`
+                  : `${IMG_URL}${product.itemImageUrl}`
               }
             />
           </div>

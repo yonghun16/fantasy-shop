@@ -2,6 +2,7 @@ import { LuCreditCard } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import { useSelector } from "react-redux";
 import { usePayment } from "../../features/cart/usePayment";
+import cardImg from "../../assets/images/card.jpg"
 
 const CartSummary = () => {
   const cartItems = useSelector((state) => state.cart?.items ?? []);
@@ -22,7 +23,10 @@ const CartSummary = () => {
 
       {/* 카드 정보 */}
       <div className="bg-gray-100 px-5 py-3 rounded flex justify-between items-center mb-4 text-sm">
-        <span className="text-gray-800">주인님카드 **** 5987 </span>
+        <span className="text-gray-800">
+          <img src={cardImg} className="h-4 inline pr-2" alt="creaditcard" />
+          주인님카드 **** 5987
+        </span>
         <button className="text-indigo-400 font-medium cursor-pointer">
           변경
         </button>
@@ -46,7 +50,7 @@ const CartSummary = () => {
       {/* 총 결제 금액 */}
       <div className="flex justify-between font-semibold text-lg mb-6">
         <span>총 결제금액</span>
-        <span className="text-pink-600">
+        <span className="text-rose-500">
           {(itemTotal ?? 0).toLocaleString()}G
         </span>
       </div>

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { LuShoppingCart } from "react-icons/lu";
 import noAvatarImg from "../../../../assets/images/noavatar.png";
 import loadingImg from "../../../../assets/images/loading.jpg";
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 
 
 const HeaderIcons = () => {
@@ -15,7 +15,7 @@ const HeaderIcons = () => {
   const userPk = userData?.userPk || "notlogin";
   const [isLoading, setIsLoading] = useState(true);
   const profileImageUrl = userData?.profileImageUrl
-    ? `${BASE_URL}${userData.profileImageUrl}`
+    ? `${IMG_URL}${userData.profileImageUrl}`
     : noAvatarImg;
 
   return (

@@ -18,7 +18,7 @@ const OrderItemRow = ({ order, onClick }) => {
       <div>{format(new Date(order.paymentDate), "MMM dd, yyyy, h:mm a")}</div>
 
       {/* 총 금액 */}
-      <div className="text-right text-pink-600 font-semibold">
+      <div className="text-right text-rose-500 font-semibold">
         {order.totalPrice.toLocaleString()} G
       </div>
     </div>

@@ -50,14 +50,14 @@ const ItemForm = () => {
   return (
     <FormProvider {...formMethods}>
       <div className="max-w-5xl mx-auto m-18">
-        <h1 className="text-2xl font-bold mb-8 text-center">아이템 등록</h1>
+        <h1 className="hidden md:block text-2xl font-bold mb-8 text-center">아이템 등록</h1>
 
         <form
           onSubmit={formMethods.handleSubmit(onSubmit, (errors) => {
             console.log("유효성 검사 실패", errors);
           })}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-12 py-16 mb-12 md:m-12 border-0 md:border border-gray-200 rounded-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-12 py-2 md:py-16 mb-12 md:m-12 border-0 md:border border-gray-200 rounded-md">
             {/* 왼쪽 패널 */}
             <ItemBasicInfo
               register={register}
