@@ -30,7 +30,7 @@ function App() {
 
 
   return (
-    <>
+    <div className="min-h-screen">
       <Header />
       <ScrollToTop />
       <section className="mt-12 mb-12 md:mt-0 md:mb-0">
@@ -38,7 +38,7 @@ function App() {
       </section>
       <Footer />
       <ToastContainer position="top-center" autoClose={2000} />
-    </>
+    </div>
   );
 }
 

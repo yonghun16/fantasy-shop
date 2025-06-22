@@ -12,9 +12,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate', // 서비스워커 자동 갱신
       manifest: {
-        name: 'My Vite PWA',
-        short_name: 'VitePWA',
-        description: 'My awesome Progressive Web App built with Vite',
+        name: 'Fantasy Shop',
+        short_name: 'Fantasy Shop',
+        description: '전설의 검, 활, 방패 등을 살 수 있는 판타지 상점',
         theme_color: '#6366F1',
         icons: [
           {
