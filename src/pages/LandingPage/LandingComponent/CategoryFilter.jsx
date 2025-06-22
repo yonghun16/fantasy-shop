@@ -1,6 +1,6 @@
 const CategoryFilter = ({ categories, activeCategory, setActiveCategory }) => {
   return (
-    <div className="flex w-full gap-3 sm:gap-7 md:gap-12 mb-2 justify-center">
+    <div className="flex w-full gap-4 sm:gap-8 md:gap-12 mb-2 justify-center">
       {categories.map(({ label, value }) => (
         <button
           key={value}
