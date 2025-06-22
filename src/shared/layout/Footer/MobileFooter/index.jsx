@@ -23,6 +23,7 @@ const MobileFooter = () => {
     {
       to: '/?focus=true',
       icon: LuSearch,
+      isActive: false,
     },
     {
       to: `/cart/${userPk}`,
