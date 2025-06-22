@@ -7,6 +7,8 @@ const ShippingInfoForm = () => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     phone: "",
+    address: "",
+    note: "",
   });
 
   const userData = useSelector((state) => state.user.userData);
@@ -15,6 +17,7 @@ const ShippingInfoForm = () => {
     setUserInfo({
       name: userData.userName ?? "",
       phone: userData.phoneNumber ?? "",
+      address: userData.address ?? "",
     });
   }, []);
 
@@ -54,6 +57,7 @@ const ShippingInfoForm = () => {
         name="address"
         placeholder="주소"
         label="주소"
+        value={userInfo.address}
         className="w-full"
         onChange={handleChange}
       />

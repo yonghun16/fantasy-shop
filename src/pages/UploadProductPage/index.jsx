@@ -5,14 +5,10 @@ import ItemStats from "./ItemStats";
 import ItemCategory from "./ItemCategory";
 import { Button } from "../../shared/ui/Button";
 import { LuUpload } from "react-icons/lu";
-import { postItem } from "../../shared/api/itemUpload";
 import { useImageUploader } from "../../features/uploadProduct/useImageUploader";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useItemUpload } from "../../features/uploadProduct/useItemUpload";
 
 const ItemForm = () => {
-  const navigate = useNavigate();
-
   const formMethods = useForm({
     mode: "onTouched",
   });
@@ -27,6 +23,8 @@ const ItemForm = () => {
   // 이미지 업로더 훅
   const { selectedImageFile, previewUrl, getRootProps, getInputProps } =
     useImageUploader();
+
+  const { uploadItem } = useItemUpload(reset);
 
   const onSubmit = async (data) => {
     console.log("폼 전체 값:", data);
@@ -46,15 +44,7 @@ const ItemForm = () => {
       itemImage: selectedImageFile, // 정상 적용됨!
     };
 
-    try {
-      const res = await postItem(payload);
-      console.log("등록 성공:", res);
-      toast.success("아이템 등록이 완료되었습니다.");
-      reset();
-      navigate("/");
-    } catch (err) {
-      console.error("등록 실패:", err);
-    }
+    uploadItem(payload);
   };
 
   return (
