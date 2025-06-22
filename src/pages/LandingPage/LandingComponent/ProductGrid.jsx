@@ -1,21 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
+import { toast } from "react-toastify";
 
-const BASE_URL = "http://13.211.52.203:8080";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();
+  const navigate = useNavigate();
+
+  const handleAddToCart = (product) => {
+    // localStorage에서 accessToken 읽기
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      navigate("/login");
+      toast.warn("장바구니는 로그인 후 이용 가능합니다.");
+      return;
+    }
+    // 토큰 있으면 장바구니 추가
+    addToCart(product, count);
+  };
 
   return (
     // 아이템들을 그리드 형태로 보여주는 컨테이너
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
       {products.map((product) => (
         // 각 아이템 카드: key는 제품 고유 id
         <div
           key={product.itemPk}
-          className="relative border border-gray-200 rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white flex flex-col"
+          className="relative border border-gray-200 rounded-lg overflow-hidden shadow hover:border-indigo-500 transition bg-white flex flex-col"
         >
           {/* 아이템 상세 페이지로 이동하는 링크 */}
           <Link to={`/detailproduct/${product.itemPk}`}>
@@ -43,9 +57,7 @@ const ProductGrid = ({ products, count = 1 }) => {
           <button
             className="absolute bottom-3 right-3 text-gray-400 hover:text-indigo-600 transition-colors"
             aria-label="장바구니에 추가"
-            onClick={() => {
-              addToCart(product, count);
-            }}
+            onClick={() => handleAddToCart(product)}
           >
             <LuShoppingCart size={22} />
           </button>

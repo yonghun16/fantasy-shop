@@ -5,7 +5,13 @@ const Pagination = ({ currentPage, totalPages, onPrev, onNext }) => {
       <button
         onClick={onPrev} // 클릭 시 이전 페이지 함수 호출
         disabled={currentPage === 1} // 첫 페이지면 비활성화
-        className="px-3 py-1 disabled:opacity-30 hover:font-semibold cursor-pointer disabled:cursor-default"
+        className="
+          px-3 py-1
+          disabled:opacity-30 disabled:cursor-default
+          hover:text-indigo-500 hover:font-semibold
+          disabled:hover:text-current disabled:hover:font-normal
+          cursor-pointer
+        "
       >
         &lt; 이전
       </button>
@@ -19,7 +25,13 @@ const Pagination = ({ currentPage, totalPages, onPrev, onNext }) => {
       <button
         onClick={onNext} // 클릭 시 다음 페이지 함수 호출
         disabled={currentPage === totalPages} // 마지막 페이지면 비활성화
-        className="px-3 py-1 disabled:opacity-30 hover:font-semibold cursor-pointer disabled:cursor-default"
+        className="
+          px-3 py-1
+          disabled:opacity-30 disabled:cursor-default
+          hover:text-indigo-500 hover:font-semibold
+          disabled:hover:text-current disabled:hover:font-normal
+          cursor-pointer
+        "
       >
         다음 &gt;
       </button>

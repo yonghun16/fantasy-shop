@@ -5,15 +5,26 @@
 @import "tailwindcss";
 
 /* Global style */
-body {
-  font-family: "Noto Sans KR", "Roboto", sans-serif;
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
-/* 숨긴 스크롤바 유틸 클래스 */
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE, Edge */
+body {
+  font-family: "Noto Sans KR", "Roboto", sans-serif;
   scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  overscroll-behavior: contain; /* iOS 바운스 스크롤 방지 */
+  -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 (iOS) */
 }
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+
+::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* 터치 영역 확대 방지 (모바일) */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; /* 터치 지연 최소화 */
 }

@@ -1,3 +1,6 @@
+import { InputBox } from "../../../shared/ui/InputBox";
+import { FaSearch } from "react-icons/fa";
+
 const SearchAndSort = ({
   inputValue,
   setInputValue,
@@ -11,17 +14,24 @@ const SearchAndSort = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center px-6 mb-6 gap-4">
+    <div className="flex flex-col md:flex-row justify-between items-center px-4 mb-6 gap-4">
       {/* 검색어 입력창 */}
-      <input
-        type="text"
-        placeholder="아이템을 검색해 보세요."
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className="w-full md:w-7/8 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow"
-      />
+      <div className="w-full md:w-7/8">
+        <InputBox
+          id="item-search"
+          placeholder="아이템을 검색해 보세요."
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          icon={<FaSearch />}
+          iconPosition="left"
+          color="indigo"
+          size="md"
+          className="w-full"
+        />
+      </div>
       <select
+        id="sort"
         value={sortOption} // 현재 선택된 정렬 값
         onChange={(e) => setSortOption(e.target.value)} // 선택 변경 시 상태 업데이트
         className="w-full md:w-1/8 border border-gray-300 rounded-md px-3 py-2 focus:ring-indigo-400 shadow"

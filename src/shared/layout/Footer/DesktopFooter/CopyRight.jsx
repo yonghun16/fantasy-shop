@@ -1,7 +1,9 @@
-const shopName = "판타지 쇼핑몰";
+import { useSelector } from "react-redux";
+
 
 const CopyRight = () => {
   const currentYear = new Date().getFullYear()
+  const shopName = useSelector((state) => state.company.companyData.companyName);
 
   return (
     <div className="text-center text-sm text-gray-500 mt-12">

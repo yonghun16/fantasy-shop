@@ -4,7 +4,7 @@ import registerImage from "../../assets/images/register-main.png";
 /* UI */
 const RegisterDesktopBackImage = () => {
   return (
-    <div className="relative max-h-[1000px] hidden md:block md:w-1/2">
+    <div className="relative hidden md:block md:w-1/2">
       {/* 오버레이 그라데이션 */}
       <div
         className="absolute inset-0 z-10"

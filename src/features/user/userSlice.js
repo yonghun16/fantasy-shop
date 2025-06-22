@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import { registerUser } from '../../features/user/api/registerUser';
 import { loginUser } from '../../features/user/api/loginUser';
 import { authUser } from '../../shared/api/authUser';
+import { withdrawUser } from '../../features/user/api/withdrawUser';
 
 
-const initialState = {
+export const initialState = {
   userData: {
     userPk: '',
     userName: '',
@@ -33,7 +34,15 @@ const setLoading = (state, loading) => {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser(state) {
+      state.userData = initialState.userData;
+      state.isAuth = false;
+      state.isLogin = false;
+      state.isLoading = false;
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {     // 비동기 액션 처리용 리듀서(ex createAsyncThunk)
     builder
       // 회원 가입 (pending-진행중, fulfilled-완료, rejected-거부)
@@ -57,13 +66,14 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         setLoading(state, false);
         state.isAuth = true;
+        toast.success('로그인을 성공했습니다.')
         localStorage.setItem('accessToken', action.payload.token);
         // console.log("Access Token:", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         setLoading(state, false);
         state.error = action.payload;
-        toast.error('로그인에 실패했습니다.');
+        toast.error('로그인을 실패했습니다.');
       })
 
       // 인증
@@ -81,6 +91,22 @@ const userSlice = createSlice({
         state.userData = initialState.userData;
         state.isAuth = false;
         localStorage.removeItem('accessToken');
+      })
+
+      // 회원 탈퇴
+      .addCase(withdrawUser.pending, (state) => {
+        setLoading(state, true);
+      })
+      .addCase(withdrawUser.fulfilled, (state, action) => {
+        setLoading(state, false);
+        toast.success('회원탈퇴를 성공했습니다.')
+        // state.isAuth = false;
+      })
+      .addCase(withdrawUser.rejected, (state, action) => {
+        setLoading(state, false);
+        state.error = action.payload;
+        console.log("action.payload", action.payload);
+        toast.error('회원탈퇴를 실패했습니다.');
       })
   }
 });

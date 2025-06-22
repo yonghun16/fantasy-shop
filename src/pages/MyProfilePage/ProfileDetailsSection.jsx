@@ -1,114 +1,109 @@
-import { useState } from "react";
-import {
-  LuUser,
-  LuMail,
-  LuMapPinHouse,
-  LuCake,
-  LuPhone,
-  LuRefreshCcw,
-} from "react-icons/lu";
-import { InputBox } from "../../shared/ui/InputBox";
+import { useSelector } from "react-redux";
+
+/* components, hook */
+import useProfileDetailsForm from "../../features/myprofile/useProfileDetailsForm";
+import useProfileValidationOptions from "../../features/myprofile/useProfileValidationOptions";  // 유효셩 검사 
+import useKakaoAddress from "../../features/myprofile/useKakaoAddress";
+import ProfileInputField from "./components/ProfileInputfield";
 import { Button } from "../../shared/ui/Button";
-import { formatPhoneNumber } from "./useProfileForm";
-import useKakaoAddress from "./useKakaoAddress";
-import { useProfileForm } from "./useProfileForm";
 
-const fields = [
-  { label: "이름", icon: <LuUser />, key: "name" },
-  { label: "이메일", icon: <LuMail />, key: "email" },
-  { label: "주소", icon: <LuMapPinHouse />, key: "address" },
-  { label: "가입일", icon: <LuCake />, key: "createAt" },
-  { label: "연락처", icon: <LuPhone />, key: "phone" },
-];
+/* assets */
+import { LuUser, LuMail, LuMapPinHouse, LuPhone, LuRefreshCcw } from "react-icons/lu";
 
-const ProfileDetailsSection = ({ profile, setProfile, onSubmit }) => {
+
+const ProfileDetailsSection = () => {
+  const { register, watch, errors, setValue, onUpdateProfile } = useProfileDetailsForm();
+  const validationOptions = useProfileValidationOptions();
+
+  const userData = useSelector((state) => state.user.userData);
+
+  // 카카오 주소 찾기 API 
   const { openAddressModal, loading } = useKakaoAddress();
-  const { isValidEmail } = useProfileForm();
-  const [emailError, setEmailError] = useState("");
+  const address = watch("address");
+  const isAddressChanged = (userData.address ?? "").trim() !== (address ?? "").trim();  // 이전 주소가 변경 되었을 때만, 세부주소 활성화
 
-  const handleAddressClick = () => {
-    if (loading) {
-      alert("주소 API 로딩 중입니다. 잠시만 기다려주세요.");
-      return;
-    }
+  const handleSearchAddress = () => {
+    if (loading) return alert("주소 API가 아직 로드되지 않았습니다.");
     openAddressModal((data) => {
-      setProfile((prev) => ({ ...prev, address: data.address }));
+      const fullAddress = data.address;
+      setValue("address", fullAddress, { shouldValidate: true });
     });
   };
 
   return (
-    <section className="mb-6">
-      <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-pink-500">
-        <LuUser />
-        인적 사항
-      </h2>
+    <section className="mb-6 p-6 bg-white border border-gray-300 rounded-md">
+      <form className="space-y-5" onSubmit={onUpdateProfile}>
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <span className="text-rose-500"><LuUser /></span>
+          <span className="text-black">인적 사항</span>
+        </h2>
 
-      {fields.map(({ label, icon, key }) => {
-        const isAddressField = key === "address";
-        const isEmailField = key === "email";
+        <ProfileInputField
+          label="이름"
+          id="userName"
+          placeholder="이름"
+          defaultValue={userData.userName}
+          icon={<LuUser />}
+          className="w-full"
+          register={register}
+          validation={validationOptions.userName}
+          errorMessage={errors.userName}
+        />
 
-        return (
-          <div className="mb-3" key={key}>
-            <label className="block text-sm text-gray-600 mb-1">{label}</label>
+        <ProfileInputField
+          label="이메일"
+          id="email"
+          placeholder="이메일"
+          defaultValue={userData.email}
+          icon={<LuMail />}
+          register={register}
+          disabled={true}
+        />
 
-            <InputBox
-              className="w-full"
-              icon={icon}
-              placeholder={label}
-              value={
-                key === "phone"
-                  ? formatPhoneNumber(profile[key])
-                  : key === "createAt"
-                  ? profile[key]?.slice(0, 10) || ""
-                  : profile[key] || ""
-              }
-              type={key === "phone" ? "tel" : isEmailField ? "email" : "text"}
-              disabled={key === "createAt"}
-              onChange={(e) => {
-                if (isAddressField) return;
+        <ProfileInputField
+          label="주소"
+          id="address"
+          placeholder="주소"
+          icon={<LuMapPinHouse />}
+          register={register}
+          validation={validationOptions.address}
+          errorMessage={errors.address}
+          defaultValue={userData.address}
+          readOnly
+          onClick={handleSearchAddress}
+        />
 
-                const value = e.target.value;
+        <ProfileInputField
+          label="세부주소"
+          id="detaileAaddress"
+          placeholder="세부주소"
+          icon={<LuMapPinHouse />}
+          register={register}
+          validation={validationOptions.detaileAaddress}
+          errorMessage={errors.detaileAaddress}
+          disabled={!isAddressChanged}
+        />
 
-                setProfile({
-                  ...profile,
-                  [key]:
-                    key === "phone"
-                      ? value.replace(/\D/g, "").slice(0, 11)
-                      : value,
-                });
-              }}
-              onBlur={(e) => {
-                if (isEmailField) {
-                  const isValid = isValidEmail(e.target.value);
-                  setEmailError(
-                    isValid ? "" : "올바른 이메일 형식이 아닙니다."
-                  );
-                }
-              }}
-              onClick={isAddressField ? handleAddressClick : undefined}
-              readOnly={isAddressField}
-              style={
-                isAddressField
-                  ? { cursor: loading ? "not-allowed" : "pointer" }
-                  : {}
-              }
-              color="indigo"
-            />
-            {isEmailField && emailError && (
-              <p className="text-sm text-red-500 mt-1">{emailError}</p>
-            )}
-          </div>
-        );
-      })}
+        <ProfileInputField
+          label="연락처"
+          id="phoneNumber"
+          placeholder="연락처"
+          defaultValue={userData.phoneNumber}
+          icon={<LuPhone />}
+          register={register}
+          validation={validationOptions.phoneNumber}
+          errorMessage={errors.phoneNumber}
+        />
 
-      <Button
-        color="indigo"
-        className="mt-4 w-full flex items-center justify-center gap-2 font-semibold"
-        icon={<LuRefreshCcw />}
-        onClick={onSubmit}
-      >
-        인적사항 변경
-      </Button>
+        <Button
+          type="submit"
+          color="indigo"
+          className="mt-10 w-full"
+          icon={<LuRefreshCcw />}
+        >
+          인적사항 변경
+        </Button>
+      </form>
     </section>
   );
 };

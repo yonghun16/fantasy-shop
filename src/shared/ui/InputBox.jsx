@@ -3,7 +3,7 @@ import clsx from 'clsx';
 // styles
 const labelStyles = 'block text-sm font-medium mb-1';
 const inputBoxWrapper = 'relative flex items-center bg-gray-50 rounded-md';
-const baseInputStyles = 'text-gray-900 border-gray-200 appearance-none outline-none border rounded-md';
+const baseInputStyles = 'w-full text-gray-900 border-gray-200 appearance-none outline-none border rounded-md';
 const inputBoxSize = {
   md: 'px-4 py-2 text-base',
 };

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 /* assets */
 import logoImg from '../../../../assets/images/logo.png'
 
-/* dummy data */
-const shopName = "판타지 쇼핑몰";
 
 const Logo = () => {
+  const shopName = useSelector((state) => state.company.companyData.companyName);
   return (
     <Link
       className="flex items-center gap-2"
