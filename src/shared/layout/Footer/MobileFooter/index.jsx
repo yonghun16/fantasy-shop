@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 
 /* asset */
-import { LuSearch, LuShoppingCart, LuUserRound } from "react-icons/lu";
+import { LuHouse, LuSearch, LuShoppingCart, LuUserRound } from "react-icons/lu";
 
 /* styles */
 const iconBaseStyle = 'text-2xl text-gray-600 hover:text-indigo-500 hover:scale-110 font-bold cursor-pointer';
@@ -17,8 +17,12 @@ const MobileFooter = () => {
   const navItems = [
     {
       to: '/',
-      icon: LuSearch,
+      icon: LuHouse,
       isActive: currentPath === '/',
+    },
+    {
+      to: '/?focus=true',
+      icon: LuSearch,
     },
     {
       to: `/cart/${userPk}`,
