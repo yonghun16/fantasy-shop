@@ -8,7 +8,7 @@ import LoginBackImage from "./LoginBackImage";
 
 const LoginPage = () => {
   return (
-    <div className="relative flex items-center justify-center min-h-screen w-full overflow-hidden">
+    <div className="relative flex items-center justify-center w-full overflow-hidden">
 
       {/* 로그인 백그라운드 이미지 */}
       <LoginBackImage />

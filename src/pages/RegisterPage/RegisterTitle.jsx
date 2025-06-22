@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const RegisterTitle = () => {
   const shopName = useSelector((state) => state.company.companyData.companyName);
   return (
-    <div className="text-center">
+    <div className="text-center mb-0">
       {/* 데스크탑에선 텍스트 */}
       <h2 className="text-2xl font-semibold hidden md:block">회원가입</h2>
 
