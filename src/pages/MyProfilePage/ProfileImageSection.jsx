@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 
 /* hook */
 import useProfileImageUpload from "../../features/myprofile/useProfileImageUpload";
@@ -19,7 +20,7 @@ const ProfileImageSection = () => {
 
   // 유저데이터의 이미지를 불러옴
   const {
-    IMG_URL, previewImage,
+    previewImage,
     isLoading, setIsLoading,
     handleImageChange,
   } = useProfileImageUpload();
@@ -33,13 +34,20 @@ const ProfileImageSection = () => {
 
           {/* 프로필 사진 이미지 */}
           <img
-            src={isLoading ? loadingImg : `${IMG_URL}${previewImage}`}
-            alt=" "
+            src={
+              isLoading
+                ? loadingImg
+                : previewImage.startsWith("data:")
+                  ? previewImage // base64 미리보기
+                  : `${IMG_URL}${previewImage}` // 서버 이미지
+            }
+            alt="프로필 이미지"
             className="w-50 h-50 rounded-full object-cover border-none"
             onLoad={() => setIsLoading(false)}
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = noAvatarImg;
+              setIsLoading(false);
             }}
           />
 
