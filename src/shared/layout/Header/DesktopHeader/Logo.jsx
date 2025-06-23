@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from "react-redux";
 
 /* assets */
-import logoImg from '../../../../assets/images/logo.png'
+import logoImg from '../../../../assets/images/logo.webp'
 
 
 const Logo = () => {

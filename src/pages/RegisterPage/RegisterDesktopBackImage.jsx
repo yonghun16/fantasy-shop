@@ -1,5 +1,5 @@
 /* import assets */
-import registerImage from "../../assets/images/register-main.png";
+import registerImage from "../../assets/images/register-main.webp";
 
 /* UI */
 const RegisterDesktopBackImage = () => {

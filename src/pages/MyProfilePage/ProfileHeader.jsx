@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import profileHeaderBgImg from "../../assets/images/notice4.png";
+import profileHeaderBgImg from "../../assets/images/notice4.webp";
 
 const ProfileHeader = () => {
   const userData = useSelector((state) => state.user.userData);

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 /* import assets */
 import { LuShoppingCart } from "react-icons/lu";
-import noAvatarImg from "../../../../assets/images/noavatar.png";
+import noAvatarImg from "../../../../assets/images/noavatar.webp";
 import loadingImg from "../../../../assets/images/loading.jpg";
 const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 

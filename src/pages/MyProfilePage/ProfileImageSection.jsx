@@ -10,7 +10,7 @@ import useProfileImageUpload from "../../features/myprofile/useProfileImageUploa
 import { LuPencil, LuUpload } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import loadingImg from "../../assets/images/loading.jpg";
-import noAvatarImg from "../../assets/images/noavatar.png";
+import noAvatarImg from "../../assets/images/noavatar.webp";
 
 
 const ProfileImageSection = () => {
