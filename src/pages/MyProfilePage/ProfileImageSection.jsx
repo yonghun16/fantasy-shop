@@ -27,6 +27,17 @@ const ProfileImageSection = () => {
 
   const fileInputRef = useRef(null);
 
+  // 이미지 URL 계산 로직
+  let profileImageSrc = noAvatarImg;
+
+  if (isLoading) {
+    profileImageSrc = loadingImg;
+  } else if (typeof previewImage === "string" && previewImage.startsWith("data:")) {
+    profileImageSrc = previewImage;
+  } else if (typeof previewImage === "string" && previewImage.trim() !== "") {
+    profileImageSrc = `${IMG_URL}${previewImage}`;
+  }
+
   return (
     <div className="md:w-1/3 flex flex-col self-center md:self-start">
       <div className="flex flex-col items-center">
@@ -34,13 +45,7 @@ const ProfileImageSection = () => {
 
           {/* 프로필 사진 이미지 */}
           <img
-            src={
-              isLoading
-                ? loadingImg
-                : previewImage.startsWith("data:")
-                  ? previewImage // base64 미리보기
-                  : `${IMG_URL}${previewImage}` // 서버 이미지
-            }
+            src={profileImageSrc}
             alt="프로필 이미지"
             className="w-50 h-50 rounded-full object-cover border-none"
             onLoad={() => setIsLoading(false)}
