@@ -10,7 +10,7 @@ export const useItemUpload = (resetForm) => {
   const uploadItem = async (payload) => {
     try {
       const res = await postItem(payload);
-      toast.success(`${res.itemDescription} 아이템이 등록 되었습니다`);
+      toast.success(`"${res.itemName}" 아이템이 등록 되었습니다`);
 
       queryClient.invalidateQueries({ queryKey: ["products"] });
 
