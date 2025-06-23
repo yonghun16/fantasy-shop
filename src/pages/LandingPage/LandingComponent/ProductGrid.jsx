@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
 import { toast } from "react-toastify";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 
 const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();
@@ -34,7 +34,7 @@ const ProductGrid = ({ products, count = 1 }) => {
           {/* 아이템 상세 페이지로 이동하는 링크 */}
           <Link to={`/detailproduct/${product.itemPk}`}>
             <img
-              src={`${BASE_URL}${product.itemImageUrl}`}
+              src={`${IMG_URL}${product.itemImageUrl}`}
               alt={product.itemName}
               className="w-full h-48 object-cover object-center"
             />

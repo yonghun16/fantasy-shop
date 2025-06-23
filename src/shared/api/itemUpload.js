@@ -11,6 +11,8 @@ export const postItem = async (formValues) => {
   formData.append("itemCategory", formValues.itemCategory);
   formData.append("itemImage", formValues.itemImage);
 
+  console.log("formValues", formValues);
+
   const res = await axiosInstance.post("/item", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

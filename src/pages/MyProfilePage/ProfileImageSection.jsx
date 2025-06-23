@@ -19,7 +19,7 @@ const ProfileImageSection = () => {
 
   // 유저데이터의 이미지를 불러옴
   const {
-    BASE_URL, previewImage,
+    IMG_URL, previewImage,
     isLoading, setIsLoading,
     handleImageChange,
   } = useProfileImageUpload();
@@ -33,7 +33,7 @@ const ProfileImageSection = () => {
 
           {/* 프로필 사진 이미지 */}
           <img
-            src={isLoading ? loadingImg : `${BASE_URL}${previewImage}`}
+            src={isLoading ? loadingImg : `${IMG_URL}${previewImage}`}
             alt=" "
             className="w-50 h-50 rounded-full object-cover border-none"
             onLoad={() => setIsLoading(false)}

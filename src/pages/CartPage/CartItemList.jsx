@@ -7,6 +7,8 @@ import {
   increaseQuantityAsync,
 } from "../../features/cart/cartThunk";
 
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
+
 const CartItemList = () => {
   const dispatch = useDispatch();
   useCartItems();
@@ -31,17 +33,17 @@ const CartItemList = () => {
           {cartItems.map((item) => (
             <li
               key={item.id}
-              className="flex items-center justify-between border-b border-gray-200 pb-4"
+              className="flex flex-wrap items-center justify-between border-b border-gray-200 pb-4"
             >
               {/*이미지 + 아이템 정보*/}
               <div className="flex items-center gap-4">
                 <img
-                  src={item.imageUrl}
+                  src={`${IMG_URL}${item.imageUrl}`}
                   alt={item.name}
                   className="w-16 h-16 rounded object-cover"
                 />
                 <div>
-                  <p className="font-medium">{item.name}</p>
+                  <p className="font-medium whitespace-nowrap">{item.name}</p>
                   <p className="text-sm text-gray-500">
                     {(item?.price ?? 0).toLocaleString()} G
                   </p>
@@ -49,7 +51,7 @@ const CartItemList = () => {
               </div>
 
               {/*수량+가격*/}
-              <div className="flex items-center gap-6">
+              <div className="flex items-center justify-end gap-6 w-full sm:w-auto">
                 <div className="flex items-center border rounded-md">
                   <LuMinus
                     onClick={() => dispatch(decreaseQuantityAsync(item))}

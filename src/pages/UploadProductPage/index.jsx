@@ -5,14 +5,10 @@ import ItemStats from "./ItemStats";
 import ItemCategory from "./ItemCategory";
 import { Button } from "../../shared/ui/Button";
 import { LuUpload } from "react-icons/lu";
-import { postItem } from "../../shared/api/itemUpload";
 import { useImageUploader } from "../../features/uploadProduct/useImageUploader";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useItemUpload } from "../../features/uploadProduct/useItemUpload";
 
 const ItemForm = () => {
-  const navigate = useNavigate();
-
   const formMethods = useForm({
     mode: "onTouched",
   });
@@ -24,12 +20,24 @@ const ItemForm = () => {
     reset,
   } = formMethods;
 
-  // 이미지 업로더 훅
-  const { selectedImageFile, previewUrl, getRootProps, getInputProps } =
-    useImageUploader();
+  // ✅ useImageUploader 훅: 한 곳에서만 사용
+  const {
+    selectedImageFile,
+    previewUrl,
+    getRootProps,
+    getInputProps,
+  } = useImageUploader();
+
+  const { uploadItem } = useItemUpload(reset);
 
   const onSubmit = async (data) => {
-    console.log("폼 전체 값:", data);
+    // console.log("폼 전체 값:", data);
+    // console.log("선택된 이미지 파일:", selectedImageFile);
+
+    if (!selectedImageFile) {
+      alert("아이템 이미지를 선택해주세요.");
+      return;
+    }
 
     const selectedCategory = data.category;
     const stats = data.stats || {};
@@ -43,31 +51,23 @@ const ItemForm = () => {
       itemInventory: data.itemInventory,
       itemCategory: selectedCategory,
       itemEffect: `${activeStatKey} +${activeStatValue}`,
-      itemImage: selectedImageFile, // 정상 적용됨!
+      itemImage: selectedImageFile, // ✅ 이제 정상적으로 설정됨
     };
 
-    try {
-      const res = await postItem(payload);
-      console.log("등록 성공:", res);
-      toast.success("아이템 등록이 완료되었습니다.");
-      reset();
-      navigate("/");
-    } catch (err) {
-      console.error("등록 실패:", err);
-    }
+    uploadItem(payload);
   };
 
   return (
     <FormProvider {...formMethods}>
       <div className="max-w-5xl mx-auto m-18">
-        <h1 className="text-2xl font-bold mb-8 text-center">아이템 등록</h1>
+        <h1 className="hidden md:block text-2xl font-bold mb-8 text-center">아이템 등록</h1>
 
         <form
           onSubmit={formMethods.handleSubmit(onSubmit, (errors) => {
             console.log("유효성 검사 실패", errors);
           })}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-12 py-16 mb-12 md:m-12 border-0 md:border border-gray-200 rounded-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-12 py-2 md:py-16 mb-12 md:m-12 border-0 md:border border-gray-200 rounded-md">
             {/* 왼쪽 패널 */}
             <ItemBasicInfo
               register={register}

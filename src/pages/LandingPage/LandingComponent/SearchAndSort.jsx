@@ -1,5 +1,6 @@
 import { InputBox } from "../../../shared/ui/InputBox";
 import { FaSearch } from "react-icons/fa";
+import useAutoFocusFromSearchParams from "../../../features/Landing/useAutoFocusFromSearchParams";
 
 const SearchAndSort = ({
   inputValue,
@@ -13,12 +14,15 @@ const SearchAndSort = ({
     if (e.key === "Enter") onSearch();
   };
 
+  const inputRef = useAutoFocusFromSearchParams();
+
   return (
     <div className="flex flex-col md:flex-row justify-between items-center px-4 mb-6 gap-4">
       {/* 검색어 입력창 */}
       <div className="w-full md:w-7/8">
         <InputBox
           id="item-search"
+          ref={inputRef}
           placeholder="아이템을 검색해 보세요."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

@@ -28,3 +28,8 @@ button, a {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation; /* 터치 지연 최소화 */
 }
+
+/* 화면 위로 올리기 버튼 삭제 */
+.back-to-top {
+  display: none !important;
+}

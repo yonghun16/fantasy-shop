@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../../shared/api/axios";
 
 const deleteItem = async (itemPk) => {
@@ -7,8 +7,14 @@ const deleteItem = async (itemPk) => {
 };
 
 const useDeleteItem = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: deleteItem,
+    onSuccess: () => {
+      // 상품 목록 쿼리 무효화 → 자동 재요청 (refetch)
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
   });
 };
 

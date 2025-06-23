@@ -1,24 +1,15 @@
-/* import components */
-import { useFormContext } from "react-hook-form";
 import { InputBox } from "../../shared/ui/InputBox";
 import { TextareaBox } from "./TextareaBox";
 
-/* import icons */
 import { LuCamera } from "react-icons/lu";
 
-/* import hooks */
-import { useImageUploader } from "../../features/uploadProduct/useImageUploader";
-
-const ItemBasicInfo = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-  const { selectedImageFile, previewUrl, getRootProps, getInputProps } =
-    useImageUploader();
-
-  // 중요: 이미지 파일 넘겨야 하므로 나중에 selectedImageFile 를 부모 submit 에서 사용할 것
-
+const ItemBasicInfo = ({
+  register,
+  errors,
+  previewUrl,
+  getRootProps,
+  getInputProps,
+}) => {
   return (
     <div className="space-y-6">
       <InputBox

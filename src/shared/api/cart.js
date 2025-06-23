@@ -2,6 +2,7 @@ import axiosInstance from "./axios";
 
 export const getCartItems = async () => {
   const res = await axiosInstance.get("/cart");
+  console.log("res", res);
   return res.data;
 };
 

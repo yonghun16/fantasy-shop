@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const useProfileImageUpload = () => {
   const userData = useSelector((state) => state.user.userData);
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 
   const [previewImage, setPreviewImage] = useState(userData.profileImageUrl);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +42,7 @@ const useProfileImageUpload = () => {
   };
 
   return {
-    BASE_URL,
+    IMG_URL,
     previewImage,
     isLoading,
     setIsLoading,
