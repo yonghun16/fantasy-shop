@@ -7,13 +7,13 @@ import {
   increaseQuantityAsync,
 } from "../../features/cart/cartThunk";
 
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
+
 const CartItemList = () => {
   const dispatch = useDispatch();
   useCartItems();
   const cartItems = useSelector((state) => state.cart.items);
   const isLoading = useSelector((state) => state.cart.isLoading);
-
-  console.log(cartItems);
 
   const { handleDeleteCartItem } = useDeleteCartItems();
 
@@ -38,7 +38,7 @@ const CartItemList = () => {
               {/*이미지 + 아이템 정보*/}
               <div className="flex items-center gap-4">
                 <img
-                  src={item.imageUrl}
+                  src={`${IMG_URL}${item.imageUrl}`}
                   alt={item.name}
                   className="w-16 h-16 rounded object-cover"
                 />

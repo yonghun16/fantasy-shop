@@ -20,14 +20,24 @@ const ItemForm = () => {
     reset,
   } = formMethods;
 
-  // 이미지 업로더 훅
-  const { selectedImageFile, previewUrl, getRootProps, getInputProps } =
-    useImageUploader();
+  // ✅ useImageUploader 훅: 한 곳에서만 사용
+  const {
+    selectedImageFile,
+    previewUrl,
+    getRootProps,
+    getInputProps,
+  } = useImageUploader();
 
   const { uploadItem } = useItemUpload(reset);
 
   const onSubmit = async (data) => {
-    console.log("폼 전체 값:", data);
+    // console.log("폼 전체 값:", data);
+    // console.log("선택된 이미지 파일:", selectedImageFile);
+
+    if (!selectedImageFile) {
+      alert("아이템 이미지를 선택해주세요.");
+      return;
+    }
 
     const selectedCategory = data.category;
     const stats = data.stats || {};
@@ -41,7 +51,7 @@ const ItemForm = () => {
       itemInventory: data.itemInventory,
       itemCategory: selectedCategory,
       itemEffect: `${activeStatKey} +${activeStatValue}`,
-      itemImage: selectedImageFile, // 정상 적용됨!
+      itemImage: selectedImageFile, // ✅ 이제 정상적으로 설정됨
     };
 
     uploadItem(payload);
