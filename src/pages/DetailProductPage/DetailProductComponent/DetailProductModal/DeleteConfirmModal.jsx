@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "../../../../shared/ui/Button";
 import useDeleteItem from "../../../../features/DetailProduct/useDeleteItem";
-import { closeDeleteModal } from "../../../../features/DetailProduct/modalSlice";
+import { closeDeleteModal } from "../../../../features/modal/modalSlice";
 
 const DeleteConfirmModal = () => {
   const dispatch = useDispatch();

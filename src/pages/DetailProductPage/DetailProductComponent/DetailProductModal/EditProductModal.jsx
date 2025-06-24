@@ -4,7 +4,7 @@ import { Button } from "../../../../shared/ui/Button";
 import ImageDropzone from "../ImageDropzone";
 import useEditProductForm from "../../../../features/DetailProduct/useEditProductForm";
 import { useSelector, useDispatch } from "react-redux";
-import { closeEditModal } from "../../../../features/DetailProduct/modalSlice";
+import { closeEditModal } from "../../../../features/modal/modalSlice";
 
 const CATEGORY_OPTIONS = [
   { label: "검", value: "sword" },

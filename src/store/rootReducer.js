@@ -4,7 +4,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import cartReducer from "../features/cart/cartSlice";
 import userReducer from "../features/user/userSlice";
 import companyReducer from "../features/company/companySlice";
-import modalReducer from "../features/DetailProduct/modalSlice";
+import modalReducer from "../features/modal/modalSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,

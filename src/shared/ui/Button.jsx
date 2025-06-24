@@ -12,6 +12,8 @@ const colorStyles = {
   indigo: "bg-indigo-500 text-white",
   rose: "bg-rose-400 text-white",
   gray: "bg-gray-300 text-gray-700",
+  gradient:
+    "bg-gradient-to-r from-purple-600 via-indigo-700 to-blue-600 text-white",
 };
 
 const ableStyles = "hover:opacity-90 active:scale-95 cursor-pointer";

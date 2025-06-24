@@ -5,7 +5,7 @@ import ProductActionButtons from "./DetailProductComponent/ProductActionButtons"
 import ProductPageStatus from "./DetailProductComponent/ProductPageStatus";
 import ProductImage from "./DetailProductComponent/ProductImage";
 import TotalPrice from "./DetailProductComponent/TotalPrice";
-import ModalController from "./DetailProductComponent/DetailProductModal/ModalController";
+import ModalController from "../../features/modal/ModalController";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
