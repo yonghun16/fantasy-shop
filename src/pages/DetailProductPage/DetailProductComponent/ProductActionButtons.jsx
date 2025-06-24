@@ -5,7 +5,7 @@ import useProductActions from "../../../features/DetailProduct/useProductActions
 import {
   openEditModal,
   openDeleteModal,
-} from "../../../features/DetailProduct/modalSlice";
+} from "../../../features/modal/modalSlice";
 
 const ProductActionButtons = ({ product, count }) => {
   const { isAdmin, handleAddToCart } = useProductActions(product, count);

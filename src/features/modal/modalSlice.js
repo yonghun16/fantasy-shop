@@ -9,6 +9,7 @@ const initialState = {
     isOpen: false,
     itemPk: null, // 삭제 대상 아이템 PK
   },
+  geminiModal: { isOpen: false },
 };
 
 const modalSlice = createSlice({
@@ -31,6 +32,12 @@ const modalSlice = createSlice({
       state.deleteModal.isOpen = false;
       state.deleteModal.itemPk = null;
     },
+    openGeminiModal: (state) => {
+      state.geminiModal.isOpen = true;
+    },
+    closeGeminiModal: (state) => {
+      state.geminiModal.isOpen = false;
+    },
   },
 });
 
@@ -39,6 +46,8 @@ export const {
   closeEditModal,
   openDeleteModal,
   closeDeleteModal,
+  openGeminiModal,
+  closeGeminiModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;
