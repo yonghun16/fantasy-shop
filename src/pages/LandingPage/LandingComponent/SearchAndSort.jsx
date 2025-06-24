@@ -32,6 +32,9 @@ const SearchAndSort = ({
           color="indigo"
           size="md"
           className="w-full"
+          inputProps={{
+            enterKeyHint: "search",  // 모바일 키보드에 "검색" 버튼으로 표시
+          }}
         />
       </div>
       <select

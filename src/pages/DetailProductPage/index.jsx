@@ -7,9 +7,23 @@ import ProductImage from "./DetailProductComponent/ProductImage";
 import TotalPrice from "./DetailProductComponent/TotalPrice";
 import ModalController from "../../features/modal/ModalController";
 
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 const DetailProductPage = () => {
+  const { id } = useParams();
+
   const { product, count, handleIncrease, handleDecrease, loading, error } =
     useProductDetail();
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (id) {
+      queryClient.invalidateQueries({ queryKey: ["productDetail", id] });
+    }
+  }, [queryClient, id]);
 
   // 상태에 따라 메시지 보여주고, 문제가 없으면 null 반환됨
   if (loading || error || !product) {
@@ -21,7 +35,7 @@ const DetailProductPage = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 mt-5 mb-15">
       {/* 상단 제목 */}
-      <h2 className="text-2xl font-semibold text-center mb-6">
+      <h2 className="hidden md:block text-2xl font-semibold text-center mb-6">
         아이템 상세보기
       </h2>
 
@@ -33,7 +47,7 @@ const DetailProductPage = () => {
         </div>
 
         {/* 오른쪽: 제품 설명, 수량 조절, 가격, 액션 버튼 등 */}
-        <div className="flex flex-col justify-between mx-auto p-10 w-full md:w-[45%]">
+        <div className="flex flex-col justify-between mx-auto py-10 px-1 md:px-10 w-full md:w-[45%]">
           {/* 제품 정보 (이름, 설명, 재고 등) */}
           <ProductInfo product={product} />
 

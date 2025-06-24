@@ -1,8 +1,8 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import bannerImage1 from "../../../assets/images/notice1.png";
-import bannerImage2 from "../../../assets/images/notice2.png";
-import bannerImage3 from "../../../assets/images/notice3.png";
-import bannerImage4 from "../../../assets/images/notice4.png";
+import bannerImage1 from "../../../assets/images/notice1.webp";
+import bannerImage2 from "../../../assets/images/notice2.webp";
+import bannerImage3 from "../../../assets/images/notice3.webp";
+import bannerImage4 from "../../../assets/images/notice4.webp";
 import useBannerSlider from "../../../features/Landing/useBannerSlider";
 
 const bannerImages = [bannerImage1, bannerImage2, bannerImage3, bannerImage4];

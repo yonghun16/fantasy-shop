@@ -29,6 +29,7 @@ export function InputBox({
   icon,
   iconPosition = 'left',
   className,
+  inputProps = {},
   ...props
 }) {
   const renderIcon = (position) =>
@@ -60,6 +61,7 @@ export function InputBox({
             !disabled && inputBoxColor[color],
             className
           )}
+          {...inputProps}
           {...props}
         />
         {renderIcon('right')}

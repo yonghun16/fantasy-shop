@@ -1,5 +1,5 @@
-import loginMobileMain from "../../assets/images/login-mobile-main.png";
-import loginMain from "../../assets/images/login-main.png";
+import loginMobileMain from "../../assets/images/login-mobile-main.webp";
+import loginMain from "../../assets/images/login-main.webp";
 
 const LoginBackImage = () => {
   return (

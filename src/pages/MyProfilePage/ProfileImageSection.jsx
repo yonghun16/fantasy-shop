@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+const IMG_URL = import.meta.env.VITE_API_IMG_URL;
 
 /* hook */
 import useProfileImageUpload from "../../features/myprofile/useProfileImageUpload";
@@ -10,7 +11,7 @@ import useProfileImageUpload from "../../features/myprofile/useProfileImageUploa
 import { LuPencil, LuUpload } from "react-icons/lu";
 import { Button } from "../../shared/ui/Button";
 import loadingImg from "../../assets/images/loading.jpg";
-import noAvatarImg from "../../assets/images/noavatar.png";
+import noAvatarImg from "../../assets/images/noavatar.webp";
 
 
 const ProfileImageSection = () => {
@@ -19,12 +20,23 @@ const ProfileImageSection = () => {
 
   // 유저데이터의 이미지를 불러옴
   const {
-    IMG_URL, previewImage,
+    previewImage,
     isLoading, setIsLoading,
     handleImageChange,
   } = useProfileImageUpload();
 
   const fileInputRef = useRef(null);
+
+  // 이미지 URL 계산 로직
+  let profileImageSrc = noAvatarImg;
+
+  if (isLoading) {
+    profileImageSrc = loadingImg;
+  } else if (typeof previewImage === "string" && previewImage.startsWith("data:")) {
+    profileImageSrc = previewImage;
+  } else if (typeof previewImage === "string" && previewImage.trim() !== "") {
+    profileImageSrc = `${IMG_URL}${previewImage}`;
+  }
 
   return (
     <div className="md:w-1/3 flex flex-col self-center md:self-start">
@@ -33,13 +45,14 @@ const ProfileImageSection = () => {
 
           {/* 프로필 사진 이미지 */}
           <img
-            src={isLoading ? loadingImg : `${IMG_URL}${previewImage}`}
-            alt=" "
+            src={profileImageSrc}
+            alt="프로필 이미지"
             className="w-50 h-50 rounded-full object-cover border-none"
             onLoad={() => setIsLoading(false)}
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = noAvatarImg;
+              setIsLoading(false);
             }}
           />
 

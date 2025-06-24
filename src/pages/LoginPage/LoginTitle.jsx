@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo.webp";
 
 
 const LoginTitle = () => {
