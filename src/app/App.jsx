@@ -57,15 +57,17 @@ function App() {
 
       {/* 버튼만 표시 */}
       {shouldShowGemini && (
-        <div className="fixed bottom-[60px] right-[8px] md:bottom-[60px] md:right-[50px] z-40">
+        <div className="fixed bottom-[60px] right-[8px] md:bottom-[30px] md:right-[30px] z-40">
           <Button
             onClick={() => dispatch(openGeminiModal())}
             color="gradient"
             size="md"
-            className="!rounded-full px-5 py-3 shadow-xl text-lg"
+            className="!rounded-full shadow-xl text-lg
+             w-[48px] h-[48px] p-0 flex items-center justify-center
+             md:w-auto md:h-auto md:px-5 md:py-3"
             icon={<FaHatWizard className="text-lg" />}
           >
-            도우미
+            <span className="hidden md:inline">도우미</span>
           </Button>
         </div>
       )}
