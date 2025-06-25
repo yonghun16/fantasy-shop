@@ -23,6 +23,8 @@ const LandingPage = () => {
     loading,
     error,
     handleSearch,
+    autoSuggestList,
+    handleAutoSuggestClick,
   } = useProductFilter();
 
   return (
@@ -44,6 +46,8 @@ const LandingPage = () => {
         sortOption={sortOption}
         setSortOption={setSortOption}
         sortOptions={sortOptions}
+        autoSuggestList={autoSuggestList}
+        onAutoSuggestClick={handleAutoSuggestClick}
       />
 
       <div>
