@@ -2,7 +2,9 @@
 @import "tailwindcss";
 
 /* Global style */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
@@ -21,7 +23,8 @@ body {
 }
 
 /* 터치 영역 확대 방지 (모바일) */
-button, a {
+button,
+a {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation; /* 터치 지연 최소화 */
 }
@@ -29,4 +32,23 @@ button, a {
 /* 화면 위로 올리기 버튼 삭제 */
 .back-to-top {
   display: none !important;
+}
+
+/* 검색 자동완성에 사용되는 스크롤바 */
+.custom-scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color: #6366f1 #f1f1f1; /* thumb / track (Firefox 전용) */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #6366f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
 }

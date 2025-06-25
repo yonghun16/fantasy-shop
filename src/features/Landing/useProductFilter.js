@@ -81,7 +81,7 @@ const useProductFilter = () => {
       return normalizedItemName.includes(normalizedInput);
     });
 
-    setAutoSuggestList(suggestions.slice(0, 5));
+    setAutoSuggestList(suggestions);
   }, [debouncedInput, products]);
 
   return {
