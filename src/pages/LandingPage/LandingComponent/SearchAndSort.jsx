@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { InputBox } from "../../../shared/ui/InputBox";
 import { FaSearch } from "react-icons/fa";
 import useAutoFocusFromSearchParams from "../../../features/Landing/useAutoFocusFromSearchParams";
+import { Button } from "../../../shared/ui/Button";
 
 const SearchAndSort = ({
   inputValue,
@@ -12,8 +14,20 @@ const SearchAndSort = ({
   autoSuggestList,
   onAutoSuggestClick,
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleSearch = () => {
+    onSearch();
+    if (inputRef && inputRef.current) {
+      inputRef.current.blur();
+    }
+    setIsFocused(false);
+  };
+
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") onSearch();
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   const inputRef = useAutoFocusFromSearchParams();
@@ -29,6 +43,8 @@ const SearchAndSort = ({
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={() => setIsFocused(true)} // 포커스 시작
+          onBlur={() => setIsFocused(false)} // 포커스 종료
           icon={<FaSearch />}
           iconPosition="left"
           color="indigo"
@@ -36,20 +52,22 @@ const SearchAndSort = ({
           className="w-full"
           inputProps={{
             enterKeyHint: "search",
+            autoComplete: "off",
           }}
         />
 
         {/* 자동완성 드롭다운 */}
-        {autoSuggestList.length > 0 && (
-          <ul className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-md z-50">
+        {isFocused && autoSuggestList.length > 0 && (
+          <ul className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-md z-50 max-h-60 overflow-y-auto custom-scrollbar">
             {autoSuggestList.map((item) => (
               <li
                 key={item.itemId}
                 className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-100 transition-colors"
                 onClick={() => onAutoSuggestClick(item.itemName)}
+                onMouseDown={(e) => e.preventDefault()} // 클릭 시 포커스 잃지 않게 처리
               >
                 <img
-                  src={item.itemImageUrl || "/default-image.png"} // ✅ itemImageUrl 사용
+                  src={item.itemImageUrl || "/default-image.png"}
                   alt={item.itemName}
                   className="w-8 h-8 object-cover rounded"
                 />
@@ -61,12 +79,9 @@ const SearchAndSort = ({
       </div>
 
       {/* 검색 버튼 */}
-      <button
-        onClick={onSearch}
-        className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-      >
+      <Button onClick={onSearch} color="indigo" size="md">
         검색
-      </button>
+      </Button>
 
       {/* 정렬 드롭다운 */}
       <select
