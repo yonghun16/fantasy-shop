@@ -20,7 +20,7 @@ function GeminiModal({ isOpen, onClose }) {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="flex items-center text-xl font-bold text-gray-800 select-none">
-            <FaHatWizard className="mr-2" /> 판타지 도우미
+            <FaHatWizard className="mr-2" /> 판타지 샵 도우미
           </h2>
           <button
             onClick={onClose}

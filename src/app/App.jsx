@@ -65,9 +65,10 @@ function App() {
             className="!rounded-full shadow-xl text-lg
              w-[48px] h-[48px] p-0 flex items-center justify-center
              md:w-auto md:h-auto md:px-5 md:py-3"
+            iconPosition="center"
             icon={<FaHatWizard className="text-lg" />}
           >
-            <span className="hidden md:inline">도우미</span>
+            <span className="hidden ml-2 md:inline">도우미</span>
           </Button>
         </div>
       )}
