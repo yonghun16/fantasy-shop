@@ -13,7 +13,7 @@ function GeminiModal({ isOpen, onClose }) {
     <>
       <div className="fixed inset-0 z-40" onClick={onClose} />
       <div
-        className="fixed bottom-15 md:bottom-8 right-4 md:right-8 z-50 w-96 max-w-full p-6 rounded-3xl
+        className="fixed bottom-15 md:bottom-8 right-4 md:right-8 z-50 w-[calc(100%-30px)] sm:w-100 max-w-full p-6 rounded-3xl
         border border-indigo-500 flex flex-col shadow-lg bg-white"
         style={{ minHeight: "450px" }}
         onClick={(e) => e.stopPropagation()}
