@@ -35,29 +35,33 @@ const SearchAndSort = ({
   return (
     <div className="flex flex-col md:flex-row justify-between items-center px-4 mb-6 gap-4 relative">
       <div className="w-full md:w-7/8 relative">
-        <InputBox
-          id="item-search"
-          ref={inputRef}
-          placeholder="아이템을 검색해 보세요."
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => handleKeyDown(e, handleSearch)}
-          onFocus={() => {
-            setIsFocused(true);
-          }}
-          onBlur={() => {
-            setIsFocused(false);
-          }}
-          icon={<FaSearch />}
-          iconPosition="left"
-          color="indigo"
-          size="md"
-          className="w-full"
-          inputProps={{
-            enterKeyHint: "search",
-            autoComplete: "off",
-          }}
-        />
+        <div className="relative">
+          <InputBox
+            id="item-search"
+            ref={inputRef}
+            placeholder="아이템을 검색해 보세요."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, handleSearch)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            icon={<FaSearch />}
+            iconPosition="left"
+            color="indigo"
+            size="md"
+            className="w-full pr-20" // 버튼 들어갈 공간 확보
+            inputProps={{
+              enterKeyHint: "search",
+              autoComplete: "off",
+            }}
+          />
+
+          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+            <Button onClick={handleSearch} color="indigo" size="md">
+              검색
+            </Button>
+          </div>
+        </div>
 
         {isFocused && autoSuggestList.length > 0 && (
           <ul className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-md z-50 max-h-60 overflow-y-auto custom-scrollbar">
@@ -84,11 +88,6 @@ const SearchAndSort = ({
           </ul>
         )}
       </div>
-
-      <Button onClick={handleSearch} color="indigo" size="md">
-        검색
-      </Button>
-
       <select
         id="sort"
         value={sortOption}
