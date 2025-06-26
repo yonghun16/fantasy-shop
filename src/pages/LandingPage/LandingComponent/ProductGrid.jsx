@@ -3,8 +3,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
 import { toast } from "react-toastify";
-
-const IMG_URL = import.meta.env.VITE_API_IMG_URL;
+import { getImageUrl } from "../../../shared/utils/getImageUrl";
 
 const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();
@@ -34,7 +33,7 @@ const ProductGrid = ({ products, count = 1 }) => {
           {/* 아이템 상세 페이지로 이동하는 링크 */}
           <Link to={`/detailproduct/${product.itemPk}`}>
             <img
-              src={`${IMG_URL}${product.itemImageUrl}`}
+              src={getImageUrl(product.itemImageUrl)}
               alt={product.itemName}
               className="w-full h-48 object-cover object-center"
             />
