@@ -48,7 +48,11 @@ const ProductGrid = ({ products, count = 1 }) => {
           {/* 가격 표시 영역 */}
           <div className="px-4 pb-4">
             <p className="mt-2 text-indigo-600 font-bold">
-              {product.itemPrice.toFixed(2)} G
+              {product.itemPrice.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}{" "}
+              G
             </p>
           </div>
 
