@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import useAutoFocusFromSearchParams from "../../../features/Landing/useAutoFocusFromSearchParams";
 import { Button } from "../../../shared/ui/Button";
 import useAutoComplete from "../../../features/Landing/useAutoComplete";
+import { getImageUrl } from "../../../shared/utils/getImageUrl";
 
 const SearchAndSort = ({
   inputValue,
@@ -73,7 +74,7 @@ const SearchAndSort = ({
                 onMouseDown={(e) => e.preventDefault()}
               >
                 <img
-                  src={item.itemImageUrl || "/default-image.png"}
+                  src={getImageUrl(item.itemImageUrl)}
                   alt={item.itemName}
                   className="w-8 h-8 object-cover rounded"
                 />
