@@ -66,6 +66,15 @@ const useProductFilter = () => {
 
   const debouncedInput = useDebounce(inputValue, 300);
 
+  // 검색어 입력이 지워졌을 때 searchTerm을 초기화하는 useEffect
+  useEffect(() => {
+    if (inputValue.trim() === "") {
+      setSearchTerm("");
+      setCurrentPage(1);
+    }
+  }, [inputValue]);
+
+  // 자동완성 목록을 업데이트하는 useEffect
   useEffect(() => {
     if (!debouncedInput.trim()) {
       setAutoSuggestList([]);
