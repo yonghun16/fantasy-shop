@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useProductsQuery from "./useProductsQuery";
+import useDebounce from "./useDebounce";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -18,6 +19,7 @@ const useProductFilter = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [sortOption, setSortOption] = useState("최신 등록순");
   const [currentPage, setCurrentPage] = useState(1);
+  const [autoSuggestList, setAutoSuggestList] = useState([]);
 
   const {
     data: products = [],
@@ -45,8 +47,9 @@ const useProductFilter = () => {
     setCurrentPage((p) => Math.min(p + 1, totalPages));
 
   const handleSearch = () => {
-    setSearchTerm(inputValue);
+    setSearchTerm(inputValue.replace(/\s+/g, "")); // 검색어 공백 제거 후 검색
     setCurrentPage(1);
+    setAutoSuggestList([]);
   };
 
   const handleCategoryChange = (cat) => {
@@ -54,11 +57,46 @@ const useProductFilter = () => {
     setCurrentPage(1);
   };
 
+  const handleAutoSuggestClick = (itemName) => {
+    setInputValue(itemName); // 검색창에는 원본 그대로 보여줌
+    setSearchTerm(itemName.replace(/\s+/g, "")); // 서버 요청은 공백 제거
+    setCurrentPage(1);
+    setAutoSuggestList([]);
+  };
+
+  const debouncedInput = useDebounce(inputValue, 300);
+
+  // 검색어 입력이 지워졌을 때 searchTerm을 초기화하는 useEffect
+  useEffect(() => {
+    if (inputValue.trim() === "") {
+      setSearchTerm("");
+      setCurrentPage(1);
+    }
+  }, [inputValue]);
+
+  // 자동완성 목록을 업데이트하는 useEffect
+  useEffect(() => {
+    if (!debouncedInput.trim()) {
+      setAutoSuggestList([]);
+      return;
+    }
+
+    const normalizedInput = debouncedInput.toLowerCase().replace(/\s+/g, "");
+
+    const suggestions = products.filter((item) => {
+      const normalizedItemName = item.itemName
+        .toLowerCase()
+        .replace(/\s+/g, "");
+      return normalizedItemName.includes(normalizedInput);
+    });
+
+    setAutoSuggestList(suggestions);
+  }, [debouncedInput, products]);
+
   return {
     inputValue,
     setInputValue,
     searchTerm,
-    setSearchTerm,
     activeCategory,
     handleCategoryChange,
     sortOption,
@@ -74,6 +112,8 @@ const useProductFilter = () => {
     loading: isLoading,
     error: error?.message || null,
     handleSearch,
+    autoSuggestList,
+    handleAutoSuggestClick,
   };
 };
 
