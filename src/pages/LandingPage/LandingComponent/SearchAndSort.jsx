@@ -1,51 +1,101 @@
 import { InputBox } from "../../../shared/ui/InputBox";
 import { FaSearch } from "react-icons/fa";
 import useAutoFocusFromSearchParams from "../../../features/Landing/useAutoFocusFromSearchParams";
+import { Button } from "../../../shared/ui/Button";
+import useAutoComplete from "../../../features/Landing/useAutoComplete";
+import { getImageUrl } from "../../../shared/utils/getImageUrl";
 
 const SearchAndSort = ({
   inputValue,
   setInputValue,
-  onSearch, // 엔터 또는 버튼 클릭 시 호출
+  onSearch,
   sortOption,
   setSortOption,
   sortOptions,
+  autoSuggestList,
+  onAutoSuggestClick,
 }) => {
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") onSearch();
-  };
-
   const inputRef = useAutoFocusFromSearchParams();
 
+  const {
+    isFocused,
+    setIsFocused,
+    highlightedIndex,
+    itemRefs,
+    handleKeyDown,
+    handleClickItem,
+  } = useAutoComplete(autoSuggestList, onAutoSuggestClick, inputRef);
+
+  const handleSearch = () => {
+    onSearch();
+    inputRef?.current?.blur();
+    setIsFocused(false);
+  };
+
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center px-4 mb-6 gap-4">
-      {/* 검색어 입력창 */}
-      <div className="w-full md:w-7/8">
-        <InputBox
-          id="item-search"
-          ref={inputRef}
-          placeholder="아이템을 검색해 보세요."
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          icon={<FaSearch />}
-          iconPosition="left"
-          color="indigo"
-          size="md"
-          className="w-full"
-          inputProps={{
-            enterKeyHint: "search",  // 모바일 키보드에 "검색" 버튼으로 표시
-          }}
-        />
+    <div className="flex flex-col md:flex-row justify-between items-center px-4 mb-6 gap-4 relative">
+      <div className="w-full md:w-7/8 relative">
+        <div className="relative">
+          <InputBox
+            id="item-search"
+            ref={inputRef}
+            placeholder="아이템을 검색해 보세요."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, handleSearch)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            icon={<FaSearch />}
+            iconPosition="left"
+            color="indigo"
+            size="md"
+            className="w-full pr-20" // 버튼 들어갈 공간 확보
+            inputProps={{
+              enterKeyHint: "search",
+              autoComplete: "off",
+            }}
+          />
+
+          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+            <Button onClick={handleSearch} color="indigo" size="md">
+              검색
+            </Button>
+          </div>
+        </div>
+
+        {isFocused && autoSuggestList.length > 0 && (
+          <ul className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-md z-50 max-h-60 overflow-y-auto custom-scrollbar">
+            {autoSuggestList.map((item, index) => (
+              <li
+                key={`${item.itemId}-${index}`}
+                ref={(el) => (itemRefs.current[index] = el)}
+                className={`flex items-center gap-3 px-4 py-2 cursor-pointer transition-colors ${
+                  highlightedIndex === index
+                    ? "bg-indigo-100"
+                    : "hover:bg-gray-100"
+                }`}
+                onClick={() => handleClickItem(item.itemName)}
+                onMouseDown={(e) => e.preventDefault()}
+              >
+                <img
+                  src={getImageUrl(item.itemImageUrl)}
+                  alt={item.itemName}
+                  className="w-8 h-8 object-cover rounded"
+                />
+                <span className="text-sm text-gray-800">{item.itemName}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <select
         id="sort"
-        value={sortOption} // 현재 선택된 정렬 값
-        onChange={(e) => setSortOption(e.target.value)} // 선택 변경 시 상태 업데이트
+        value={sortOption}
+        onChange={(e) => setSortOption(e.target.value)}
         className="w-full md:w-1/8 border border-gray-300 rounded-md px-3 py-2 focus:ring-indigo-400 shadow"
       >
-        {/* 정렬 옵션들을 option 태그로 렌더링 */}
-        {sortOptions.map((opt) => (
-          <option key={opt}>{opt}</option>
+        {sortOptions.map((opt, index) => (
+          <option key={`${opt}-${index}`}>{opt}</option>
         ))}
       </select>
     </div>

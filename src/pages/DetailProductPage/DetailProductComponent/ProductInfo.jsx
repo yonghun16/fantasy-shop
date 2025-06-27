@@ -19,7 +19,10 @@ const ProductInfo = ({ product }) => {
       <h1 className="text-3xl font-bold">{itemName}</h1>
 
       <p className="mt-1 text-xl font-semibold text-indigo-600">
-        {itemPrice.toFixed(2)} G
+        {itemPrice.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
       </p>
 
       <div className="mt-4 flex items-center gap-2 text-gray-700">

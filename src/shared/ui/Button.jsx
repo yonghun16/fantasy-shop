@@ -33,7 +33,15 @@ export function Button({
 }) {
   const renderIcon = (position) =>
     icon && iconPosition === position ? (
-      <span className={position === "left" ? "mr-2" : "ml-2"}>{icon}</span>
+      <span
+        className={position === "center" ? "m-0"
+          : position === "left"
+            ? "mr-2"
+            : "ml-2"
+        }
+      >
+        {icon}
+      </span>
     ) : null;
 
   // render component
@@ -52,6 +60,7 @@ export function Button({
       {...props}
     >
       {renderIcon("left")}
+      {renderIcon("center")}
       {children}
       {renderIcon("right")}
     </button>

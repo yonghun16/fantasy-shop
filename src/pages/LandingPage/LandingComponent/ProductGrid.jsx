@@ -3,8 +3,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import useAddToCart from "../../../shared/hooks/useAddToCart";
 import { toast } from "react-toastify";
-
-const IMG_URL = import.meta.env.VITE_API_IMG_URL;
+import { getImageUrl } from "../../../shared/utils/getImageUrl";
 
 const ProductGrid = ({ products, count = 1 }) => {
   const addToCart = useAddToCart();
@@ -34,7 +33,7 @@ const ProductGrid = ({ products, count = 1 }) => {
           {/* 아이템 상세 페이지로 이동하는 링크 */}
           <Link to={`/detailproduct/${product.itemPk}`}>
             <img
-              src={`${IMG_URL}${product.itemImageUrl}`}
+              src={getImageUrl(product.itemImageUrl)}
               alt={product.itemName}
               className="w-full h-48 object-cover object-center"
             />
@@ -49,7 +48,11 @@ const ProductGrid = ({ products, count = 1 }) => {
           {/* 가격 표시 영역 */}
           <div className="px-4 pb-4">
             <p className="mt-2 text-indigo-600 font-bold">
-              {product.itemPrice.toFixed(2)} G
+              {product.itemPrice.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}{" "}
+              G
             </p>
           </div>
 
