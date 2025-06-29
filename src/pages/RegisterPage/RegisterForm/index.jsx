@@ -16,7 +16,7 @@ const RegisterForm = () => {
   const validationOptions = useRegisterValidationOptions();
 
   return (
-    <div className="flex items-center justify-center px-6 mb-0 w-full h-[550px] border md:border md:border-gray-200 border-transparent rounded-md">
+    <div className="flex items-center justify-center md:my-10 px-6 mb-0 w-full h-[550px] border md:border md:border-gray-200 border-transparent rounded-md">
       <form className="space-y-6 w-full" onSubmit={onSubmit}>
         <RegisterInputField
           id="userName"
